@@ -1,4 +1,4 @@
-#ifndef FRAMERUNCOMMAND_H
+﻿#ifndef FRAMERUNCOMMAND_H
 #define FRAMERUNCOMMAND_H
 
 #include "../../common/etlbase.h"
@@ -16,4 +16,4 @@ private:
     int m_param;
 };
 
-#endif FRAMERUNCOMMAND_H
+#endif  //   FRAMERUNCOMMAND_H

@@ -2,7 +2,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+CONFIG += c++17
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -17,10 +17,38 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    app/app.cpp \
+    viewmodel/command/frameruncommand.cpp \
+    viewmodel/command/gamepausecommand.cpp \
+    viewmodel/command/gameresetcommand.cpp \
+    viewmodel/command/playermovecommand.cpp \
+    viewmodel/command/skillusecommand.cpp \
+    viewmodel/sink/viewmodelsink.cpp \
+    viewmodel/viewmodel.cpp \
+    base/Bullet.cpp \
+    base/EnemyPlane.cpp \
+    base/MyPlane.cpp \
+    base/Plane.cpp \
+    base/Object.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    app/app.h \
+    viewmodel/command/frameruncommand.h \
+    viewmodel/command/gamepausecommand.h \
+    viewmodel/command/gameresetcommand.h \
+    viewmodel/command/playermovecommand.h \
+    viewmodel/command/skillusecommand.h \
+    viewmodel/sink/viewmodelsink.h \
+    viewmodel/viewmodel.h \
+    common/etlbase.h \
+    common/precomp.h \
+    base/Bullet.h \
+    base/EnemyPlane.h \
+    base/MyPlane.h \
+    base/Plane.h \
+    base/Object.h
 
 FORMS += \
     mainwindow.ui

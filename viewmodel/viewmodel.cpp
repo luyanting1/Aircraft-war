@@ -1,10 +1,10 @@
-#include "viewmodel.h"
+﻿#include "viewmodel.h"
 
 ViewModel::ViewModel():
     m_cmdFrameRun(std::make_shared<FrameRunCommand>(this)),
     m_cmdPlayerMove(std::make_shared<PlayerMoveCommand>(this)),
     m_cmdGameReset(std::make_shared<GameResetCommand>(this)),
-    m_cmdBuyItems(std::make_shared<BuyItemsCommand>(this)),
+    m_cmdGamePause(std::make_shared<GamePauseCommand>(this)),
     m_cmdSkillUse(std::make_shared<SkillUseCommand>(this)),
     m_sink(std::make_shared<ViewModelSink>(this))
 {}
@@ -29,10 +29,6 @@ bool ViewModel::CallModelGameReset(){
 
 bool ViewModel::CallModelGamePause(){
     return m_model->gamepause();
-}
-
-bool ViewModel::CallModelGameQuit(){
-    return m_model->gamequit();
 }
 
 bool ViewModel::CallModelSkillUse(int skill_index){
@@ -71,34 +67,34 @@ std::shared_ptr<SCORE> ViewModel::GetPlayerScore(){
     return m_model->GetPlayerScore();
 }
 
-std::shared_ptr<POS> ViewModel::GetBulletsPosX(){
+std::shared_ptr<POSES> ViewModel::GetBulletsPosX(){
     return m_model->GetBulletPosx();
 }
 
-std::shared_ptr<POS> ViewModel::GetBulletsPosY(){
+std::shared_ptr<POSES> ViewModel::GetBulletsPosY(){
     return m_model->GetBulletPosy();
 }
 
-std::shared_ptr<POS> ViewModel::GetEmemiesPosX(){
+std::shared_ptr<POSES> ViewModel::GetEmemiesPosX(){
     return m_model->GetEnemyPosx();
 }
 
-std::shared_ptr<POS> ViewModel::GetEmemiesPosY(){
+std::shared_ptr<POSES> ViewModel::GetEmemiesPosY(){
     return m_model->GetEnemyPosy();
 }
 
-std::shared_ptr<POS> ViewModel::GetEmemiesType(){
+std::shared_ptr<ENEMYTYPES> ViewModel::GetEmemiesType(){
     return m_model->GetEnemyType();
 }
 
-std::shared_ptr<TYPES> ViewModel::GetBulletsType(){
+std::shared_ptr<BULLETTYPES> ViewModel::GetBulletsType(){
     return m_model->GetBulletType();
 }
 
-std::shared_ptr<int>  ViewModel::GetPlayerLife(){
+std::shared_ptr<BAR>  ViewModel::GetPlayerLife(){
     return m_model->GetPlayerLife();
 }
 
-std::shared_ptr<int>  ViewModel::GetPlayerSkill(){
+std::shared_ptr<BAR>  ViewModel::GetPlayerSkill(){
     return m_model->GetPlayerSkill();
 }

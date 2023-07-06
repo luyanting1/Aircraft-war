@@ -1,5 +1,5 @@
-#ifndef FRAMERUNCOMMAND_H
-#define FRAMERUNCOMMAND_H
+﻿#ifndef SKILLUSECOMMAND_H
+#define SKILLUSECOMMAND_H
 
 #include "../../common/etlbase.h"
 
@@ -16,4 +16,4 @@ private:
     int m_param;
 };
 
-#endif SKILLUSECOMMAND_H
+#endif // SKILLUSECOMMAND_H

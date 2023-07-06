@@ -1,9 +1,11 @@
-#pragma once
+﻿#ifndef VIEWMODEL_H
+#define VIEWMODEL_H
+
 #include "./command/frameruncommand.h"
 #include "./command/playermovecommand.h"
 #include "./command/gameresetcommand.h"
-#include "./command/buyitemscommand.h"
-#include "./command/useboomcommand.h"
+#include "./command/gamepausecommand.h"
+#include "./command/skillusecommand.h"
 #include "./sink/viewmodelsink.h"
 #include "../model/model.h"
 #include "../common/precomp.h"
@@ -24,17 +26,18 @@ public:
 
     std::shared_ptr<POS>    GetPlayerPosX();
     std::shared_ptr<POS>    GetPlayerPosY();
-    std::shared_ptr<COINS>  GetPlayerScore();
+    std::shared_ptr<SCORE>    GetPlayerScore();
 
-    std::shared_ptr<POS>    GetBulletsPosX();
-    std::shared_ptr<POS>    GetBulletsPosY();
-    std::shared_ptr<TYPES>  GetBulletsType();
-    std::shared_ptr<POS>    GetEmemiesPosX();
-    std::shared_ptr<POS>    GetEmemiesPosY();
-    std::shared_ptr<POS>    GetEmemiesType();
+    std::shared_ptr<POSES>    GetBulletsPosX();
+    std::shared_ptr<POSES>    GetBulletsPosY();
+    std::shared_ptr<BULLETTYPES>    GetBulletsType();
 
-    std::shared_ptr<int>    GetPlayerLife();
-    std::shared_ptr<int>    GetPlayerSkill();
+    std::shared_ptr<POSES>    GetEmemiesPosX();
+    std::shared_ptr<POSES>    GetEmemiesPosY();
+    std::shared_ptr<ENEMYTYPES>    GetEmemiesType();
+
+    std::shared_ptr<BAR>    GetPlayerLife();
+    std::shared_ptr<BAR>    GetPlayerSkill();
 
     std::shared_ptr<ICommandBase> GetFrameRun();
     std::shared_ptr<ICommandBase> GetPlayerMove();
@@ -53,3 +56,4 @@ private:
     std::shared_ptr<ViewModelSink> m_sink;
 };
 
+#endif // VIEWMODEL_H
