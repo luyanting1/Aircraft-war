@@ -16,11 +16,41 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    app/app.cpp \
+    base/Bullet.cpp \
+    base/EnemyPlane.cpp \
+    base/MyPlane.cpp \
+    base/Object.cpp \
+    base/Plane.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    model/model.cpp \
+    viewmodel/command/frameruncommand.cpp \
+    viewmodel/command/gamepausecommand.cpp \
+    viewmodel/command/gameresetcommand.cpp \
+    viewmodel/command/playermovecommand.cpp \
+    viewmodel/command/skillusecommand.cpp \
+    viewmodel/sink/viewmodelsink.cpp \
+    viewmodel/viewmodel.cpp
 
 HEADERS += \
-    mainwindow.h
+    app/app.h \
+    base/Bullet.h \
+    base/EnemyPlane.h \
+    base/MyPlane.h \
+    base/Object.h \
+    base/Plane.h \
+    common/etlbase.h \
+    common/precomp.h \
+    mainwindow.h \
+    model/model.h \
+    viewmodel/command/frameruncommand.h \
+    viewmodel/command/gamepausecommand.h \
+    viewmodel/command/gameresetcommand.h \
+    viewmodel/command/playermovecommand.h \
+    viewmodel/command/skillusecommand.h \
+    viewmodel/sink/viewmodelsink.h \
+    viewmodel/viewmodel.h
 
 FORMS += \
     mainwindow.ui
