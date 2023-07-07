@@ -2,7 +2,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+CONFIG += c++17
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -18,11 +18,49 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    view.cpp
+    app/app.cpp \
+    view.cpp \
+    viewmodel/command/allbulletmovecommand.cpp \
+    viewmodel/command/bossgeneratecommand.cpp \
+    viewmodel/command/enemybulletshootcommand.cpp \
+    viewmodel/command/enemygeneratecommand.cpp \
+    viewmodel/command/enemymovecommand.cpp \
+    viewmodel/command/gamepausecommand.cpp \
+    viewmodel/command/gameresetcommand.cpp \
+    viewmodel/command/playerbulletshootcommand.cpp \
+    viewmodel/command/playermovecommand.cpp \
+    viewmodel/command/skillusecommand.cpp \
+    viewmodel/sink/viewmodelsink.cpp \
+    viewmodel/viewmodel.cpp \
+    base/Bullet.cpp \
+    base/EnemyPlane.cpp \
+    base/MyPlane.cpp \
+    base/Plane.cpp \
+    base/Object.cpp
 
 HEADERS += \
     mainwindow.h \
-    view.h
+    app/app.h \
+    view.h \
+    viewmodel/command/allbulletmovecommand.h \
+    viewmodel/command/bossgeneratecommand.h \
+    viewmodel/command/enemybulletshootcommand.h \
+    viewmodel/command/enemygeneratecommand.h \
+    viewmodel/command/enemymovecommand.h \
+    viewmodel/command/gamepausecommand.h \
+    viewmodel/command/gameresetcommand.h \
+    viewmodel/command/playerbulletshootcommand.h \
+    viewmodel/command/playermovecommand.h \
+    viewmodel/command/skillusecommand.h \
+    viewmodel/sink/viewmodelsink.h \
+    viewmodel/viewmodel.h \
+    common/etlbase.h \
+    common/precomp.h \
+    base/Bullet.h \
+    base/EnemyPlane.h \
+    base/MyPlane.h \
+    base/Plane.h \
+    base/Object.h
 
 FORMS += \
     mainwindow.ui
