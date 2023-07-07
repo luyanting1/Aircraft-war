@@ -20,7 +20,7 @@
 #include <QLabel>
 #include <QString>
 #include <QPainter>
-
+#include <QObject>
 using namespace std;
 class View : public QGraphicsScene
 {
@@ -84,7 +84,37 @@ private:
        QGraphicsWidget *retryGameButton;
        QGraphicsWidget *quitGameButton;
 
+       shared_ptr<ICommandBase> m_cmdgenerateboss;
+       shared_ptr<ICommandBase> m_cmdgamereset;
+       shared_ptr<ICommandBase> m_cmdgamepause;
+       shared_ptr<ICommandBase> m_cmdskilluse;
+       shared_ptr<ICommandBase> m_cmdplanemove;
+       shared_ptr<ICommandBase> m_cmdgenerateenemyplane;
+       shared_ptr<ICommandBase> m_cmdmovebullet;
+       shared_ptr<ICommandBase> m_cmdshootenemybullet;
+       shared_ptr<ICommandBase> m_cmdshootmybullet;
+       shared_ptr<ICommandBase> m_cmdmoveenemyplane;
 
+       void enemyplane_move();
+
+       void boss_generate();
+
+       void enemyplane_generate();
+
+       void bullet_move();
+
+       void enemybullet_shoot();
+
+       void mybullet_shoot();
+
+       void myplane_move(string direction);
+
+       void skill_use(int skillselect);
+
+       void pause_game();
+
+       void reset_game();
+       string direction;
        bool  hasStarted; //是否已经开始游戏
        int   score;//游戏得分
        bool  isPause; //游戏是否暂停

@@ -94,6 +94,38 @@ View::View()
        quitGameButton->hide();
 
 
+       /* 游戏暂停提示 */
+       isPause = false;
+       QPushButton *continueGameBtn = new QPushButton(tr("Resume"));
+       continueGameBtn->setFont(QFont("Algerian",18));
+       continueGameBtn->setStyleSheet("QPushButton{background: transparent; color:white; }"
+                                          "QPushButton:hover{color:red;}");
+       connect(continueGameBtn,&QAbstractButton::clicked,this,&View::pauseGame);
+       continueGameButton = addWidget(continueGameBtn);
+       continueGameButton->setPos(330,250);
+       continueGameButton->setZValue(2);
+       continueGameButton->hide();
+
+       /* 游戏终止提示 */
+       gameLostText = new QGraphicsTextItem;
+       addItem(gameLostText);
+       gameLostText->setHtml(tr("<font color=white>Game Over</font>"));
+       gameLostText->setFont(QFont("Algerian", 22));
+       gameLostText->setPos(150, 150);
+       gameLostText->setZValue(2);
+       gameLostText->hide();
+
+       /* 重试 */
+       QPushButton *retryGameBtn = new QPushButton(tr("Retry"));
+       retryGameBtn->setFont(QFont("Algerian",18));
+       retryGameBtn->setStyleSheet("QPushButton{background: transparent; color:white; }"
+                                      "QPushButton:hover{color:red;}");
+       connect(retryGameBtn,&QAbstractButton::clicked,this,&View::retryGame);
+       retryGameButton = addWidget(retryGameBtn);
+       retryGameButton->setPos(345,250);
+       retryGameButton->setZValue(2);
+       retryGameButton->hide();
+
        /* 生命值 */
        lifeFrameBar = new QGraphicsRectItem(LifeBarPos.x(), LifeBarPos.y(), myLife*2,5);//设置血条方框，以血量作为长度
        lifeFrameBar->setPen(QPen(Qt::white));//设置一个边框颜色，区分
@@ -113,6 +145,7 @@ View::View()
        skillBar->setBrush(QBrush(Qt::blue));
        addItem(skillBar);
        skillBar->hide();
+
 
 
 
@@ -178,13 +211,13 @@ void View::startGame()
     bossGenerateTimeId = startTimer(bossGenerateTimeItv);
 
     /* 添加玩家飞机 */
-    /*myplane = new MyPlane(width() / 2, height() / 2, myPlaneImageFile, this, myLife, mySkill);
+    myplane = new MyPlane(width() / 2, height() / 2, myPlaneImageFile, this, myLife, mySkill);
     myplane->synScreen(this);
 
     /* 添加敌机 */
-    /*for (int i = 0; i < 3; i++)
-        generateEnemyPlane();
-        */
+    for (int i = 0; i < 3; i++)
+        enemyplane_generate()
+
 }
 
 void View::showHelpMessage()
@@ -219,37 +252,42 @@ void View::keyPressEvent(QKeyEvent *event)
     {
         if(myPlaneMove==QPointF(0,0))
             myPlaneMoveTimerId = startTimer(myPlaneMoveTimerItv);
-        myPlaneMove = QPointF(0, -10);
+        direction="W";
     }
     else if(event->key()==Qt::Key_S && !event->isAutoRepeat())
     {
         if(myPlaneMove==QPointF(0,0))
             myPlaneMoveTimerId = startTimer(myPlaneMoveTimerItv);
-        myPlaneMove = QPointF(0, 10);
+        direction="S";
     }
     else if(event->key()==Qt::Key_A && !event->isAutoRepeat())
     {
         if(myPlaneMove==QPointF(0,0))
             myPlaneMoveTimerId = startTimer(myPlaneMoveTimerItv);
-        myPlaneMove = QPointF(-10, 0);
+        direction="A";
     }
     else if(event->key()==Qt::Key_D && !event->isAutoRepeat())
     {
         if(myPlaneMove==QPointF(0,0))
             myPlaneMoveTimerId = startTimer(myPlaneMoveTimerItv);
-        myPlaneMove = QPointF(10, 0);
+        direction="D";
     }
     else if(event->key()==Qt::Key_J && myplane->skill>=5)
     {
         //按Q的技能可以一次发射3个子弹，但是会消耗5点技能
+        /*
         myBulletType = 1;
         myplane->skill -= 5;
         updateBar(skillBar, skillFrameBar, SkillBarPos, -10, QBrush(Qt::blue));
+        */
+        skill_use(5);
         skillQTimerId = startTimer(5000); //5秒使用时间
     }
     else if(event->key()==Qt::Key_K && myplane->skill>=3)
     {
         //按E的技能可以打掉所有飞机，消耗3点技能值
+
+        /*
         for(vector<EnemyPlane*>::iterator iter=enemyplanes.begin(); iter!=enemyplanes.end(); iter++)
         {
             score++;
@@ -261,10 +299,13 @@ void View::keyPressEvent(QKeyEvent *event)
 
         myplane->skill -= 3;
         updateBar(skillBar, skillFrameBar, SkillBarPos, -6, QBrush(Qt::blue));
+        */
+        skill_use(3);
     }
     else if(event->key()==Qt::Key_L && myplane->skill>=7)
     {
         //按R可以消掉所有敌机子弹，消耗7点技能值
+        /*
         for(vector<Bullet*>::iterator it = enemybullets.begin(); it!= enemybullets.end(); it++)
         {
             removeItem(*it);
@@ -274,6 +315,8 @@ void View::keyPressEvent(QKeyEvent *event)
 
         myplane->skill -= 7;
         updateBar(skillBar, skillFrameBar, SkillBarPos, -14, QBrush(Qt::blue));
+        */
+        skill_use(7);
     }
     else if(event->key()==Qt::Key_Space)
         pauseGame();
@@ -281,25 +324,25 @@ void View::keyPressEvent(QKeyEvent *event)
 void View::timerEvent(QTimerEvent *event)
 {
     if(event->timerId()==myPlaneMoveTimerId)
-        changePlanePosition(myplane, myplane->x()+myPlaneMove.x(), myplane->y()+myPlaneMove.y());
+        myplane_move(direction);
+        //changePlanePosition(myplane, myplane->x()+myPlaneMove.x(), myplane->y()+myPlaneMove.y());
     if(event->timerId()==enemyBulletShootTimerId)
-        shootEnemyBullets();
+        enemybullet_shoot();
     else if(event->timerId()==myBulletShootTimerId)
-        shootBullet();
+        mybullet_shoot();
     else if(event->timerId()==allBulletMoveTimerId)
     {
-        updateMyBullets();
-        updateEnemyBullets();
+        bullet_move();
     }
     else if(event->timerId()==enemyPlaneMoveTimerId)
-        updateEnemyPlanes();
+        enemyplane_move();
     else if(event->timerId()==enemyPlaneGenerateTimerId)
     {
         for(int i=0;i<2;i++)
-            generateEnemyPlane();
+            enemyplane_generate();
     }
     else if(event->timerId()==bossGenerateTimeId)
-        generateBoss();
+        boss_generate();
     else if(event->timerId()==skillQTimerId)
         myBulletType = 0;
 }
@@ -313,6 +356,57 @@ void View::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
+void View::myplane_move(string direction)
+{
+    m_cmdplanemove->SetParameter(direction);
+    m_cmdplanemove->Exec();
+}
+
+void View::skill_use(int skillselect)
+{
+    m_cmdskilluse->SetParameter(skillselect);
+    m_cmdskilluse->Exec();
+}
+
+void View::pause_game()
+{
+    m_cmdgamepause->Exec();
+}
+
+void View::reset_game()
+{
+    m_cmdgamereset->Exec();
+}
+
+void View::boss_generate()
+{
+    m_cmdgenerateboss->Exec();
+}
+
+void View::enemyplane_generate()
+{
+    m_cmdgenerateenemyplane->Exec();
+}
+
+void View::enemyplane_move()
+{
+    m_cmdmoveenemyplane->Exec();
+}
+
+void View::bullet_move()
+{
+    m_cmdmovebullet->Exec();
+}
+
+void View::enemybullet_shoot()
+{
+    m_cmdshootenemybullet->Exec();
+}
+
+void View::mybullet_shoot()
+{
+    m_cmdshootmybullet->Exec();
+}
 
 
 
