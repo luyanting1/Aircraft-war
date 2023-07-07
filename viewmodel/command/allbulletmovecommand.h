@@ -1,12 +1,12 @@
-#ifndef PLAYERMOVECOMMAND_H
-#define PLAYERMOVECOMMAND_H
+#ifndef ALLBULLETMOVECOMMAND_H
+#define ALLBULLETMOVECOMMAND_H
 #include "../../common/etlbase.h"
 class ViewModel;
 
-class PlayerMoveCommand : public ICommandBase
+class AllBulletMoveCommand : public ICommandBase
 {
 public:
-    PlayerMoveCommand(ViewModel* p) throw();
+    AllBulletMoveCommand(ViewModel* p) throw();
     virtual void SetParameter(const std::any &param);
     virtual void Exec();
 private:
@@ -14,5 +14,4 @@ private:
     int m_param;
 
 };
-
-#endif // PLAYERMOVECOMMAND_H
+#endif // ALLBULLETMOVECOMMAND_H

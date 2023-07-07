@@ -27,13 +27,13 @@
 #define DIS(A) \
 sqrt(pow(A.getx() - x, 2) + pow(A.gety() - y, 2))
 
-typedef double* POS;
+typedef double POS;
 typedef std::vector<POS> POSES;
 //Warpart == Me, int -> shoot mode; Warpart == ENEMY, int -> Whether Boss; Warpart == LIFESUPPLY, int any
-typedef std::vector<pair<Warpart, int>*> BULLETTYPES;
+typedef std::vector<pair<WarPart, int>*> BULLETTYPES;
+//int -> Whether Boss
 typedef std::vector<int*> ENEMYTYPES;
 typedef int BAR;
 typedef int SCORE;
-
 
 #endif // PRECOMP_H

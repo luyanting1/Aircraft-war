@@ -1,12 +1,12 @@
-#ifndef PLAYERMOVECOMMAND_H
-#define PLAYERMOVECOMMAND_H
+#ifndef BOSSGENERATECOMMAND_H
+#define BOSSGENERATECOMMAND_H
 #include "../../common/etlbase.h"
 class ViewModel;
 
-class PlayerMoveCommand : public ICommandBase
+class BossGenerateCommand : public ICommandBase
 {
 public:
-    PlayerMoveCommand(ViewModel* p) throw();
+    BossGenerateCommand(ViewModel* p) throw();
     virtual void SetParameter(const std::any &param);
     virtual void Exec();
 private:
@@ -15,4 +15,4 @@ private:
 
 };
 
-#endif // PLAYERMOVECOMMAND_H
+#endif // BOSSGENERATECOMMAND_H

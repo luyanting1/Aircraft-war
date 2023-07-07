@@ -19,9 +19,14 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     app/app.cpp \
-    viewmodel/command/frameruncommand.cpp \
+    viewmodel/command/allbulletmovecommand.cpp \
+    viewmodel/command/bossgeneratecommand.cpp \
+    viewmodel/command/enemybulletshootcommand.cpp \
+    viewmodel/command/enemygeneratecommand.cpp \
+    viewmodel/command/enemymovecommand.cpp \
     viewmodel/command/gamepausecommand.cpp \
     viewmodel/command/gameresetcommand.cpp \
+    viewmodel/command/playerbulletshootcommand.cpp \
     viewmodel/command/playermovecommand.cpp \
     viewmodel/command/skillusecommand.cpp \
     viewmodel/sink/viewmodelsink.cpp \
@@ -35,9 +40,14 @@ SOURCES += \
 HEADERS += \
     mainwindow.h \
     app/app.h \
-    viewmodel/command/frameruncommand.h \
+    viewmodel/command/allbulletmovecommand.h \
+    viewmodel/command/bossgeneratecommand.h \
+    viewmodel/command/enemybulletshootcommand.h \
+    viewmodel/command/enemygeneratecommand.h \
+    viewmodel/command/enemymovecommand.h \
     viewmodel/command/gamepausecommand.h \
     viewmodel/command/gameresetcommand.h \
+    viewmodel/command/playerbulletshootcommand.h \
     viewmodel/command/playermovecommand.h \
     viewmodel/command/skillusecommand.h \
     viewmodel/sink/viewmodelsink.h \

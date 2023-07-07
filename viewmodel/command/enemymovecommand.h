@@ -1,12 +1,12 @@
-#ifndef PLAYERMOVECOMMAND_H
-#define PLAYERMOVECOMMAND_H
+#ifndef ENEMYMOVECOMMAND_H
+#define ENEMYMOVECOMMAND_H
 #include "../../common/etlbase.h"
 class ViewModel;
 
-class PlayerMoveCommand : public ICommandBase
+class EnemyMoveCommand : public ICommandBase
 {
 public:
-    PlayerMoveCommand(ViewModel* p) throw();
+    EnemyMoveCommand(ViewModel* p) throw();
     virtual void SetParameter(const std::any &param);
     virtual void Exec();
 private:
@@ -15,4 +15,4 @@ private:
 
 };
 
-#endif // PLAYERMOVECOMMAND_H
+#endif // ENEMYMOVECOMMAND_H
