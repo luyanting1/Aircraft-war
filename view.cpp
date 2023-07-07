@@ -2,6 +2,15 @@
 const QPointF scoreTextPos = QPointF(650, 520);
 const QPointF LifeBarPos = QPointF(650,550);
 const QPointF SkillBarPos = QPointF(650, 570);
+const int myBulletShootTimerItv = 300;
+const int enemyBulletShootTimerItv = 1000;
+const int allBulletMoveTimerItv = 10;
+
+const int myPlaneMoveTimerItv = 30;
+const int enemyPlaneMoveTimerItv = 50;
+const int enemyPlaneGenerateTimerItv = 3000;
+const int bossGenerateTimeItv = 5000;
+
 View::View()
 {
     setSceneRect(0,0,800,600);//设置整个界面的大小
@@ -56,7 +65,7 @@ View::View()
        startGameBtn->setFont(QFont("Algerian",18));
        startGameBtn->setStyleSheet("QPushButton{background: transparent; color:white; }"
                                    "QPushButton:hover{color:red;}");
-       //connect(startGameBtn,SIGNAL(clicked()),this,SLOT(startGame()));
+       connect(startGameBtn,&QAbstractButton::clicked,this,&View::startGame);
        startGameButton = addWidget(startGameBtn);
        startGameButton->setPos(300,250);
        startGameButton->setZValue(2);
@@ -84,6 +93,30 @@ View::View()
        quitGameButton->setZValue(2);
        quitGameButton->hide();
 
+
+       /* 生命值 */
+       lifeFrameBar = new QGraphicsRectItem(LifeBarPos.x(), LifeBarPos.y(), myLife*2,5);//设置血条方框，以血量作为长度
+       lifeFrameBar->setPen(QPen(Qt::white));//设置一个边框颜色，区分
+       addItem(lifeFrameBar);
+       lifeFrameBar->hide();
+       lifeBar = new QGraphicsRectItem(LifeBarPos.x(), LifeBarPos.y(), myLife*2, 5);
+       lifeBar->setBrush(QBrush(Qt::green));//填充血条颜色
+       addItem(lifeBar);
+       lifeBar->hide();
+
+       /* 技能值 */
+       skillFrameBar = new QGraphicsRectItem(SkillBarPos.x(),SkillBarPos.y(), myLife*2,5);
+       skillFrameBar->setPen(QPen(Qt::white));
+       addItem(skillFrameBar);
+       skillFrameBar->hide();
+       skillBar = new QGraphicsRectItem(SkillBarPos.x(), SkillBarPos.y(), mySkill*2, 5);
+       skillBar->setBrush(QBrush(Qt::blue));
+       addItem(skillBar);
+       skillBar->hide();
+
+
+
+
        start();
 }
 void View::start()
@@ -103,9 +136,16 @@ void View::quitGame()
 
 void View::startGame()
 {
-    /*
     score = 0;
-    scoreText->setHtml(tr("<font color=white>SCORE: %1</font>").arg(score));
+
+    //得分显示
+    scoreText = new QGraphicsTextItem;
+    addItem(scoreText);
+    scoreText->setHtml(tr("<font color=white>Score: %1</front>").arg(score));
+    scoreText->setFont(QFont("Courier"));
+    scoreText->setPos(620, 500);
+    scoreText->setZValue(1);
+    scoreText->hide();
 
     hasStarted = true;
     titleText->hide();
@@ -119,7 +159,7 @@ void View::startGame()
     lifeFrameBar->show();
     lifeBar->setRect(LifeBarPos.x(), LifeBarPos.y(), myLife*2, lifeBar->rect().height());
     lifeBar->setBrush(Qt::green);
-    lifeBar->update();
+    lifeBar->update();//血量值会更新
     lifeBar->show();
 
     skillFrameBar->show();
@@ -129,7 +169,6 @@ void View::startGame()
     skillBar->show();
 
     /* 设置各动作更新时钟 */
-    /*
     myPlaneMove = QPointF(0, 0);
     myBulletShootTimerId = startTimer(myBulletShootTimerItv);
     enemyBulletShootTimerId = startTimer(enemyBulletShootTimerItv);
@@ -139,13 +178,11 @@ void View::startGame()
     bossGenerateTimeId = startTimer(bossGenerateTimeItv);
 
     /* 添加玩家飞机 */
-    /*
-    myplane = new MyPlane(width() / 2, height() / 2, myPlaneImageFile, this, myLife, mySkill);
+    /*myplane = new MyPlane(width() / 2, height() / 2, myPlaneImageFile, this, myLife, mySkill);
     myplane->synScreen(this);
 
     /* 添加敌机 */
-    /*
-    for (int i = 0; i < 3; i++)
+    /*for (int i = 0; i < 3; i++)
         generateEnemyPlane();
         */
 }
@@ -176,3 +213,107 @@ void View::showHelpMessage()
     int ret = Box.exec();
     //QMessageBox::information(NULL,tr("游戏帮助"),helpText);
 }
+void View::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key()==Qt::Key_W && !event->isAutoRepeat())
+    {
+        if(myPlaneMove==QPointF(0,0))
+            myPlaneMoveTimerId = startTimer(myPlaneMoveTimerItv);
+        myPlaneMove = QPointF(0, -10);
+    }
+    else if(event->key()==Qt::Key_S && !event->isAutoRepeat())
+    {
+        if(myPlaneMove==QPointF(0,0))
+            myPlaneMoveTimerId = startTimer(myPlaneMoveTimerItv);
+        myPlaneMove = QPointF(0, 10);
+    }
+    else if(event->key()==Qt::Key_A && !event->isAutoRepeat())
+    {
+        if(myPlaneMove==QPointF(0,0))
+            myPlaneMoveTimerId = startTimer(myPlaneMoveTimerItv);
+        myPlaneMove = QPointF(-10, 0);
+    }
+    else if(event->key()==Qt::Key_D && !event->isAutoRepeat())
+    {
+        if(myPlaneMove==QPointF(0,0))
+            myPlaneMoveTimerId = startTimer(myPlaneMoveTimerItv);
+        myPlaneMove = QPointF(10, 0);
+    }
+    else if(event->key()==Qt::Key_J && myplane->skill>=5)
+    {
+        //按Q的技能可以一次发射3个子弹，但是会消耗5点技能
+        myBulletType = 1;
+        myplane->skill -= 5;
+        updateBar(skillBar, skillFrameBar, SkillBarPos, -10, QBrush(Qt::blue));
+        skillQTimerId = startTimer(5000); //5秒使用时间
+    }
+    else if(event->key()==Qt::Key_K && myplane->skill>=3)
+    {
+        //按E的技能可以打掉所有飞机，消耗3点技能值
+        for(vector<EnemyPlane*>::iterator iter=enemyplanes.begin(); iter!=enemyplanes.end(); iter++)
+        {
+            score++;
+            scoreText->setHtml(tr("<font color=white>SCORE: %1</font>").arg(score));
+            removeItem(*iter);
+            delete *iter;
+        }
+        enemyplanes.clear();
+
+        myplane->skill -= 3;
+        updateBar(skillBar, skillFrameBar, SkillBarPos, -6, QBrush(Qt::blue));
+    }
+    else if(event->key()==Qt::Key_L && myplane->skill>=7)
+    {
+        //按R可以消掉所有敌机子弹，消耗7点技能值
+        for(vector<Bullet*>::iterator it = enemybullets.begin(); it!= enemybullets.end(); it++)
+        {
+            removeItem(*it);
+            delete *it;
+        }
+        enemybullets.clear();
+
+        myplane->skill -= 7;
+        updateBar(skillBar, skillFrameBar, SkillBarPos, -14, QBrush(Qt::blue));
+    }
+    else if(event->key()==Qt::Key_Space)
+        pauseGame();
+}
+void View::timerEvent(QTimerEvent *event)
+{
+    if(event->timerId()==myPlaneMoveTimerId)
+        changePlanePosition(myplane, myplane->x()+myPlaneMove.x(), myplane->y()+myPlaneMove.y());
+    if(event->timerId()==enemyBulletShootTimerId)
+        shootEnemyBullets();
+    else if(event->timerId()==myBulletShootTimerId)
+        shootBullet();
+    else if(event->timerId()==allBulletMoveTimerId)
+    {
+        updateMyBullets();
+        updateEnemyBullets();
+    }
+    else if(event->timerId()==enemyPlaneMoveTimerId)
+        updateEnemyPlanes();
+    else if(event->timerId()==enemyPlaneGenerateTimerId)
+    {
+        for(int i=0;i<2;i++)
+            generateEnemyPlane();
+    }
+    else if(event->timerId()==bossGenerateTimeId)
+        generateBoss();
+    else if(event->timerId()==skillQTimerId)
+        myBulletType = 0;
+}
+void View::keyReleaseEvent(QKeyEvent *event)
+{
+    if((event->key()==Qt::Key_W || event->key()==Qt::Key_S || event->key()==Qt::Key_A || event->key()==Qt::Key_D)
+            && !event->isAutoRepeat())
+    {
+        myPlaneMove = QPointF(0, 0);
+        killTimer(myPlaneMoveTimerId);//当飞机不动以后将他的时钟释放掉
+    }
+}
+
+
+
+
+
