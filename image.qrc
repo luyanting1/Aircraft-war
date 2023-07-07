@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/76446d7d2b8c45cb8ed30baf1f75397e.png</file>
+        <file>images/b066a789155c4d2583ca2641a959359f.png</file>
+        <file>images/background1.png</file>
+        <file>images/background2.jpg</file>
+        <file>images/background3.jpg</file>
+        <file>images/boss.png</file>
+        <file>images/boss2.gif</file>
+        <file>images/bossbullet.png</file>
+        <file>images/enemyplane.png</file>
+        <file>images/lifesupply.png</file>
+        <file>images/mybullet.png</file>
+        <file>images/myplane.png</file>
+        <file>images/protect.png</file>
+        <file>images/warning.png</file>
+    </qresource>
+</RCC>

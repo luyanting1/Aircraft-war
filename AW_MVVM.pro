@@ -19,6 +19,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     app/app.cpp \
+    view.cpp \
     viewmodel/command/allbulletmovecommand.cpp \
     viewmodel/command/bossgeneratecommand.cpp \
     viewmodel/command/enemybulletshootcommand.cpp \
@@ -40,6 +41,7 @@ SOURCES += \
 HEADERS += \
     mainwindow.h \
     app/app.h \
+    view.h \
     viewmodel/command/allbulletmovecommand.h \
     viewmodel/command/bossgeneratecommand.h \
     viewmodel/command/enemybulletshootcommand.h \
@@ -70,3 +72,6 @@ TRANSLATIONS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    image.qrc
