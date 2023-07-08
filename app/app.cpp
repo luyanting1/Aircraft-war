@@ -14,15 +14,10 @@ void app::run(std::shared_ptr<QGraphicsView> game_interface){
     viewmodel_ptr = std::make_shared<ViewModel>();
     viewmodel_ptr->SetModel(model_ptr);
 
-    ctrl->SetPlayerPosX(viewmodel_ptr->GetPlayerPosX());
-    ctrl->SetPlayerPosY(viewmodel_ptr->GetPlayerPosY());
+    ctrl->SetMyPlane(viewmodel_ptr->GetMyPlane());
     ctrl->SetPlayerScore(viewmodel_ptr->GetPlayerScore());
-    ctrl->SetBulletsPosX(viewmodel_ptr->GetBulletsPosX());
-    ctrl->SetBulletsPosY(viewmodel_ptr->GetBulletsPosY());
-    ctrl->SetBulletsType(viewmodel_ptr->GetBulletsType());
-    ctrl->SetEnemiesPosX(viewmodel_ptr->GetEmemiesPosX());
-    ctrl->SetEnemiesPosY(viewmodel_ptr->GetEmemiesPosY());
-    ctrl->SetEnemiesType(viewmodel_ptr->GetEmemiesType());
+    ctrl->SetEnemiesPlane(viewmodel_ptr->GetEnemiesPlane());
+    ctrl->SetBullets(viewmodel_ptr->GetBullets());
     ctrl->SetPlayerLife(viewmodel_ptr->GetPlayerLife());
     ctrl->SetPlayerSkill(viewmodel_ptr->GetPlayerSkill());
 

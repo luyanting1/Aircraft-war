@@ -55,7 +55,6 @@ HEADERS += \
     viewmodel/sink/viewmodelsink.h \
     viewmodel/viewmodel.h \
     common/etlbase.h \
-    common/precomp.h \
     base/Bullet.h \
     base/EnemyPlane.h \
     base/MyPlane.h \
