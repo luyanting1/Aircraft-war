@@ -19,7 +19,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     app/app.cpp \
-    view.cpp \
+    view/view.cpp \
     viewmodel/command/allbulletmovecommand.cpp \
     viewmodel/command/bossgeneratecommand.cpp \
     viewmodel/command/enemybulletshootcommand.cpp \
@@ -41,7 +41,7 @@ SOURCES += \
 HEADERS += \
     mainwindow.h \
     app/app.h \
-    view.h \
+    view/view.h \
     viewmodel/command/allbulletmovecommand.h \
     viewmodel/command/bossgeneratecommand.h \
     viewmodel/command/enemybulletshootcommand.h \
