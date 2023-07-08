@@ -9,12 +9,13 @@ enum WarPart { ME, ENEMY, LIFESUPPLY };
 
 class Object : public QGraphicsPixmapItem
 {
+    friend class model;
 public:
     Object();
-    Object(WarPart part, const string &imageFile);
+    Object(WarPart part);
     ~Object();
-    void synScreen(QGraphicsScene *scene);
-    void delScreen(QGraphicsScene *scene);
+   // void synScreen(QGraphicsScene *scene);
+    //void delScreen(QGraphicsScene *scene);
 
 protected:
     enum WarPart part;

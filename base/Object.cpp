@@ -5,8 +5,7 @@ Object::Object()
 
 }
 
-Object::Object(WarPart part, const string &imageFile):
-    QGraphicsPixmapItem(QPixmap(QString::fromStdString(imageFile)))
+Object::Object(WarPart part)
 {
     this->part = part;
 }
@@ -15,7 +14,7 @@ Object::~Object()
 {
 
 }
-
+/*
 void Object::synScreen(QGraphicsScene *scene)
 {
     if(!scene->items().contains(this))
@@ -31,3 +30,4 @@ void Object::delScreen(QGraphicsScene *scene)
     update();
 }
 
+*/

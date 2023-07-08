@@ -10,11 +10,11 @@ using namespace std;
 
 class Plane: public Object
 {
-	friend class Control;
+    friend class model;
 public:
 	Plane();
-    Plane(double x, double y, const string &imageFile, QGraphicsScene *scene, int life, enum WarPart part);
-    bool crash(QGraphicsScene *scene); //飞机发生碰撞
+    Plane(double x, double y, int life, enum WarPart part);
+    bool crash(); //飞机发生碰撞
 	
 protected:
 	int life; //生命值

@@ -6,8 +6,8 @@ Bullet::Bullet()
 {
 }
 
-Bullet::Bullet(WarPart part, double x, double y, const string &imageFile, const QPointF &dir, int power):
-    Object(part, imageFile)
+Bullet::Bullet(WarPart part, double x, double y, const QPointF &dir, int power):
+    Object(part)
 {
     setPos(x, y);
 	this->dir = dir;
@@ -18,7 +18,7 @@ pair<qreal, qreal> Bullet::updatePosition()
 {
     return make_pair(x()+dir.x(), y()+dir.y());
 }
-
+/*
 bool Bullet::hit(QGraphicsScene *scene)
 {
 	if (power <= 0)
@@ -30,4 +30,4 @@ bool Bullet::hit(QGraphicsScene *scene)
 	}
 	else
         return true;
-}
+}*/

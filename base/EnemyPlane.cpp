@@ -1,12 +1,13 @@
 #include "EnemyPlane.h"
 #include <cstdlib>
+#include <iostream>
 
 EnemyPlane::EnemyPlane()
 {
 }
 
-EnemyPlane::EnemyPlane(double x, double y, const string &imageFile, QGraphicsScene *scene, EnemyType type, int life):
-    Plane(x, y, imageFile, scene, life, ENEMY)
+EnemyPlane::EnemyPlane(double x, double y, EnemyType type, int life):
+    Plane(x, y, life, ENEMY)
 {
     this->type = type;
 }

@@ -25,6 +25,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     model/model.cpp \
+    view/view.cpp \
     viewmodel/command/frameruncommand.cpp \
     viewmodel/command/gamepausecommand.cpp \
     viewmodel/command/gameresetcommand.cpp \
@@ -44,6 +45,7 @@ HEADERS += \
     common/precomp.h \
     mainwindow.h \
     model/model.h \
+    view/view.h \
     viewmodel/command/frameruncommand.h \
     viewmodel/command/gamepausecommand.h \
     viewmodel/command/gameresetcommand.h \

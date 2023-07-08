@@ -6,8 +6,8 @@ MyPlane::MyPlane():Plane()
 {
 }
 
-MyPlane::MyPlane(double x, double y, const string &imageFile, QGraphicsScene *scene, int life, int skill):
-    Plane(x, y, imageFile, scene, life, ME)
+MyPlane::MyPlane(double x, double y,int life, int skill):
+    Plane(x, y,  life, ME)
 {
     this->skill = skill;
 }

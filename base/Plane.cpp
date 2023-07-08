@@ -8,24 +8,19 @@ Plane::Plane()
 {
 }
 
-Plane::Plane(double x, double y, const string &imageFile, QGraphicsScene *scene, int life, enum WarPart part):
-    Object(part, imageFile)
+Plane::Plane(double x, double y, int life, enum WarPart part):Object(part)
 {
     setPos(x, y);
     this->life = life;
-    scene->addItem(this);
     update();
 }
 
-bool Plane::crash(QGraphicsScene *scene)
+bool Plane::crash()
 {
 	if (life <= 0) //若已经耗尽生命值
 		return false;
 	else if (--life <= 0) //若生命值此次crash后耗尽
-	{
-        delScreen(scene);
 		return false;
-	}
 	else
 		return true;
 }
