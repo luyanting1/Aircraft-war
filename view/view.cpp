@@ -1,4 +1,4 @@
-#include "view.h"
+﻿#include "view.h"
 const QPointF scoreTextPos = QPointF(650, 520);
 const QPointF LifeBarPos = QPointF(650,550);
 const QPointF SkillBarPos = QPointF(650, 570);
@@ -15,25 +15,21 @@ View::View()
 {
     setSceneRect(0,0,800,600);//设置整个界面的大小
     this->myPlaneImageFile = ":/images/myplane.png";//飞机图片
-    this->myLife = 50;
-    this->mySkill = 5;
+    myLife=*(this->player_life) = 50;
+    mySkill=*(this->player_skill) = 5;
 
     this->myBulletImageFile = ":/images/mybullet.png";//子弹图片
-    this->myBulletPower = 1;
 
     this->enemyPlaneImageFile = ":/images/enemyplane.png";//敌机图片
-    this->enemyLife = 1;
 
-    this->enemyBulletImageFile = ":/images/enemybullet.png";//敌机子弹图片
-    this->enemyBulletPower = 1;
+    this->enemyBulletImageFile = ":/images/76446d7d2b8c45cb8ed30baf1f75397e.png";//敌机子弹图片
 
-    this->bossImageFile = ":/images/boss.png";//boss图片
-    this->bossLife = 10;
+    this->bossImageFile = ":/images/boss2.gif";//boss图片
 
-    this->bossBulletImageFile = ":/images/bossbullet.png";//boss子弹图片
-    this->bossBulletPower = 2;
+    this->bossBulletImageFile = ":/images/76446d7d2b8c45cb8ed30baf1f75397e.png";//boss子弹图片
 
     this->lifeSupplyImageFile = ":/images/lifesupply.png";//补给图片
+
        /* 游戏标题 */
        titleText = new QGraphicsTextItem;
        addItem(titleText);
@@ -127,21 +123,21 @@ View::View()
        retryGameButton->hide();
 
        /* 生命值 */
-       lifeFrameBar = new QGraphicsRectItem(LifeBarPos.x(), LifeBarPos.y(), myLife*2,5);//设置血条方框，以血量作为长度
+       lifeFrameBar = new QGraphicsRectItem(LifeBarPos.x(), LifeBarPos.y(), *(player_life)*2,5);//设置血条方框，以血量作为长度
        lifeFrameBar->setPen(QPen(Qt::white));//设置一个边框颜色，区分
        addItem(lifeFrameBar);
        lifeFrameBar->hide();
-       lifeBar = new QGraphicsRectItem(LifeBarPos.x(), LifeBarPos.y(), myLife*2, 5);
+       lifeBar = new QGraphicsRectItem(LifeBarPos.x(), LifeBarPos.y(), *(player_life)*2, 5);
        lifeBar->setBrush(QBrush(Qt::green));//填充血条颜色
        addItem(lifeBar);
        lifeBar->hide();
 
        /* 技能值 */
-       skillFrameBar = new QGraphicsRectItem(SkillBarPos.x(),SkillBarPos.y(), myLife*2,5);
+       skillFrameBar = new QGraphicsRectItem(SkillBarPos.x(),SkillBarPos.y(), *(player_skill)*2,5);
        skillFrameBar->setPen(QPen(Qt::white));
        addItem(skillFrameBar);
        skillFrameBar->hide();
-       skillBar = new QGraphicsRectItem(SkillBarPos.x(), SkillBarPos.y(), mySkill*2, 5);
+       skillBar = new QGraphicsRectItem(SkillBarPos.x(), SkillBarPos.y(), *(player_skill)*2, 5);
        skillBar->setBrush(QBrush(Qt::blue));
        addItem(skillBar);
        skillBar->hide();
@@ -188,15 +184,18 @@ void View::startGame()
     authorText->hide();
     maskWidget->hide();
 
+
     scoreText->show();
+
+
     lifeFrameBar->show();
-    lifeBar->setRect(LifeBarPos.x(), LifeBarPos.y(), myLife*2, lifeBar->rect().height());
+    lifeBar->setRect(LifeBarPos.x(), LifeBarPos.y(), *(player_life)*2, lifeBar->rect().height());
     lifeBar->setBrush(Qt::green);
     lifeBar->update();//血量值会更新
     lifeBar->show();
 
     skillFrameBar->show();
-    skillBar->setRect(SkillBarPos.x(), SkillBarPos.y(), mySkill*2, skillBar->rect().height());
+    skillBar->setRect(SkillBarPos.x(), SkillBarPos.y(), *(player_skill)*2, skillBar->rect().height());
     skillBar->setBrush(Qt::blue);
     skillBar->update();
     skillBar->show();
@@ -211,13 +210,13 @@ void View::startGame()
     bossGenerateTimeId = startTimer(bossGenerateTimeItv);
 
     /* 添加玩家飞机 */
-    myplane = new MyPlane(width() / 2, height() / 2, myPlaneImageFile, this, myLife, mySkill);
+    myplane = new MyPlane(width() / 2, height() / 2, myPlaneImageFile, this, player_life, player_skill);
+    *play_posX=width() / 2;
+    *play_posY=height() / 2;
     myplane->synScreen(this);
-
     /* 添加敌机 */
     for (int i = 0; i < 3; i++)
         enemyplane_generate()
-
 }
 
 void View::showHelpMessage()
@@ -314,9 +313,10 @@ void View::keyPressEvent(QKeyEvent *event)
         enemybullets.clear();
 
         myplane->skill -= 7;
-        updateBar(skillBar, skillFrameBar, SkillBarPos, -14, QBrush(Qt::blue));
+
         */
         skill_use(7);
+        updateBar(skillBar, skillFrameBar, SkillBarPos, -14, QBrush(Qt::blue));
     }
     else if(event->key()==Qt::Key_Space)
         pauseGame();
@@ -324,15 +324,27 @@ void View::keyPressEvent(QKeyEvent *event)
 void View::timerEvent(QTimerEvent *event)
 {
     if(event->timerId()==myPlaneMoveTimerId)
-        myplane_move(direction);
-        //changePlanePosition(myplane, myplane->x()+myPlaneMove.x(), myplane->y()+myPlaneMove.y());
+    {
+       myplane_move.x()=*(play_posX);
+       myplane_move.y()=*(play_posY);
+       myplane_move(direction);
+       updateBar(lifeBar,lifeFrameBar,LifeBarPos,Qt::green);
+       myplane->moveBy(*(play_posX)-myplane_move.x(),*(play_posY)-myplane_move.y());
+       myplane->update();
+      }  //changePlanePosition(myplane, myplane->x()+myPlaneMove.x(), myplane->y()+myPlaneMove.y());
     if(event->timerId()==enemyBulletShootTimerId)
+    {
         enemybullet_shoot();
+
+    }
     else if(event->timerId()==myBulletShootTimerId)
         mybullet_shoot();
     else if(event->timerId()==allBulletMoveTimerId)
     {
         bullet_move();
+        updateBar(lifeBar,lifeFrameBar,LifeBarPos,Qt::green);
+        score++;
+        scoreText->setHtml(tr("<font color=white>Score: %1</front>").arg(score));
     }
     else if(event->timerId()==enemyPlaneMoveTimerId)
         enemyplane_move();
@@ -408,6 +420,44 @@ void View::mybullet_shoot()
     m_cmdshootmybullet->Exec();
 }
 
+void View::updateBar(QGraphicsRectItem *bar, QGraphicsRectItem *frameBar, const QPointF &pos, const QBrush &brush)
+{
+    bar->setRect(pos.x(), pos.y(), *(player_life)*2, bar->rect().height());
+    bar->setBrush(brush);
+    bar->update();
+}
+void View::changescene()
+{
+    Qlist<QGraphicsItem *> items = items();
+    for (auto item : items) {
+        removeItem(item);
+    }
+    myplane_move.x()=*(play_posX);
+    myplane_move.y()=*(play_posY);
+    myplane_move(direction);
+    updateBar(lifeBar,lifeFrameBar,LifeBarPos,Qt::green);
+    myplane->moveBy(*(play_posX)-myplane_move.x(),*(play_posY)-myplane_move.y());
+    myplane->update();
+    /* 生命值 */
+    lifeFrameBar = new QGraphicsRectItem(LifeBarPos.x(), LifeBarPos.y(), myLife*2,5);//设置血条方框，以血量作为长度
+    lifeFrameBar->setPen(QPen(Qt::white));//设置一个边框颜色，区分
+    addItem(lifeFrameBar);
+    lifeFrameBar->hide();
+    lifeBar = new QGraphicsRectItem(LifeBarPos.x(), LifeBarPos.y(), *(player_life)*2, 5);
+    lifeBar->setBrush(QBrush(Qt::green));//填充血条颜色
+    addItem(lifeBar);
+    lifeBar->hide();
 
+    /* 技能值 */
+    skillFrameBar = new QGraphicsRectItem(SkillBarPos.x(),SkillBarPos.y(), mySkill*2,5);
+    skillFrameBar->setPen(QPen(Qt::white));
+    addItem(skillFrameBar);
+    skillFrameBar->hide();
+    skillBar = new QGraphicsRectItem(SkillBarPos.x(), SkillBarPos.y(), *(player_skill)*2, 5);
+    skillBar->setBrush(QBrush(Qt::blue));
+    addItem(skillBar);
+    skillBar->hide();
+
+}
 
 

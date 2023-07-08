@@ -39,6 +39,7 @@ SOURCES += \
     base/Object.cpp
 
 HEADERS += \
+    common/precomp.h \
     mainwindow.h \
     app/app.h \
     view/view.h \
