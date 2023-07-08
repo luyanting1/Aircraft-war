@@ -1,39 +1,18 @@
 ﻿#ifndef PRECOMP_H
 #define PRECOMP_H
-
-#include <vector>
+#include "vector"
 #include <cmath>
 #include <iostream>
-#include "base/Object.h"
-// define part has not been modified
-#define WIDTH 1266
-#define HEIGHT 766
-#define ROLE_WIDTH 140
-#define ROLE_HEIGHT 120
-#define HOOK_BIAS 40
-#define PI 3.1415926
-#define MAX_ANGLE 80
-#define MINE_NUM 10
-#define IMAGE_MAX 21
-#define DeadAngleRange 10
-#define LEN 50
-#define MAPUPPERBOUND 120
-#define VIGOSPEED 2
-#define DEFAULT_PLAYER_NUM 3
-#define DEFAULT_MINE_NUM 15
-#define DEFAULT_HOOK_SPEED 2.5
-#define LEVELTIME 60
-#define DEBUGTIME 0
-#define DIS(A) \
-sqrt(pow(A.getx() - x, 2) + pow(A.gety() - y, 2))
-
-typedef double POS;
-typedef std::vector<POS> POSES;
-//Warpart == Me, int -> shoot mode; Warpart == ENEMY, int -> Whether Boss; Warpart == LIFESUPPLY, int any
-typedef std::vector<pair<WarPart, int>*> BULLETTYPES;
-//int -> Whether Boss
-typedef std::vector<int*> ENEMYTYPES;
-typedef int BAR;
-typedef int SCORE;
-
+#include "view/view.h"
+#define WIDTH 600
+#define HEIGHT 800
+QPixmap pixmap1(QPixmap(QString::fromStdString(bossImageFile)));
+const int bosswidth= pixmap1.width();
+const int bossheight= pixmap1.height();
+ QPixmap pixmap2(QPixmap(QString::fromStdString(enemyPlaneImageFile)));
+const int enemyplanewidth= pixmap2.width();
+const int enemyplaneheight= pixmap2.height();
+QPixmap pixmap3(QPixmap(QString::fromStdString(myPlaneImageFile)));
+const int myplanewidth= pixmap3.width();
+const int myplaneheight= pixmap3.height();
 #endif // PRECOMP_H

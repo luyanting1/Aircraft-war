@@ -39,6 +39,7 @@ SOURCES += \
     base/Object.cpp
 
 HEADERS += \
+    common/precomp.h \
     mainwindow.h \
     app/app.h \
     view/view.h \
@@ -55,7 +56,6 @@ HEADERS += \
     viewmodel/sink/viewmodelsink.h \
     viewmodel/viewmodel.h \
     common/etlbase.h \
-    common/precomp.h \
     base/Bullet.h \
     base/EnemyPlane.h \
     base/MyPlane.h \

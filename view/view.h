@@ -1,7 +1,5 @@
-#ifndef VIEW_H
+﻿#ifndef VIEW_H
 #define VIEW_H
-
-#endif // VIEW_H
 #include <ctime>
 #include <vector>
 #include <cassert>
@@ -37,19 +35,15 @@ private:
        int mySkill;
 
        string myBulletImageFile;
-       int myBulletPower;
 
        string enemyPlaneImageFile;
-       int enemyLife;
+
 
        string enemyBulletImageFile;
-       int enemyBulletPower;
 
        string bossImageFile;
-       int bossLife;
 
        string bossBulletImageFile;
-       int bossBulletPower;
 
        string lifeSupplyImageFile;
 
@@ -95,6 +89,29 @@ private:
        shared_ptr<ICommandBase> m_cmdshootmybullet;
        shared_ptr<ICommandBase> m_cmdmoveenemyplane;
 
+       MyPlane *myplane;
+       void SetPlayerPosX(shared_ptr<POS>);
+       shared_ptr<POS>  play_posX;
+       void SetPlayerPosY(shared_ptr<POS>);
+       shared_ptr<POS>  play_posY;
+       void SetPlayerScore(shared_ptr<SCORE>);
+       shared_ptr<SCORE>  player_score;
+       void SetBulletsPosX(shared_ptr<POSES>);
+       shared_ptr<POSES>  bullet_posX;
+       void SetBulletsPosY(shared_ptr<POSES>  );
+       shared_ptr<POSES>  bullet_posY;
+       void SetBulletsType(shared_ptr<BULLETTYPES> );
+       shared_ptr<BULLETTYPES>  bullet_type;
+       void SetEnemiesPosX(shared_ptr<POSES> );
+       shared_ptr<POSES>  enemy_posX;
+       void SetEnemiesPosY(shared_ptr<POSES>);
+       shared_ptr<POSES>  enemy_posY;
+       void SetEnemiesType(shared_ptr<ENEMYTYPES>);
+       shared_ptr<ENEMYTYPES>  enemy_type;
+       void SetPlayerLife(shared_ptr<BAR>);
+       shared_ptr<BAR>  player_life;
+       void SetPlayerSkill(shared_ptr<BAR>);
+       shared_ptr<BAR>  player_skill;
        void enemyplane_move();
 
        void boss_generate();
@@ -129,3 +146,5 @@ protected slots:
     void retryGame();  //重新开始
     void quitGame(); //结束游戏
 };
+
+#endif // VIEW_H

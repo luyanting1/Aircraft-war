@@ -2,8 +2,8 @@
 #define APP_H
 #include "../model/model.h"
 #include "../viewmodel/viewmodel.h"
-#include "../windows/gameview.h"
-#include "view.h"
+#include "../view/view.h"
+
 class app
 {
 public:
