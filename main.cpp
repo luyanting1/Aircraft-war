@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include <ctime>
 #include <vector>
 #include <cassert>
@@ -10,25 +10,24 @@
 #include <QSplashScreen>
 #include <QUrl>
 #include <QGraphicsView>
+#include <app/app.h>
 //#include <QMediaPlayer>
 //#include <QMediaPlaylist>
 #include <QApplication>
 #include "view.h"
 int main(int argc, char *argv[])
 {
-    QApplication app(argc, argv);
+    QApplication a(argc, argv);
     QPixmap welcome("://images/background1.png");
     QSplashScreen splash(welcome);
     splash.resize(welcome.size());
     splash.show();
-    app.processEvents();
+    a.processEvents();
     QTimer::singleShot(1000, &splash, SLOT(close()));
-    View *ctrl = new View;
-    QGraphicsView *game_interface = new QGraphicsView;
-    splash.finish( game_interface);
+    std::shared_ptr<QGraphicsView> game_interface = make_shared<QGraphicsView>(new QGraphicsView);
+    splash.finish(game_interface);
     game_interface->setWindowTitle(QObject::tr("Thunder Plane"));
-    game_interface->setScene(ctrl);
-    game_interface->setBackgroundBrush(QBrush(QPixmap("://images/background1.png")));
-    game_interface->show();
-    return app.exec();
+    app ThunderPlane_app;
+    ThunderPlane_app.run(game_interface);
+    return a.exec();
 }
