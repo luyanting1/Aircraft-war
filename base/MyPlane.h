@@ -1,13 +1,14 @@
-#ifndef MYPLANE_H
+﻿#ifndef MYPLANE_H
 #define MYPLANE_H
 
 #include "Plane.h"
+#include<common/precomp.h>
 
 class MyPlane:public Plane
 {
     friend class model;
 public:
-	MyPlane();
+    MyPlane();
     MyPlane(double x, double y, int life, int skill);
     double getx() { return this->x(); }
     double gety() { return this->y(); }
@@ -19,7 +20,7 @@ public:
 
 protected:
     int skill; //技能值
-	
+
 };
 
 #endif // !MYPLANE_H

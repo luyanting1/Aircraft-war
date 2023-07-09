@@ -165,12 +165,12 @@ void View::quitGame()
 
 void View::startGame()
 {
-    score = 0;
+    *PlayerScore = 0;
 
     //得分显示
     scoreText = new QGraphicsTextItem;
     addItem(scoreText);
-    scoreText->setHtml(tr("<font color=white>Score: %1</front>").arg(score));
+    scoreText->setHtml(tr("<font color=white>Score: %1</front>").arg(*(PlayerScore));
     scoreText->setFont(QFont("Courier"));
     scoreText->setPos(620, 500);
     scoreText->setZValue(1);
@@ -451,7 +451,6 @@ void View::mybullet_shoot()
 {
     m_cmdshootmybullet->Exec();
 }
-
 void View::updateBar(QGraphicsRectItem *bar, QGraphicsRectItem *frameBar, const QPointF &pos, const QBrush &brush)
 {
     bar->setRect(pos.x(), pos.y(), *(player_life)*2, bar->rect().height());
@@ -578,7 +577,7 @@ void View::changescene()
     //得分显示
     scoreText = new QGraphicsTextItem;
     addItem(scoreText);
-    scoreText->setHtml(tr("<font color=white>Score: %1</front>").arg(score));
+    scoreText->setHtml(tr("<font color=white>Score: %1</front>").arg(*PlayerScore));
     scoreText->setFont(QFont("Courier"));
     scoreText->setPos(620, 500);
     scoreText->setZValue(1);
@@ -636,5 +635,7 @@ void  View::SetLifeSupplies(std::shared_ptr<vector<Object *>>a )
 {
      LifeSupplies=a;
 }
-
-
+void View::SetplayerScore(std::shared_ptr<int>a)
+{
+     PlayerScore=a;
+}

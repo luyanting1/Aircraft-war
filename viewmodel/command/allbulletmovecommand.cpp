@@ -1,4 +1,4 @@
-#include "allbulletmovecommand.h"
+﻿#include "allbulletmovecommand.h"
 #include "viewmodel/viewmodel.h"
 AllBulletMoveCommand::AllBulletMoveCommand(ViewModel* p) throw():viewmodel_ptr(p)
 {}
@@ -9,5 +9,5 @@ void AllBulletMoveCommand::SetParameter(const std::any &param){
 
 void AllBulletMoveCommand::Exec(){
     bool b;
-    b = viewmodel_ptr->CallModelAllBulletMove(m_param);
+    b = viewmodel_ptr->CallModelAllBulletMove();
 }

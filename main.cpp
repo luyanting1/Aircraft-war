@@ -14,7 +14,7 @@
 //#include <QMediaPlayer>
 //#include <QMediaPlaylist>
 #include <QApplication>
-#include "view.h"
+#include "view/view.h"
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -25,7 +25,8 @@ int main(int argc, char *argv[])
     a.processEvents();
     QTimer::singleShot(1000, &splash, SLOT(close()));
     std::shared_ptr<QGraphicsView> game_interface = make_shared<QGraphicsView>(new QGraphicsView);
-    splash.finish(game_interface);
+    std::shared_ptr<QWidget> splash_game_interface = static_pointer_cast<QWidget>(game_interface);
+    splash.finish(splash_game_interface.get());
     game_interface->setWindowTitle(QObject::tr("Thunder Plane"));
     app ThunderPlane_app;
     ThunderPlane_app.run(game_interface);

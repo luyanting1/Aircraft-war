@@ -6,7 +6,8 @@ app::~app(){}
 void app::run(std::shared_ptr<QGraphicsView> game_interface){
 
     std::shared_ptr<View>ctrl = make_shared<View>(new View);
-    game_interface->setScene(ctrl);
+    std::shared_ptr<QGraphicsScene> game_ctrl = static_pointer_cast<QGraphicsScene>(ctrl);
+    game_interface->setScene(game_ctrl.get());
     game_interface->setBackgroundBrush(QBrush(QPixmap("://images/background1.png")));
     game_interface->show();
 

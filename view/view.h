@@ -24,6 +24,8 @@
 #include "../base/MyPlane.h"
 #include "../base/Object.h"
 #include "../base/Plane.h"
+#include "../common/etlbase.h"
+#include "../common/precomp.h"
 using namespace std;
 class View : public QGraphicsScene
 {
@@ -33,6 +35,14 @@ protected:
     void keyReleaseEvent(QKeyEvent *event);
 public:
     View();
+    void SetMyPlane(std::shared_ptr<MyPlane>);
+    void SetEnemiesPlane( std::shared_ptr<vector<EnemyPlane *>>);
+    void SetBullets(std::shared_ptr<vector<Bullet *>>);
+    void SetLifeSupplies(std::shared_ptr<vector<Object *>> );
+    void SetPlayerLife(shared_ptr<BAR>);
+           void SetPlayerSkill(shared_ptr<BAR>);
+           void SetPlayerScore(std::shared_ptr<int>a);
+
 private:
        //各种模型的属性
        string myPlaneImageFile;
@@ -119,13 +129,9 @@ private:
        std::shared_ptr<vector<Bullet *>> Bullets;
        std::shared_ptr<MyPlane>  MyPlane;
        std::shared_ptr<vector<Object *>> LifeSupplies;
-       void SetMyPlane(std::shared_ptr<MyPlane>);
-       void SetEnemiesPlane( std::shared_ptr<vector<EnemyPlane *>>);
-       void SetBullets(std::shared_ptr<vector<Bullet *>>);
-       void SetLifeSupplies(std::shared_ptr<vector<Object *>> );
-       void SetPlayerLife(shared_ptr<BAR>);
+                 std::shared_ptr<int*> PlayerScore;
        shared_ptr<BAR>  player_life;
-       void SetPlayerSkill(shared_ptr<BAR>);
+
        shared_ptr<BAR>  player_skill;
        void enemyplane_move();
 

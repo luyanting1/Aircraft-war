@@ -32,7 +32,7 @@ public:
     bool CallModelGamePause();
     bool CallModelGameReset();
     bool CallModelPlayerBulletShoot();
-    bool CallModelPlayerMove(std::string direction);
+    bool CallModelPlayerMove(char direction);
     bool CallModelSkillUse(int skill_index);
 
     std::shared_ptr<MyPlane>              GetMyPlane();

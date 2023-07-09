@@ -41,7 +41,8 @@ bool ViewModel::CallModelEnemyMove(){
 }
 
 bool ViewModel::CallModelGamePause(){
-    return m_model->gamepause();
+    return true;
+    //return m_model->gamepause();
 }
 
 bool ViewModel::CallModelGameReset(){
@@ -52,7 +53,7 @@ bool ViewModel::CallModelPlayerBulletShoot(){
     return m_model->playerbulletshoot();
 }
 
-bool ViewModel::CallModelPlayerMove(std::string direction){
+bool ViewModel::CallModelPlayerMove(char direction){
     return m_model->playermove(direction);
 }
 

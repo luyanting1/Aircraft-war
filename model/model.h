@@ -1,4 +1,4 @@
-#ifndef MODEL_H
+﻿#ifndef MODEL_H
 #define MODEL_H
 #include <memory>
 #include <ctime>
@@ -15,6 +15,7 @@
 //#include <QMediaPlaylist>
 //#include <QMediaPlayer>
 
+#include "./base/Bullet.h"
 #include "./base/Plane.h"
 #include "./base/MyPlane.h"
 #include "./base/EnemyPlane.h"
