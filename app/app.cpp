@@ -18,7 +18,6 @@ void app::run(std::shared_ptr<QGraphicsView> game_interface){
     ctrl->SetPlayerScore(viewmodel_ptr->GetPlayerScore());
     ctrl->SetEnemiesPlane(viewmodel_ptr->GetEnemiesPlane());
     ctrl->SetBullets(viewmodel_ptr->GetBullets());
-    ctrl->SetLifeSupplies(viewmodel_ptr->GetLifeSupplies());
     ctrl->SetPlayerLife(viewmodel_ptr->GetPlayerLife());
     ctrl->SetPlayerSkill(viewmodel_ptr->GetPlayerSkill());
 

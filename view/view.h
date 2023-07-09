@@ -24,9 +24,6 @@
 #include "../base/MyPlane.h"
 #include "../base/Object.h"
 #include "../base/Plane.h"
-#include "../common/etlbase.h"
-#include "../common/precomp.h"
-
 using namespace std;
 class View : public QGraphicsScene
 {
