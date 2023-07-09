@@ -1,4 +1,4 @@
-#include "model.h"
+﻿#include "model.h"
 /*
 const int myBulletShootTimerItv = 300;
 const int enemyBulletShootTimerItv = 1000;
@@ -262,6 +262,7 @@ bool model::allbulletmove()
             it = enemybullets->erase(it);
         }
     }
+    return true;
 }
 
 bool model::bossgenerate()
@@ -329,6 +330,7 @@ bool model::enemybulletshoot()
                // addItem(bullet2);
             }
         }
+    return true;
 }
 
 bool model::enemygenerate()
@@ -496,6 +498,7 @@ bool model::gamereset()
     /* 添加敌机 */
     for (int i = 0; i < 3; i++)
         enemygenerate();
+    return true;
 }
 
 bool model::playerbulletshoot()
@@ -526,6 +529,7 @@ bool model::playerbulletshoot()
         bullet3->setRotation(45);
         //addItem(bullet3);
     }
+    return true;
 }
 
 bool model::playermove(char dir)
@@ -539,6 +543,7 @@ bool model::playermove(char dir)
      default: myPlaneMove = QPointF(0, 0); break;
     }
     changePlanePosition(myplane, myplane->x()+myPlaneMove.x(), myplane->y()+myPlaneMove.y());
+    return true;
 }
 
 std::shared_ptr<vector<Object *>> model::GetLifeSupplies()

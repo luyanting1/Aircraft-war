@@ -13,22 +13,22 @@
 
 enum EnemyType {ORD, BOSS};
 enum WarPart { ME, ENEMY, LIFESUPPLY };
-std::string  myBulletImageFile = ":/images/mybullet.png";
-std::string enemyPlaneImageFile = ":/images/enemyplane.png";
-std::string myPlaneImageFile = ":/images/myplane.png";
-std::string bossImageFile = ":/images/boss2.gif";//boss图片
+extern std::string myBulletImageFile;
+extern std::string enemyPlaneImageFile;
+extern std::string myPlaneImageFile;
+extern std::string bossImageFile;
 
-QPixmap pixmap1(QPixmap(QString::fromStdString(bossImageFile)));
-const double bosswidth= pixmap1.width();
-const double bossheight= pixmap1.height();
+extern QPixmap pixmap1;
+extern const double bosswidth;
+extern const double bossheight;
 
-QPixmap pixmap2(QPixmap(QString::fromStdString(enemyPlaneImageFile)));
-const double enemyplanewidth= pixmap2.width();
-const double enemyplaneheight= pixmap2.height();
+extern QPixmap pixmap2;
+extern const double enemyplanewidth;
+extern const double enemyplaneheight;
 
-QPixmap pixmap3(QPixmap(QString::fromStdString(myPlaneImageFile)));
-const double myplanewidth= pixmap3.width();
-const double myplaneheight= pixmap3.height();
+extern QPixmap pixmap3;
+extern const double myplanewidth;
+extern const double myplaneheight;
 
 typedef double POS;
 typedef std::vector<POS*> POSES;
