@@ -123,7 +123,7 @@ View::View()
        retryGameButton->hide();
 
        /* 生命值 */
-       lifeFrameBar = new QGraphicsRectItem(LifeBarPos.x(), LifeBarPos.y(), *(player_life)*2, 5);//设置血条方框，以血量作为长度
+       lifeFrameBar = new QGraphicsRectItem(LifeBarPos.x(), LifeBarPos.y(), *(player_life)*2,5);//设置血条方框，以血量作为长度
        lifeFrameBar->setPen(QPen(Qt::white));//设置一个边框颜色，区分
        addItem(lifeFrameBar);
        lifeFrameBar->hide();
@@ -606,11 +606,12 @@ void View::changescene()
        setPos(bullet->getX(),bullet->getY());
        addItem(bullet);
     }
-    for (EnemyPlane* enemyPlane : *EnemiesPlane) {
+    for (EnemyPlane* enemyPlane : *EnemiesPlane)
+    {
         setPos(enemyPlane->getX(),enemyPlane->getY());
         addItem(enemyPlane);
     }
-    for(Object* lifesupply:*LifeSupplys)
+    for(Object* lifesupply:*LifeSupplies)
     {
         setPos(lifesupply->getX(),lifesupply->getY());
         addItem(lifesupply);
@@ -618,8 +619,22 @@ void View::changescene()
     }
     setPos(MyPlane->getX(),MyPlane->getY());
     addItem(MyPlane);
-
-
+}
+ void View::SetMyPlane(std::shared_ptr<MyPlane> a)
+{
+      MyPlane = a;
+}
+void View::SetEnemiesPlane(std::shared_ptr<vector<EnemyPlane *>>a)
+{
+     EnemiesPlane=a;
+}
+void  View::SetBullets(std::shared_ptr<vector<Bullet *>>a)
+{
+     Bullets=a;
+}
+void  View::SetLifeSupplies(std::shared_ptr<vector<Object *>>a )
+{
+     LifeSupplies=a;
 }
 
 
