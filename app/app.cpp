@@ -34,9 +34,8 @@ void app::run(std::shared_ptr<QGraphicsView> game_interface){
     ctrl->SetSkillUseCommand(viewmodel_ptr->GetSkillUse());
 
     //notifications
-    viewmodel_ptr->AddPropertyNotification(game_interface.get_updateSink());
+    viewmodel_ptr->AddPropertyNotification(ctrl->get_updateSink());
 
-    game_interface.show();
 }
 
 std::shared_ptr<View> app::GetCtrl(){

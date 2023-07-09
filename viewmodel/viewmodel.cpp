@@ -116,6 +116,10 @@ std::shared_ptr<vector<Bullet *>> ViewModel::GetBullets(){
     return m_model->GetBullets();
 }
 
+std::shared_ptr<vector<Object *>> ViewModel::GetLifeSupplies(){
+    return m_model->GetLifeSupplies();
+}
+
 std::shared_ptr<BAR>  ViewModel::GetPlayerLife(){
     return m_model->GetPlayerLife();
 }
