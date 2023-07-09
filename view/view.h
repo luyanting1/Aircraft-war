@@ -118,9 +118,11 @@ private:
        std::shared_ptr<vector<EnemyPlane *>> EnemiesPlane;
        std::shared_ptr<vector<Bullet *>> Bullets;
        std::shared_ptr<MyPlane>  MyPlane;
-       std::shared_ptr<MyPlane>              SetMyPlane();
-       std::shared_ptr<vector<EnemyPlane *>> SetEnemiesPlane();
-       std::shared_ptr<vector<Bullet *>>     SetBullets();
+       std::shared_ptr<vector<Object *>> LifeSupplies;
+       void SetMyPlane(std::shared_ptr<MyPlane>);
+       void SetEnemiesPlane( std::shared_ptr<vector<EnemyPlane *>>);
+       void SetBullets(std::shared_ptr<vector<Bullet *>>);
+       void SetLifeSupplies(std::shared_ptr<vector<Object *>> );
        void SetPlayerLife(shared_ptr<BAR>);
        shared_ptr<BAR>  player_life;
        void SetPlayerSkill(shared_ptr<BAR>);
