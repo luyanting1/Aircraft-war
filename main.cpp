@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     splash.show();
     a.processEvents();
     QTimer::singleShot(1000, &splash, SLOT(close()));
-    std::shared_ptr<QGraphicsView> game_interface = make_shared<QGraphicsView>(new QGraphicsView);
+    std::shared_ptr<QGraphicsView> game_interface = make_shared<QGraphicsView>();
     std::shared_ptr<QWidget> splash_game_interface = static_pointer_cast<QWidget>(game_interface);
     splash.finish(splash_game_interface.get());
     game_interface->setWindowTitle(QObject::tr("Thunder Plane"));

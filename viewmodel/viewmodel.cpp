@@ -16,7 +16,7 @@ ViewModel::ViewModel():
 
 void ViewModel::SetModel(const std::shared_ptr<model> &model_){
     m_model = model_;
-    m_model->AddPropertyNotification(std::static_pointer_cast<IPropertyNotification>(m_sink));
+    //m_model->AddPropertyNotification(std::static_pointer_cast<IPropertyNotification>(m_sink));
 //    todo : notification
 }
 

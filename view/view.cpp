@@ -14,17 +14,14 @@ const int bossGenerateTimeItv = 5000;
 View::View()
 {
     setSceneRect(0,0,800,600);//设置整个界面的大小
-    this->myPlaneImageFile = ":/images/myplane.png";//飞机图片
+
     myLife=*(this->player_life) = 50;
     mySkill=*(this->player_skill) = 5;
 
-    this->myBulletImageFile = ":/images/mybullet.png";//子弹图片
 
-    this->enemyPlaneImageFile = ":/images/enemyplane.png";//敌机图片
 
     this->enemyBulletImageFile = ":/images/76446d7d2b8c45cb8ed30baf1f75397e.png";//敌机子弹图片
 
-    this->bossImageFile = ":/images/boss2.gif";//boss图片
 
     this->bossBulletImageFile = ":/images/76446d7d2b8c45cb8ed30baf1f75397e.png";//boss子弹图片
 
@@ -169,12 +166,12 @@ void View::startGame()
 
     //得分显示
     scoreText = new QGraphicsTextItem;
-    addItem(scoreText);
-    scoreText->setHtml(tr("<font color=white>Score: %1</front>").arg(*(PlayerScore));
+    scoreText->setPos(scoreTextPos);
+    scoreText->setHtml(tr("<font color=white>SCORE: %1</font>").arg(*(PlayerScore)));
     scoreText->setFont(QFont("Courier"));
-    scoreText->setPos(620, 500);
-    scoreText->setZValue(1);
+    addItem(scoreText);
     scoreText->hide();
+
 
     hasStarted = true;
     titleText->hide();
@@ -210,13 +207,13 @@ void View::startGame()
     bossGenerateTimeId = startTimer(bossGenerateTimeItv);
 
     /* 添加玩家飞机 */
-    myplane = new MyPlane(width() / 2, height() / 2, myPlaneImageFile, this, player_life, player_skill);
-    *play_posX=width() / 2;
-    *play_posY=height() / 2;
-    myplane->synScreen(this);
+    myplane = make_shared<MyPlane>(width() / 2, height() / 2, *player_life, *player_skill);
+    this->addItem(((std::shared_ptr<QGraphicsItem>)(myplane)).get());
     /* 添加敌机 */
     for (int i = 0; i < 3; i++)
-        enemyplane_generate()
+    {
+        enemyplane_generate();
+    }
 }
 
 void View::showHelpMessage()
@@ -271,7 +268,7 @@ void View::keyPressEvent(QKeyEvent *event)
             myPlaneMoveTimerId = startTimer(myPlaneMoveTimerItv);
         direction="D";
     }
-    else if(event->key()==Qt::Key_J && myplane->skill>=5)
+    else if(event->key()==Qt::Key_J && myplane->getskill()>=5)
     {
         //按Q的技能可以一次发射3个子弹，但是会消耗5点技能
         /*
@@ -282,7 +279,7 @@ void View::keyPressEvent(QKeyEvent *event)
         skill_use(5);
         skillQTimerId = startTimer(5000); //5秒使用时间
     }
-    else if(event->key()==Qt::Key_K && myplane->skill>=3)
+    else if(event->key()==Qt::Key_K && myplane->getskill()>=3)
     {
         //按E的技能可以打掉所有飞机，消耗3点技能值
 
@@ -301,7 +298,7 @@ void View::keyPressEvent(QKeyEvent *event)
         */
         skill_use(3);
     }
-    else if(event->key()==Qt::Key_L && myplane->skill>=7)
+    else if(event->key()==Qt::Key_L && myplane->getskill()>=7)
     {
         //按R可以消掉所有敌机子弹，消耗7点技能值
         /*
@@ -451,16 +448,11 @@ void View::mybullet_shoot()
 {
     m_cmdshootmybullet->Exec();
 }
-void View::updateBar(QGraphicsRectItem *bar, QGraphicsRectItem *frameBar, const QPointF &pos, const QBrush &brush)
-{
-    bar->setRect(pos.x(), pos.y(), *(player_life)*2, bar->rect().height());
-    bar->setBrush(brush);
-    bar->update();
-}
+
 void View::changescene()
 {
-    Qlist<QGraphicsItem *> items = items();
-    for (auto item : items) {
+    QList<QGraphicsItem *> itemslist = items();
+    for (auto item : itemslist) {
         removeItem(item);
     }
     /* 游戏标题 */
@@ -576,13 +568,11 @@ void View::changescene()
 
     //得分显示
     scoreText = new QGraphicsTextItem;
-    addItem(scoreText);
-    scoreText->setHtml(tr("<font color=white>Score: %1</front>").arg(*PlayerScore));
+    scoreText->setPos(scoreTextPos);
+    scoreText->setHtml(tr("<font color=white>SCORE: %1</font>").arg(*(PlayerScore)));
     scoreText->setFont(QFont("Courier"));
-    scoreText->setPos(620, 500);
-    scoreText->setZValue(1);
+    addItem(scoreText);
     scoreText->hide();
-
 
     scoreText->show();
 
@@ -602,26 +592,22 @@ void View::changescene()
 
     for(Bullet* bullet: *Bullets)
     {
-       setPos(bullet->getX(),bullet->getY());
-       addItem(bullet);
+       this->addItem(bullet);
     }
     for (EnemyPlane* enemyPlane : *EnemiesPlane)
     {
-        setPos(enemyPlane->getX(),enemyPlane->getY());
-        addItem(enemyPlane);
+        this->addItem(enemyPlane);
     }
     for(Object* lifesupply:*LifeSupplies)
     {
-        setPos(lifesupply->getX(),lifesupply->getY());
-        addItem(lifesupply);
+        this->addItem(lifesupply);
 
     }
-    setPos(MyPlane->getX(),MyPlane->getY());
-    addItem(MyPlane);
+    this->addItem(((std::shared_ptr<QGraphicsItem>)(myplane)).get());
 }
  void View::SetMyPlane(std::shared_ptr<MyPlane> a)
 {
-      MyPlane = a;
+      myplane = a;
 }
 void View::SetEnemiesPlane(std::shared_ptr<vector<EnemyPlane *>>a)
 {
@@ -635,7 +621,52 @@ void  View::SetLifeSupplies(std::shared_ptr<vector<Object *>>a )
 {
      LifeSupplies=a;
 }
-void View::SetplayerScore(std::shared_ptr<int>a)
+void View::SetPlayerScore(std::shared_ptr<int> a)
 {
      PlayerScore=a;
 }
+
+void View::SetAllBulletMoveCommand(shared_ptr<ICommandBase> a)
+{
+    m_cmdmovebullet=a;
+}
+void View::SetBossGenerateCommand(shared_ptr<ICommandBase>a)
+{
+    m_cmdgenerateboss=a;
+}
+void View::SetEnemyBulletShootCommand(shared_ptr<ICommandBase> a)
+{
+   m_cmdshootenemybullet=a;
+}
+void View::SetEnemyGenerateCommand(shared_ptr<ICommandBase> a)
+{
+    m_cmdgenerateenemyplane=a;
+}
+void View::SetEnemyMoveCommand(shared_ptr<ICommandBase> a)
+{
+    m_cmdmoveenemyplane=a;
+}
+void View::SetGamePauseCommand(shared_ptr<ICommandBase> a)
+{
+    m_cmdgamepause=a;
+}
+void View::SetGameResetCommand(shared_ptr<ICommandBase> a)
+{
+    m_cmdgamereset=a;
+}
+void View::SetPlayerBulletShootCommand(shared_ptr<ICommandBase> a)
+{
+     m_cmdshootmybullet=a;
+}
+void View::SetPlayerMoveCommand(shared_ptr<ICommandBase> a)
+{
+    m_cmdplanemove=a;
+}
+void View::SetSkillUseCommand(shared_ptr<ICommandBase> a)
+{
+    m_cmdskilluse=a;
+}
+std::shared_ptr<IPropertyNotification> View::get_updateSink(){
+    return std::static_pointer_cast<IPropertyNotification>(m_updateSink);
+}
+

@@ -9,7 +9,7 @@ class MyPlane:public Plane
     friend class model;
 public:
     MyPlane();
-    MyPlane(double x, double y, int life, int skill);
+    MyPlane(qreal x, qreal y, int life, int skill);
     double getx() { return this->x(); }
     double gety() { return this->y(); }
     int getskill() { return this->skill; }

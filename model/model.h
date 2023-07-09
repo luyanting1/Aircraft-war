@@ -66,6 +66,7 @@ public:
     std::shared_ptr<SCORE> GetPlayerScore();
     std::shared_ptr<vector<Bullet *>> GetBullets();
     std::shared_ptr<vector<EnemyPlane *>> GetEnemiesPlane();
+    std::shared_ptr<vector<Object *>>GetLifeSupplies();
     std::shared_ptr<int> GetPlayerLife();
     std::shared_ptr<int> GetPlayerSkill();
 

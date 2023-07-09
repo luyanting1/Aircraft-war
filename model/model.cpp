@@ -30,22 +30,22 @@ model::model() {
 
 std::shared_ptr<MyPlane> model::GetMyPlane()
 {
-    return std::make_shared<MyPlane>(myplane);
+    return std::shared_ptr<MyPlane>(myplane);
 }
 
 std::shared_ptr<vector<Bullet *>> model::GetBullets()
 {
-    return std::make_shared<vector<Bullet *>>(mybullets);
+    return mybullets;
 }
 
 std::shared_ptr<vector<EnemyPlane *>> model::GetEnemiesPlane()
 {
-    return std::make_shared<vector<EnemyPlane *>>(enemyplanes);
+    return enemyplanes;
 }
 
 std::shared_ptr<SCORE> model::GetPlayerScore()
 {
-     return std::make_shared<SCORE>(this->score);
+     return this->score;
 }
 /*
 std::shared_ptr<POSES> model::GetBulletPosX()
@@ -539,6 +539,11 @@ bool model::playermove(char dir)
      default: myPlaneMove = QPointF(0, 0); break;
     }
     changePlanePosition(myplane, myplane->x()+myPlaneMove.x(), myplane->y()+myPlaneMove.y());
+}
+
+std::shared_ptr<vector<Object *>> model::GetLifeSupplies()
+{
+      return lifesupplys;
 }
 
 
