@@ -28,21 +28,26 @@ model::model() {
     lifesupplys = std::make_shared<vector<Object*>>();
 }
 
-std::shared_ptr<POS> model::GetPlayerPosx()
+std::shared_ptr<MyPlane> model::GetMyPlane()
 {
-     return std::make_shared<POS>(myplane->getx());
+    return std::make_shared<MyPlane>(myplane);
 }
 
-std::shared_ptr<POS> model::GetPlayerPosy()
+std::shared_ptr<vector<Bullet *>> model::GetBullets()
 {
-     return std::make_shared<POS>(myplane->gety());
+    return std::make_shared<vector<Bullet *>>(mybullets);
+}
+
+std::shared_ptr<vector<EnemyPlane *>> model::GetEnemiesPlane()
+{
+    return std::make_shared<vector<EnemyPlane *>>(enemyplanes);
 }
 
 std::shared_ptr<SCORE> model::GetPlayerScore()
 {
      return std::make_shared<SCORE>(this->score);
 }
-
+/*
 std::shared_ptr<POSES> model::GetBulletPosX()
 {
      std::shared_ptr<POSES> BulletPosX = std::make_shared<POSES>();
@@ -125,7 +130,7 @@ std::shared_ptr<ENEMYTYPES> model::GetEmemieType()
         EmemieType1->push_back(&t2);
     }
     return EmemieType1;
-}
+}*/
 std::shared_ptr<int> model::GetPlayerLife()
 {
     return std::make_shared<int>(myplane->getlife());
@@ -301,23 +306,23 @@ bool model::enemybulletshoot()
         {
             if((*iter)->type==ORD)
             {
-                Bullet *bullet = new Bullet(ENEMY, (*iter)->getx()+(*iter)->pixmap().width()/2, (*iter)->gety()+(*iter)->pixmap().height()-15,
+                Bullet *bullet = new Bullet(ENEMY, (*iter)->getx()+enemyplanewidth/2, (*iter)->gety()+enemyplaneheight-15,
                                          QPointF(0,1), enemyBulletPower);
                 enemybullets->push_back(bullet);
               //  addItem(bullet);
             }
             else if((*iter)->type==BOSS)
             {
-                Bullet *bullet0 = new Bullet(ENEMY, (*iter)->getx()+(*iter)->pixmap().width()/2, (*iter)->gety()+(*iter)->pixmap().height()-15,
+                Bullet *bullet0 = new Bullet(ENEMY, (*iter)->getx()+bosswidth/2, (*iter)->gety()+bossheight-15,
                                          QPointF(0,1), bossBulletPower);
                 enemybullets->push_back(bullet0);
 
-                Bullet *bullet1 = new Bullet(ENEMY, (*iter)->getx()+(*iter)->pixmap().width()/2, (*iter)->gety()+(*iter)->pixmap().height()-15,
+                Bullet *bullet1 = new Bullet(ENEMY, (*iter)->getx()+bosswidth/2, (*iter)->gety()+bossheight-15,
                                          QPointF(-1,1), bossBulletPower);
                 bullet1->setRotation(45);
                 enemybullets->push_back(bullet1);
 
-                Bullet *bullet2 = new Bullet(ENEMY, (*iter)->getx()+(*iter)->pixmap().width()/2, (*iter)->gety()+(*iter)->pixmap().height()-15,
+                Bullet *bullet2 = new Bullet(ENEMY, (*iter)->getx()+bosswidth/2, (*iter)->gety()+bossheight-15,
                                         QPointF(1,1), bossBulletPower);
                 bullet2->setRotation(-45);
                 enemybullets->push_back(bullet2);

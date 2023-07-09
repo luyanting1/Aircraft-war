@@ -61,15 +61,10 @@ public:
     bool skilluse(int sk_index);
     bool changeBulletPosition(Bullet * bullet, int newX, int newY);
 
-    std::shared_ptr<POS> GetPlayerPosx();
-    std::shared_ptr<POS> GetPlayerPosy();
+    std::shared_ptr<MyPlane> GetMyPlane();
     std::shared_ptr<SCORE> GetPlayerScore();
-    std::shared_ptr<POSES> GetBulletPosX();
-    std::shared_ptr<POSES> GetBulletPosY();
-    std::shared_ptr<BULLETTYPES> GetBulletType();
-    std::shared_ptr<POSES> GetEmemiePosX();
-    std::shared_ptr<POSES> GetEmemiePosY();
-    std::shared_ptr<ENEMYTYPES> GetEmemieType();
+    std::shared_ptr<vector<Bullet *>> GetBullets();
+    std::shared_ptr<vector<EnemyPlane *>> GetEnemiesPlane();
     std::shared_ptr<int> GetPlayerLife();
     std::shared_ptr<int> GetPlayerSkill();
 
