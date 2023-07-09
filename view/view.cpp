@@ -109,6 +109,7 @@ View::View()
        gameLostText->hide();
 
        /* 重试 */
+       /*
        QPushButton *retryGameBtn = new QPushButton(tr("Retry"));
        retryGameBtn->setFont(QFont("Algerian",18));
        retryGameBtn->setStyleSheet("QPushButton{background: transparent; color:white; }"
@@ -118,7 +119,7 @@ View::View()
        retryGameButton->setPos(345,250);
        retryGameButton->setZValue(2);
        retryGameButton->hide();
-
+       */
        /* 生命值 */
        lifeFrameBar = new QGraphicsRectItem(LifeBarPos.x(), LifeBarPos.y(), *(player_life)*2,5);//设置血条方框，以血量作为长度
        lifeFrameBar->setPen(QPen(Qt::white));//设置一个边框颜色，区分
@@ -382,7 +383,7 @@ void View::skill_use(int skillselect)
     m_cmdskilluse->Exec();
 }
 
-void View::pause_game()
+void View::pauseGame()
 {
     if(!isPause)
        {
@@ -537,6 +538,7 @@ void View::changescene()
     gameLostText->hide();
 
     /* 重试 */
+    /*
     QPushButton *retryGameBtn = new QPushButton(tr("Retry"));
     retryGameBtn->setFont(QFont("Algerian",18));
     retryGameBtn->setStyleSheet("QPushButton{background: transparent; color:white; }"
@@ -546,6 +548,7 @@ void View::changescene()
     retryGameButton->setPos(345,250);
     retryGameButton->setZValue(2);
     retryGameButton->hide();
+    */
     /* 生命值 */
     lifeFrameBar = new QGraphicsRectItem(LifeBarPos.x(), LifeBarPos.y(), myLife*2,5);//设置血条方框，以血量作为长度
     lifeFrameBar->setPen(QPen(Qt::white));//设置一个边框颜色，区分
@@ -668,5 +671,15 @@ void View::SetSkillUseCommand(shared_ptr<ICommandBase> a)
 }
 std::shared_ptr<IPropertyNotification> View::get_updateSink(){
     return std::static_pointer_cast<IPropertyNotification>(m_updateSink);
+}
+
+void View::SetPlayerLife(shared_ptr<BAR> a)
+{
+    player_life=a;
+}
+
+void View::SetPlayerSkill(shared_ptr<BAR> a)
+{
+    player_skill=a;
 }
 
