@@ -19,6 +19,11 @@
 #include <QString>
 #include <QPainter>
 #include <QObject>
+#include "../base/Bullet.h"
+#include "../base/EnemyPlane.h"
+#include "../base/MyPlane.h"
+#include "../base/Object.h"
+#include "../base/Plane.h"
 using namespace std;
 class View : public QGraphicsScene
 {
@@ -89,7 +94,8 @@ private:
        shared_ptr<ICommandBase> m_cmdshootmybullet;
        shared_ptr<ICommandBase> m_cmdmoveenemyplane;
 
-       MyPlane *myplane;
+       //MyPlane *myplane;
+       /*
        void SetPlayerPosX(shared_ptr<POS>);
        shared_ptr<POS>  play_posX;
        void SetPlayerPosY(shared_ptr<POS>);
@@ -108,6 +114,13 @@ private:
        shared_ptr<POSES>  enemy_posY;
        void SetEnemiesType(shared_ptr<ENEMYTYPES>);
        shared_ptr<ENEMYTYPES>  enemy_type;
+       */
+       std::shared_ptr<vector<EnemyPlane *>> EnemiesPlane;
+       std::shared_ptr<vector<Bullet *>> Bullets;
+       std::shared_ptr<MyPlane>  MyPlane;
+       std::shared_ptr<MyPlane>              SetMyPlane();
+       std::shared_ptr<vector<EnemyPlane *>> SetEnemiesPlane();
+       std::shared_ptr<vector<Bullet *>>     SetBullets();
        void SetPlayerLife(shared_ptr<BAR>);
        shared_ptr<BAR>  player_life;
        void SetPlayerSkill(shared_ptr<BAR>);
@@ -131,6 +144,9 @@ private:
        void pause_game();
 
        void reset_game();
+
+       void changescene();
+
        string direction;
        bool  hasStarted; //是否已经开始游戏
        int   score;//游戏得分

@@ -14,12 +14,10 @@
 #include "./sink/viewmodelsink.h"
 #include "../model/model.h"
 #include "../common/etlbase.h"
+#include "../common/precomp.h"
 #include "../base/Bullet.h"
 #include "../base/EnemyPlane.h"
 #include "../base/MyPlane.h"
-
-typedef int SCORE;
-typedef int BAR;
 
 class ViewModel: public Proxy_PropertyNotification<ViewModel>
 {
@@ -42,6 +40,7 @@ public:
 
     std::shared_ptr<vector<EnemyPlane *>> GetEnemiesPlane();
     std::shared_ptr<vector<Bullet *>>     GetBullets();
+    std::shared_ptr<vector<Object *>>     GetLifeSupplies();
 
     std::shared_ptr<BAR>                  GetPlayerLife();
     std::shared_ptr<BAR>                  GetPlayerSkill();
