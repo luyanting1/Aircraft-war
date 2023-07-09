@@ -3,25 +3,43 @@
 app::app(){}
 app::~app(){}
 
-void app::run(){
+void app::run(std::shared_ptr<QGraphicsView> game_interface){
 
+    std::shared_ptr<View>ctrl = make_shared<View>(new View);
+    game_interface->setScene(ctrl);
+    game_interface->setBackgroundBrush(QBrush(QPixmap("://images/background1.png")));
+    game_interface->show();
 
     model_ptr = std::make_shared<model>();
     viewmodel_ptr = std::make_shared<ViewModel>();
     viewmodel_ptr->SetModel(model_ptr);
 
-    _mainwindow.SetPlayerPosX(viewmodel_ptr->GetPlayerPosX());
-    _mainwindow.SetPlayerPosY(viewmodel_ptr->GetPlayerPosY());
-    _mainwindow.SetPlayerScore(viewmodel_ptr->GetPlayerScore());
+    ctrl->SetMyPlane(viewmodel_ptr->GetMyPlane());
+    ctrl->SetPlayerScore(viewmodel_ptr->GetPlayerScore());
+    ctrl->SetEnemiesPlane(viewmodel_ptr->GetEnemiesPlane());
+    ctrl->SetBullets(viewmodel_ptr->GetBullets());
+    ctrl->SetPlayerLife(viewmodel_ptr->GetPlayerLife());
+    ctrl->SetPlayerSkill(viewmodel_ptr->GetPlayerSkill());
+
+    //commands
+    ctrl->SetAllBulletMoveCommand(viewmodel_ptr->GetAllBulletMove());
+    ctrl->SetBossGenerateCommand(viewmodel_ptr->GetBossGenerate());
+    ctrl->SetEnemyBulletShootCommand(viewmodel_ptr->GetEnemyBulletShoot());
+    ctrl->SetEnemyGenerateCommand(viewmodel_ptr->GetEnemyGenerate());
+    ctrl->SetEnemyMoveCommand(viewmodel_ptr->GetEnemyMove());
+    ctrl->SetGamePauseCommand(viewmodel_ptr->GetGamePause());
+    ctrl->SetGameResetCommand(viewmodel_ptr->GetGameReset());
+    ctrl->SetPlayerBulletShootCommand(viewmodel_ptr->GetPlayerBulletShoot());
+    ctrl->SetPlayerMoveCommand(viewmodel_ptr->GetPlayerMove());
+    ctrl->SetSkillUseCommand(viewmodel_ptr->GetSkillUse());
 
     //notifications
-    viewmodel_ptr->AddPropertyNotification(_mainwindow.get_updateSink());
+    viewmodel_ptr->AddPropertyNotification(ctrl->get_updateSink());
 
-    _mainwindow.show();
 }
 
-view* app::GetMainWindow(){
-    return &_mainwindow;
+std::shared_ptr<View> app::GetCtrl(){
+    return ctrl;
 }
 
 std::shared_ptr<ViewModel> app::GetViewModel(){

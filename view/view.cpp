@@ -1,4 +1,4 @@
-#include "view.h"
+﻿#include "view.h"
 const QPointF scoreTextPos = QPointF(650, 520);
 const QPointF LifeBarPos = QPointF(650,550);
 const QPointF SkillBarPos = QPointF(650, 570);
@@ -123,7 +123,7 @@ View::View()
        retryGameButton->hide();
 
        /* 生命值 */
-       lifeFrameBar = new QGraphicsRectItem(LifeBarPos.x(), LifeBarPos.y(), *(player_life)*2,5);//设置血条方框，以血量作为长度
+       lifeFrameBar = new QGraphicsRectItem(LifeBarPos.x(), LifeBarPos.y(), *(player_life)*2, 5);//设置血条方框，以血量作为长度
        lifeFrameBar->setPen(QPen(Qt::white));//设置一个边框颜色，区分
        addItem(lifeFrameBar);
        lifeFrameBar->hide();
@@ -316,7 +316,6 @@ void View::keyPressEvent(QKeyEvent *event)
 
         */
         skill_use(7);
-        updateBar(skillBar, skillFrameBar, SkillBarPos, -14, QBrush(Qt::blue));
     }
     else if(event->key()==Qt::Key_Space)
         pauseGame();
@@ -325,36 +324,42 @@ void View::timerEvent(QTimerEvent *event)
 {
     if(event->timerId()==myPlaneMoveTimerId)
     {
-       myplane_move.x()=*(play_posX);
-       myplane_move.y()=*(play_posY);
-       myplane_move(direction);
-       updateBar(lifeBar,lifeFrameBar,LifeBarPos,Qt::green);
-       myplane->moveBy(*(play_posX)-myplane_move.x(),*(play_posY)-myplane_move.y());
-       myplane->update();
+        myplane_move(direction);
+         changescene();
       }  //changePlanePosition(myplane, myplane->x()+myPlaneMove.x(), myplane->y()+myPlaneMove.y());
     if(event->timerId()==enemyBulletShootTimerId)
     {
         enemybullet_shoot();
+        changescene();
 
     }
     else if(event->timerId()==myBulletShootTimerId)
+       {
         mybullet_shoot();
+        changescene();
+    }
+
     else if(event->timerId()==allBulletMoveTimerId)
     {
         bullet_move();
-        updateBar(lifeBar,lifeFrameBar,LifeBarPos,Qt::green);
-        score++;
-        scoreText->setHtml(tr("<font color=white>Score: %1</front>").arg(score));
+        changescene();
     }
     else if(event->timerId()==enemyPlaneMoveTimerId)
+    {
         enemyplane_move();
+        changescene();
+    }
     else if(event->timerId()==enemyPlaneGenerateTimerId)
     {
         for(int i=0;i<2;i++)
             enemyplane_generate();
+        changescene();
     }
     else if(event->timerId()==bossGenerateTimeId)
+    {
         boss_generate();
+        changescene();
+    }
     else if(event->timerId()==skillQTimerId)
         myBulletType = 0;
 }
@@ -363,7 +368,7 @@ void View::keyReleaseEvent(QKeyEvent *event)
     if((event->key()==Qt::Key_W || event->key()==Qt::Key_S || event->key()==Qt::Key_A || event->key()==Qt::Key_D)
             && !event->isAutoRepeat())
     {
-        myPlaneMove = QPointF(0, 0);
+        direction="N";//不移动的时候
         killTimer(myPlaneMoveTimerId);//当飞机不动以后将他的时钟释放掉
     }
 }
@@ -382,7 +387,34 @@ void View::skill_use(int skillselect)
 
 void View::pause_game()
 {
-    m_cmdgamepause->Exec();
+    if(!isPause)
+       {
+           isPause = true;
+           killTimer(myBulletShootTimerId);
+           killTimer(enemyBulletShootTimerId);
+           killTimer(allBulletMoveTimerId);
+           killTimer(enemyPlaneMoveTimerId);
+           killTimer(enemyPlaneGenerateTimerId);
+           killTimer(bossGenerateTimeId);
+           maskWidget->show();
+           continueGameButton->show();
+           helpGameButton->show();
+           quitGameButton->show();
+       }
+       else
+       {
+           isPause = false;
+           myBulletShootTimerId = startTimer(myBulletShootTimerItv);
+           enemyBulletShootTimerId = startTimer(enemyBulletShootTimerItv);
+           allBulletMoveTimerId = startTimer(allBulletMoveTimerItv);
+           enemyPlaneMoveTimerId = startTimer(enemyPlaneMoveTimerItv);
+           enemyPlaneGenerateTimerId = startTimer(enemyPlaneGenerateTimerItv);
+           bossGenerateTimeId = startTimer(bossGenerateTimeItv);
+           maskWidget->hide();
+           continueGameButton->hide();
+           helpGameButton->hide();
+           quitGameButton->hide();
+       }
 }
 
 void View::reset_game()
@@ -432,12 +464,97 @@ void View::changescene()
     for (auto item : items) {
         removeItem(item);
     }
-    myplane_move.x()=*(play_posX);
-    myplane_move.y()=*(play_posY);
-    myplane_move(direction);
-    updateBar(lifeBar,lifeFrameBar,LifeBarPos,Qt::green);
-    myplane->moveBy(*(play_posX)-myplane_move.x(),*(play_posY)-myplane_move.y());
-    myplane->update();
+    /* 游戏标题 */
+    titleText = new QGraphicsTextItem;
+    addItem(titleText);
+    titleText->setHtml(tr("<font color=white>Thunder Plane</font>"));
+    titleText->setFont(QFont("Algerian", 30));
+    titleText->setPos(200,100);
+    titleText->setZValue(2);
+    titleText->hide();
+    /* 作者信息 */
+    authorText = new QGraphicsTextItem;
+    addItem(authorText);
+    authorText->setHtml(tr("<font color=white>Copyright © 2023,c++."));
+    authorText->setFont(QFont("Courier"));
+    authorText->setPos(100, 500);
+    authorText->setZValue(2);
+    authorText->hide();
+     /* 遮罩面板 */
+     QWidget *mask = new QWidget;
+     mask->setAutoFillBackground(true);
+     mask->setPalette(QPalette(QColor(0, 0, 0, 80)));
+     mask->resize(width(),height());
+     maskWidget = addWidget(mask);
+     maskWidget->setPos(0,0);
+     maskWidget->setZValue(1); //设置处在z值为0的图形项上方
+     maskWidget->hide();
+
+    /*游戏开始按钮 */
+    QPushButton *startGameBtn = new QPushButton("Start Game");
+    startGameBtn->setFont(QFont("Algerian",18));
+    startGameBtn->setStyleSheet("QPushButton{background: transparent; color:white; }"
+                                "QPushButton:hover{color:red;}");
+    connect(startGameBtn,&QAbstractButton::clicked,this,&View::startGame);
+    startGameButton = addWidget(startGameBtn);
+    startGameButton->setPos(300,250);
+    startGameButton->setZValue(2);
+    startGameButton->hide();
+
+    /* 游戏帮助 */
+    QPushButton *helpGameBtn = new QPushButton(tr("Help"));
+    helpGameBtn->setFont(QFont("Algerian",18));
+    helpGameBtn->setStyleSheet("QPushButton{background: transparent; color:white; }"
+                                   "QPushButton:hover{color:red;}");
+    connect(helpGameBtn,&QAbstractButton::clicked,this,&View::showHelpMessage);
+    helpGameButton = addWidget(helpGameBtn);
+    helpGameButton->setPos(350,300);
+    helpGameButton->setZValue(2);
+    helpGameButton->hide();
+
+    /* 退出游戏 */
+    QPushButton *quitGameBtn = new QPushButton(tr("Quit Game"));
+    quitGameBtn->setFont(QFont("Algerian",18));
+    quitGameBtn->setStyleSheet("QPushButton{background: transparent; color:white; }"
+                               "QPushButton:hover{color:red;}");
+    connect(quitGameBtn,&QAbstractButton::clicked,this,&View::quitGame);
+    quitGameButton = addWidget(quitGameBtn);
+    quitGameButton->setPos(310, 350);
+    quitGameButton->setZValue(2);
+    quitGameButton->hide();
+
+
+    /* 游戏暂停提示 */
+    isPause = false;
+    QPushButton *continueGameBtn = new QPushButton(tr("Resume"));
+    continueGameBtn->setFont(QFont("Algerian",18));
+    continueGameBtn->setStyleSheet("QPushButton{background: transparent; color:white; }"
+                                       "QPushButton:hover{color:red;}");
+    connect(continueGameBtn,&QAbstractButton::clicked,this,&View::pauseGame);
+    continueGameButton = addWidget(continueGameBtn);
+    continueGameButton->setPos(330,250);
+    continueGameButton->setZValue(2);
+    continueGameButton->hide();
+
+    /* 游戏终止提示 */
+    gameLostText = new QGraphicsTextItem;
+    addItem(gameLostText);
+    gameLostText->setHtml(tr("<font color=white>Game Over</font>"));
+    gameLostText->setFont(QFont("Algerian", 22));
+    gameLostText->setPos(150, 150);
+    gameLostText->setZValue(2);
+    gameLostText->hide();
+
+    /* 重试 */
+    QPushButton *retryGameBtn = new QPushButton(tr("Retry"));
+    retryGameBtn->setFont(QFont("Algerian",18));
+    retryGameBtn->setStyleSheet("QPushButton{background: transparent; color:white; }"
+                                   "QPushButton:hover{color:red;}");
+    connect(retryGameBtn,&QAbstractButton::clicked,this,&View::retryGame);
+    retryGameButton = addWidget(retryGameBtn);
+    retryGameButton->setPos(345,250);
+    retryGameButton->setZValue(2);
+    retryGameButton->hide();
     /* 生命值 */
     lifeFrameBar = new QGraphicsRectItem(LifeBarPos.x(), LifeBarPos.y(), myLife*2,5);//设置血条方框，以血量作为长度
     lifeFrameBar->setPen(QPen(Qt::white));//设置一个边框颜色，区分
@@ -457,6 +574,51 @@ void View::changescene()
     skillBar->setBrush(QBrush(Qt::blue));
     addItem(skillBar);
     skillBar->hide();
+
+    //得分显示
+    scoreText = new QGraphicsTextItem;
+    addItem(scoreText);
+    scoreText->setHtml(tr("<font color=white>Score: %1</front>").arg(score));
+    scoreText->setFont(QFont("Courier"));
+    scoreText->setPos(620, 500);
+    scoreText->setZValue(1);
+    scoreText->hide();
+
+
+    scoreText->show();
+
+
+    lifeFrameBar->show();
+    lifeBar->setRect(LifeBarPos.x(), LifeBarPos.y(), *(player_life)*2, lifeBar->rect().height());
+    lifeBar->setBrush(Qt::green);
+    lifeBar->update();//血量值会更新
+    lifeBar->show();
+
+    skillFrameBar->show();
+    skillBar->setRect(SkillBarPos.x(), SkillBarPos.y(), *(player_skill)*2, skillBar->rect().height());
+    skillBar->setBrush(Qt::blue);
+    skillBar->update();
+    skillBar->show();
+
+
+    for(Bullet* bullet: *Bullets)
+    {
+       setPos(bullet->getX(),bullet->getY());
+       addItem(bullet);
+    }
+    for (EnemyPlane* enemyPlane : *EnemiesPlane) {
+        setPos(enemyPlane->getX(),enemyPlane->getY());
+        addItem(enemyPlane);
+    }
+    for(Object* lifesupply:*LifeSupplys)
+    {
+        setPos(lifesupply->getX(),lifesupply->getY());
+        addItem(lifesupply);
+
+    }
+    setPos(MyPlane->getX(),MyPlane->getY());
+    addItem(MyPlane);
+
 
 }
 

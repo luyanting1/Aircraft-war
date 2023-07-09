@@ -2,7 +2,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+CONFIG += c++17
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -16,43 +16,51 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    app/app.cpp \
-    base/Bullet.cpp \
-    base/EnemyPlane.cpp \
-    base/MyPlane.cpp \
-    base/Object.cpp \
-    base/Plane.cpp \
     main.cpp \
     mainwindow.cpp \
-    model/model.cpp \
+    app/app.cpp \
     view/view.cpp \
-    viewmodel/command/frameruncommand.cpp \
+    viewmodel/command/allbulletmovecommand.cpp \
+    viewmodel/command/bossgeneratecommand.cpp \
+    viewmodel/command/enemybulletshootcommand.cpp \
+    viewmodel/command/enemygeneratecommand.cpp \
+    viewmodel/command/enemymovecommand.cpp \
     viewmodel/command/gamepausecommand.cpp \
     viewmodel/command/gameresetcommand.cpp \
+    viewmodel/command/playerbulletshootcommand.cpp \
     viewmodel/command/playermovecommand.cpp \
     viewmodel/command/skillusecommand.cpp \
     viewmodel/sink/viewmodelsink.cpp \
-    viewmodel/viewmodel.cpp
+    viewmodel/viewmodel.cpp \
+    base/Bullet.cpp \
+    base/EnemyPlane.cpp \
+    base/MyPlane.cpp \
+    base/Plane.cpp \
+    base/Object.cpp
 
 HEADERS += \
-    app/app.h \
-    base/Bullet.h \
-    base/EnemyPlane.h \
-    base/MyPlane.h \
-    base/Object.h \
-    base/Plane.h \
-    common/etlbase.h \
     common/precomp.h \
     mainwindow.h \
-    model/model.h \
+    app/app.h \
     view/view.h \
-    viewmodel/command/frameruncommand.h \
+    viewmodel/command/allbulletmovecommand.h \
+    viewmodel/command/bossgeneratecommand.h \
+    viewmodel/command/enemybulletshootcommand.h \
+    viewmodel/command/enemygeneratecommand.h \
+    viewmodel/command/enemymovecommand.h \
     viewmodel/command/gamepausecommand.h \
     viewmodel/command/gameresetcommand.h \
+    viewmodel/command/playerbulletshootcommand.h \
     viewmodel/command/playermovecommand.h \
     viewmodel/command/skillusecommand.h \
     viewmodel/sink/viewmodelsink.h \
-    viewmodel/viewmodel.h
+    viewmodel/viewmodel.h \
+    common/etlbase.h \
+    base/Bullet.h \
+    base/EnemyPlane.h \
+    base/MyPlane.h \
+    base/Plane.h \
+    base/Object.h
 
 FORMS += \
     mainwindow.ui
@@ -64,3 +72,6 @@ TRANSLATIONS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    image.qrc
