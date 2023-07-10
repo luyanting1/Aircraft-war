@@ -11,7 +11,8 @@ public:
     ~app();
     std::shared_ptr<View> GetCtrl();
     std::shared_ptr<ViewModel> GetViewModel();
-    void run(std::shared_ptr<QGraphicsView>);
+   // void run(std::shared_ptr<QGraphicsView>);
+    void run(QGraphicsView* game_interface);
 private:
     std::shared_ptr<View> ctrl;
     std::shared_ptr<model> model_ptr;

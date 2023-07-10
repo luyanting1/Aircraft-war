@@ -151,7 +151,6 @@ private:
        std::shared_ptr<vector<Object *>> LifeSupplies;
        std::shared_ptr<int> PlayerScore;
        shared_ptr<BAR>  player_life;
-
        shared_ptr<BAR>  player_skill;
        void enemyplane_move();
 

@@ -15,8 +15,10 @@ View::View()
 {
     setSceneRect(0,0,800,600);//设置整个界面的大小
 
-    myLife=*(this->player_life) = 50;
-    mySkill=*(this->player_skill) = 5;
+    myLife=50;
+    //(*player_life) = 50;
+    mySkill=5;
+    //(*player_skill) = 5;
 
     this->myBulletImageFile = ":/images/mybullet.png";
     this->enemyPlaneImageFile = ":/images/enemyplane.png";
@@ -126,21 +128,21 @@ View::View()
        retryGameButton->hide();
        */
        /* 生命值 */
-       lifeFrameBar = new QGraphicsRectItem(LifeBarPos.x(), LifeBarPos.y(), *(player_life)*2,5);//设置血条方框，以血量作为长度
+       lifeFrameBar = new QGraphicsRectItem(LifeBarPos.x(), LifeBarPos.y(), myLife*2,5);//设置血条方框，以血量作为长度
        lifeFrameBar->setPen(QPen(Qt::white));//设置一个边框颜色，区分
        addItem(lifeFrameBar);
        lifeFrameBar->hide();
-       lifeBar = new QGraphicsRectItem(LifeBarPos.x(), LifeBarPos.y(), *(player_life)*2, 5);
+       lifeBar = new QGraphicsRectItem(LifeBarPos.x(), LifeBarPos.y(), myLife*2, 5);
        lifeBar->setBrush(QBrush(Qt::green));//填充血条颜色
        addItem(lifeBar);
        lifeBar->hide();
 
        /* 技能值 */
-       skillFrameBar = new QGraphicsRectItem(SkillBarPos.x(),SkillBarPos.y(), *(player_skill)*2,5);
+       skillFrameBar = new QGraphicsRectItem(SkillBarPos.x(),SkillBarPos.y(),  mySkill*2,5);
        skillFrameBar->setPen(QPen(Qt::white));
        addItem(skillFrameBar);
        skillFrameBar->hide();
-       skillBar = new QGraphicsRectItem(SkillBarPos.x(), SkillBarPos.y(), *(player_skill)*2, 5);
+       skillBar = new QGraphicsRectItem(SkillBarPos.x(), SkillBarPos.y(), mySkill*2, 5);
        skillBar->setBrush(QBrush(Qt::blue));
        addItem(skillBar);
        skillBar->hide();
@@ -328,7 +330,7 @@ void View::timerEvent(QTimerEvent *event)
     if(event->timerId()==myPlaneMoveTimerId)
     {
         myplane_move(direction);
-         changescene();
+        changescene();
       }  //changePlanePosition(myplane, myplane->x()+myPlaneMove.x(), myplane->y()+myPlaneMove.y());
     if(event->timerId()==enemyBulletShootTimerId)
     {
