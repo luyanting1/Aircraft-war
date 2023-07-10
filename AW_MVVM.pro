@@ -29,6 +29,7 @@ SOURCES += \
     viewmodel/command/gamepausecommand.cpp \
     viewmodel/command/gameresetcommand.cpp \
     viewmodel/command/playerbulletshootcommand.cpp \
+    viewmodel/command/playergeneratecommand.cpp \
     viewmodel/command/playermovecommand.cpp \
     viewmodel/command/skillusecommand.cpp \
     viewmodel/sink/viewmodelsink.cpp \
@@ -54,6 +55,7 @@ HEADERS += \
     viewmodel/command/gamepausecommand.h \
     viewmodel/command/gameresetcommand.h \
     viewmodel/command/playerbulletshootcommand.h \
+    viewmodel/command/playergeneratecommand.h \
     viewmodel/command/playermovecommand.h \
     viewmodel/command/skillusecommand.h \
     viewmodel/sink/viewmodelsink.h \
