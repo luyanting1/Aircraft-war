@@ -153,6 +153,15 @@ bool model::skilluse(int sk_index)
     return 1;
 }
 
+inline bool collidesWithItem(double x0,double y0,double len0,double h0,double x2,double y2,double len2,double h2)
+{
+    double top0 = y0+h0/2, bot0 = y0-h0/2, left0 = x0-len0/2, right0 = x0+len0/2;
+    double top2 = y2+h2/2, bot2 = y2-h2/2, left2 = x2-len2/2, right2 = x2+len2/2;
+    if(left0 > right2 || left2 > right0 || bot0 > top2 || bot2 < top0)
+       return 0;
+    else return 1;
+}
+
 bool model::changeBulletPosition(Bullet * bullet, int newX, int newY)
 {
     /* 检查位置是否有变化，无变化则返回true */
@@ -162,7 +171,7 @@ bool model::changeBulletPosition(Bullet * bullet, int newX, int newY)
     /* 检查子弹是否击中某一飞机 */
     /* 首先检查玩家飞机 */
     WarPart part1 = bullet->getp();
-    if (part1==ENEMY && bullet->collidesWithItem(myplane))
+    if (part1==ENEMY && collidesWithItem(myplane->x,myplane->y, myplanewidth,myplaneheight,newX,newY,enemybulletwidth, enemybulletheight))
     {
         /*bullet->hit(this);
         myplane->crash(this);
@@ -179,7 +188,7 @@ bool model::changeBulletPosition(Bullet * bullet, int newX, int newY)
         for (vector<EnemyPlane*>::iterator it = enemyplanes->begin(); it != enemyplanes->end();)
         {
             bool alive = true;
-            if(bullet->collidesWithItem((const QGraphicsItem *)(*it)))
+            if(collidesWithItem((*it)->x, (*it)->y, enemyplanewidth, enemyplaneheight, newX, newY, mybulletwidth, mybulletheight))
             {
                 //alive = (*it)->crash(this);
                 myplane->setskill(myplane->getskill()+1);
@@ -376,7 +385,7 @@ bool model::changePlanePosition(Plane *plane, int newX, int newY)
     if(plane->part==ME)
         for(vector<Object*>::iterator it=lifesupplys->begin();it!=lifesupplys->end(); )
         {
-            if(plane->collidesWithItem(*it))
+            if(collidesWithItem(newX , newY, myplanewidth, myplaneheight, (*it)->x, (*it)->y, lifesupplywidth, lifesupplyheight))
             {
                 plane->life = min(plane->life+10, myLife);
                 delete *it;
@@ -397,18 +406,15 @@ bool model::changePlanePosition(Plane *plane, int newX, int newY)
         }
 
         bool alive = true; //it所指向的飞机是否还有生命值
-        if (plane->collidesWithItem((QGraphicsItem *)(*it)))
-        {
             /* 若为玩家飞机，两架飞机均crash，生命值都减1 */
-            if (plane->part == ME)
-            {
+        if (plane->part == ME && collidesWithItem(newX , newY, myplanewidth, myplaneheight, (*it)->x, (*it)->y, enemyplanewidth, enemyplaneheight) )
+        {
                 plane->crash();
                 alive = (*it)->crash1();
                // updateBar(lifeBar, lifeFrameBar, LifeBarPos, -2, QBrush(Qt::green));
-            }
-            if (plane->part == ENEMY) //若同为敌机，则不允许改变位置，NOCHANGE
-                return true;
         }
+        if (plane->part == ENEMY && collidesWithItem(newX , newY, enemyplanewidth, enemyplaneheight, (*it)->x, (*it)->y, enemyplanewidth, enemyplaneheight)) //若同为敌机，则不允许改变位置，NOCHANGE
+                return true;
 
         if (alive)
             it++;
@@ -420,7 +426,7 @@ bool model::changePlanePosition(Plane *plane, int newX, int newY)
     }
 
     /* 若此飞机为敌机，且与玩家飞机发生了碰撞 */
-    if (plane->part == ENEMY && plane->collidesWithItem(myplane))
+    if (plane->part == ENEMY && collidesWithItem(newX , newY, enemyplanewidth, enemyplaneheight, myplane->x, myplane->y, myplanewidth, myplaneheight))
     {
         myplane->crash();
         plane->crash();

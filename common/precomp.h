@@ -14,9 +14,12 @@
 #define bosswidth 240
 #define bossheight 240
 
-
 #define enemyplanewidth 90
 #define enemyplaneheight 69
+
+#define lifesupplywidth 26
+#define lifesupplyheight 24
+
 #define myBulletImageFile  ":/images/mybullet.png"
 #define enemyPlaneImageFile  ":/images/enemyplane.png"
 #define myPlaneImageFile  ":/images/myplane.png"
@@ -35,6 +38,13 @@
 
 #define myplanewidth 120
 #define myplaneheight 79
+
+#define mybulletwidth 128
+#define mybulletheight 128
+
+#define enemybulletwidth 90
+#define enemybulletheight 44
+
 enum EnemyType {ORD, BOSS};
 enum WarPart { ME, ENEMY, LIFESUPPLY };
 
