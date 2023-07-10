@@ -65,22 +65,8 @@ public:
     void SetSkillUseCommand(shared_ptr<ICommandBase> a);
 private:
        //各种模型的属性
-       string myPlaneImageFile;
        int myLife;
        int mySkill;
-
-       string myBulletImageFile;
-
-       string enemyPlaneImageFile;
-
-
-       string enemyBulletImageFile;
-
-       string bossImageFile;
-
-       string bossBulletImageFile;
-
-       string lifeSupplyImageFile;
 
        QPointF myPlaneMove;//飞机的位移
 

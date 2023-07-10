@@ -6,8 +6,8 @@ EnemyPlane::EnemyPlane()
 {
 }
 
-EnemyPlane::EnemyPlane(double x, double y, EnemyType type, int life):
-    Plane(x, y, life, ENEMY)
+EnemyPlane::EnemyPlane(double x, double y,const string &imageFile, EnemyType type, int life):
+    Plane(x, y, imageFile, life, ENEMY)
 {
     this->type = type;
 }

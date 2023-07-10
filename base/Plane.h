@@ -13,7 +13,7 @@ class Plane: public Object
     friend class model;
 public:
     Plane();
-    Plane(double x, double y, int life, enum WarPart part);
+    Plane(double x, double y, const string &imageFile, int life, enum WarPart part);
     bool crash(); //飞机发生碰撞
 
 protected:

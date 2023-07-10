@@ -6,8 +6,8 @@ Bullet::Bullet()
 {
 }
 
-Bullet::Bullet(WarPart part, double x, double y, const QPointF &dir, int power):
-    Object(part)
+Bullet::Bullet(WarPart part, double x, double y, const string &imageFile,const QPointF &dir, int power):
+    Object(part,imageFile)
 {
     setPos(x, y);
 	this->dir = dir;

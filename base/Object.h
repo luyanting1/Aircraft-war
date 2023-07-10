@@ -11,7 +11,7 @@ class Object : public QGraphicsPixmapItem
     friend class model;
 public:
     Object();
-    Object(WarPart part);
+    Object(WarPart part, const string &imageFile);
     ~Object();
    // void synScreen(QGraphicsScene *scene);
     //void delScreen(QGraphicsScene *scene);

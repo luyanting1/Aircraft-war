@@ -11,7 +11,7 @@ class EnemyPlane :public Plane
     friend class model;
 public:
     EnemyPlane();
-    EnemyPlane(double x, double y, EnemyType type, int life);
+    EnemyPlane(double x, double y, const string &imageFile,EnemyType type, int life);
     pair<double,double> updatePosition();
     double getx() { return this->x(); }
     double gety() { return this->y(); }

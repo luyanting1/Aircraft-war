@@ -215,7 +215,7 @@ bool model::changeBulletPosition(Bullet * bullet, int newX, int newY)
                 srand(time(NULL));
                 if(rand()%4==0)
                 {
-                    Object *lifeSupply = new Object(LIFESUPPLY);
+                    Object *lifeSupply = new Object(LIFESUPPLY, lifeSupplyImageFile);
                     lifeSupply->setPos(bullet->pos());
                     lifesupplys->push_back(lifeSupply);
                 }
@@ -295,7 +295,7 @@ bool model::bossgenerate()
         return false;
 
     /* 新增敌机 */
-    EnemyPlane *enemy = new EnemyPlane(x, 0, BOSS, 10);
+    EnemyPlane *enemy = new EnemyPlane(x, 0, bossImageFile, BOSS, 10);
     enemyplanes->push_back(enemy);
     return true;
 }
@@ -307,23 +307,23 @@ bool model::enemybulletshoot()
         {
             if((*iter)->type==ORD)
             {
-                Bullet *bullet = new Bullet(ENEMY, (*iter)->getx()+enemyplanewidth/2, (*iter)->gety()+enemyplaneheight-15,
+                Bullet *bullet = new Bullet(ENEMY, (*iter)->getx()+enemyplanewidth/2, (*iter)->gety()+enemyplaneheight-15,enemyBulletImageFile,
                                          QPointF(0,1), enemyBulletPower);
                 enemybullets->push_back(bullet);
               //  addItem(bullet);
             }
             else if((*iter)->type==BOSS)
             {
-                Bullet *bullet0 = new Bullet(ENEMY, (*iter)->getx()+bosswidth/2, (*iter)->gety()+bossheight-15,
+                Bullet *bullet0 = new Bullet(ENEMY, (*iter)->getx()+bosswidth/2, (*iter)->gety()+bossheight-15,bossBulletImageFile,
                                          QPointF(0,1), bossBulletPower);
                 enemybullets->push_back(bullet0);
 
-                Bullet *bullet1 = new Bullet(ENEMY, (*iter)->getx()+bosswidth/2, (*iter)->gety()+bossheight-15,
+                Bullet *bullet1 = new Bullet(ENEMY, (*iter)->getx()+bosswidth/2, (*iter)->gety()+bossheight-15,bossBulletImageFile,
                                          QPointF(-1,1), bossBulletPower);
                 bullet1->setRotation(45);
                 enemybullets->push_back(bullet1);
 
-                Bullet *bullet2 = new Bullet(ENEMY, (*iter)->getx()+bosswidth/2, (*iter)->gety()+bossheight-15,
+                Bullet *bullet2 = new Bullet(ENEMY, (*iter)->getx()+bosswidth/2, (*iter)->gety()+bossheight-15,bossBulletImageFile,
                                         QPointF(1,1), bossBulletPower);
                 bullet2->setRotation(-45);
                 enemybullets->push_back(bullet2);
@@ -363,7 +363,7 @@ bool model::enemygenerate()
         return false;
 
     /* 新增敌机 */
-    EnemyPlane *enemy = new EnemyPlane(x, 0, ORD, enemyLife);
+    EnemyPlane *enemy = new EnemyPlane(x, 0, enemyPlaneImageFile, ORD, enemyLife);
     enemyplanes->push_back(enemy);
     return true;
 }
@@ -494,7 +494,7 @@ bool model::gamereset()
     this->mySkill = 5;
     mybullets = std::make_shared<vector<Bullet*>>();
     lifesupplys = std::make_shared<vector<Object*>>();
-    myplane = new MyPlane(width1 / 2, height1 / 2, myLife, mySkill);
+    myplane = new MyPlane(width1 / 2, height1 / 2, myPlaneImageFile, myLife, mySkill);
     /* 添加敌机 */
     for (int i = 0; i < 3; i++)
         enemygenerate();
@@ -505,25 +505,25 @@ bool model::playerbulletshoot()
 {
     if((*myBulletType)==0)
     {
-        Bullet *bullet = new Bullet(ME, myplane->x()+40, myplane->y()-38,
+        Bullet *bullet = new Bullet(ME, myplane->x()+40, myplane->y()-38, myBulletImageFile,
                                     QPointF(0,-3), myBulletPower);
         mybullets->push_back(bullet);
        // addItem(bullet);
     }
     else if((*myBulletType)==1)
     {
-        Bullet *bullet1 = new Bullet(ME, myplane->x()+40, myplane->y()-38,
+        Bullet *bullet1 = new Bullet(ME, myplane->x()+40, myplane->y()-38, myBulletImageFile,
                                     QPointF(-3,-3), myBulletPower);
         mybullets->push_back(bullet1);
         bullet1->setRotation(-45);
         //addItem(bullet1);
 
-        Bullet *bullet2 = new Bullet(ME, myplane->x()+40, myplane->y()-38,
+        Bullet *bullet2 = new Bullet(ME, myplane->x()+40, myplane->y()-38, myBulletImageFile,
                                     QPointF(0,-3), myBulletPower);
         mybullets->push_back(bullet2);
         //addItem(bullet2);
 
-        Bullet *bullet3 = new Bullet(ME, myplane->x()+40, myplane->y()-38,
+        Bullet *bullet3 = new Bullet(ME, myplane->x()+40, myplane->y()-38, myBulletImageFile,
                                     QPointF(3,-3), myBulletPower);
         mybullets->push_back(bullet3);
         bullet3->setRotation(45);

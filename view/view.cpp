@@ -20,19 +20,6 @@ View::View()
     mySkill=5;
     //(*player_skill) = 5;
 
-    this->myBulletImageFile = ":/images/mybullet.png";
-    this->enemyPlaneImageFile = ":/images/enemyplane.png";
-    this->myPlaneImageFile = ":/images/myplane.png";
-    this->bossImageFile = ":/images/boss2.gif";//boss图片
-
-
-
-    this->enemyBulletImageFile = ":/images/76446d7d2b8c45cb8ed30baf1f75397e.png";//敌机子弹图片
-
-
-    this->bossBulletImageFile = ":/images/76446d7d2b8c45cb8ed30baf1f75397e.png";//boss子弹图片
-
-    this->lifeSupplyImageFile = ":/images/lifesupply.png";//补给图片
 
        /* 游戏标题 */
        titleText = new QGraphicsTextItem;
@@ -215,7 +202,7 @@ void View::startGame()
     bossGenerateTimeId = startTimer(bossGenerateTimeItv);
 
     /* 添加玩家飞机 */
-    myplane = make_shared<MyPlane>(width() / 2, height() / 2, *player_life, *player_skill);
+    myplane = make_shared<MyPlane>(width() / 2, height() / 2, myPlaneImageFile, *player_life, *player_skill);
     this->addItem(((std::shared_ptr<QGraphicsItem>)(myplane)).get());
     /* 添加敌机 */
     for (int i = 0; i < 3; i++)

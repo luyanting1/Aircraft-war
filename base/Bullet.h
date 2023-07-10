@@ -15,7 +15,7 @@ class Bullet: public Object
     friend class model;
 public:
         Bullet();
-    Bullet(WarPart part, double x, double y, const QPointF &dir, int power);
+    Bullet(WarPart part, double x, double y,const string &imageFile, const QPointF &dir, int power);
     pair<qreal,qreal> updatePosition();
     //bool hit(QGraphicsScene *scene);
     double getx() { return this->x(); }
