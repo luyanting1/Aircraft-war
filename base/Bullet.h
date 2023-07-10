@@ -1,8 +1,5 @@
 ﻿#ifndef BULLET_H
 #define BULLET_H
-
-#include <QtWidgets>
-
 #include "Object.h"
 #include<common/precomp.h>
 #include <utility>

@@ -17,21 +17,7 @@
 
 #define enemyplanewidth 90
 #define enemyplaneheight 69
-#define myBulletImageFile  ":/images/mybullet.png"
-#define enemyPlaneImageFile  ":/images/enemyplane.png"
-#define myPlaneImageFile  ":/images/myplane.png"
-#define bossImageFile  ":/images/boss2.gif"
-//boss图片
 
-#define enemyBulletImageFile  ":/images/76446d7d2b8c45cb8ed30baf1f75397e.png"
-//敌机子弹图片
-
-
-#define bossBulletImageFile  ":/images/76446d7d2b8c45cb8ed30baf1f75397e.png"
-//boss子弹图片
-
-#define lifeSupplyImageFile  ":/images/lifesupply.png"
-//补给图片
 
 #define myplanewidth 120
 #define myplaneheight 79

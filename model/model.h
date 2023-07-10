@@ -37,8 +37,8 @@ private:
      int width1 = 800;
      int height1 = 600;
      int myBulletPower;
-     int enemyLife;
      int enemyBulletPower;
+     int enemyLife;
      int bossLife;
      int bossBulletPower;
      int myLife;
