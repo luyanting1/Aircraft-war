@@ -18,6 +18,11 @@ View::View()
     myLife=*(this->player_life) = 50;
     mySkill=*(this->player_skill) = 5;
 
+    this->myBulletImageFile = ":/images/mybullet.png";
+    this->enemyPlaneImageFile = ":/images/enemyplane.png";
+    this->myPlaneImageFile = ":/images/myplane.png";
+    this->bossImageFile = ":/images/boss2.gif";//boss图片
+
 
 
     this->enemyBulletImageFile = ":/images/76446d7d2b8c45cb8ed30baf1f75397e.png";//敌机子弹图片

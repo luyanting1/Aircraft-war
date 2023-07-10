@@ -11,24 +11,18 @@
 #define WIDTH 600
 #define HEIGHT 800
 
+#define bosswidth 240
+#define bossheight 240
+
+
+#define enemyplanewidth 90
+#define enemyplaneheight 69
+
+
+#define myplanewidth 120
+#define myplaneheight 79
 enum EnemyType {ORD, BOSS};
 enum WarPart { ME, ENEMY, LIFESUPPLY };
-extern std::string myBulletImageFile;
-extern std::string enemyPlaneImageFile;
-extern std::string myPlaneImageFile;
-extern std::string bossImageFile;
-
-extern QPixmap pixmap1;
-extern const double bosswidth;
-extern const double bossheight;
-
-extern QPixmap pixmap2;
-extern const double enemyplanewidth;
-extern const double enemyplaneheight;
-
-extern QPixmap pixmap3;
-extern const double myplanewidth;
-extern const double myplaneheight;
 
 typedef double POS;
 typedef std::vector<POS*> POSES;

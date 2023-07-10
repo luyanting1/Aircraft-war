@@ -65,18 +65,18 @@ public:
     void SetSkillUseCommand(shared_ptr<ICommandBase> a);
 private:
        //各种模型的属性
-       //string myPlaneImageFile;
+       string myPlaneImageFile;
        int myLife;
        int mySkill;
 
-       //string myBulletImageFile;
+       string myBulletImageFile;
 
-       //string enemyPlaneImageFile;
+       string enemyPlaneImageFile;
 
 
        string enemyBulletImageFile;
 
-       //string bossImageFile;
+       string bossImageFile;
 
        string bossBulletImageFile;
 
