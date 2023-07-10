@@ -5,8 +5,10 @@ Object::Object()
 
 }
 
-Object::Object(WarPart part)
+Object::Object(double x,double y,WarPart part):
 {
+    this->x = x;
+    this->y = y;
     this->part = part;
 }
 

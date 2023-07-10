@@ -14,5 +14,5 @@ EnemyPlane::EnemyPlane(double x, double y, EnemyType type, int life):
 
 pair<double,double> EnemyPlane::updatePosition()
 {
-    return make_pair(x(), y()+2);
+    return make_pair(x, y+2);
 }

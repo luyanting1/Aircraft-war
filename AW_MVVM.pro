@@ -19,6 +19,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     app/app.cpp \
+    model/model.cpp \
     view/view.cpp \
     viewmodel/command/allbulletmovecommand.cpp \
     viewmodel/command/bossgeneratecommand.cpp \
@@ -32,6 +33,7 @@ SOURCES += \
     viewmodel/command/skillusecommand.cpp \
     viewmodel/sink/viewmodelsink.cpp \
     viewmodel/viewmodel.cpp \
+    common/precomp.cpp \
     base/Bullet.cpp \
     base/EnemyPlane.cpp \
     base/MyPlane.cpp \
@@ -39,10 +41,11 @@ SOURCES += \
     base/Object.cpp
 
 HEADERS += \
-    common/precomp.h \
     mainwindow.h \
     app/app.h \
+    model/model.h \
     view/view.h \
+    view/sinks/updatesink.h \
     viewmodel/command/allbulletmovecommand.h \
     viewmodel/command/bossgeneratecommand.h \
     viewmodel/command/enemybulletshootcommand.h \
@@ -56,6 +59,7 @@ HEADERS += \
     viewmodel/sink/viewmodelsink.h \
     viewmodel/viewmodel.h \
     common/etlbase.h \
+    common/precomp.h \
     base/Bullet.h \
     base/EnemyPlane.h \
     base/MyPlane.h \

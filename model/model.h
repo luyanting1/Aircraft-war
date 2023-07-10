@@ -1,4 +1,4 @@
-#ifndef MODEL_H
+﻿#ifndef MODEL_H
 #define MODEL_H
 #include <memory>
 #include <ctime>
@@ -15,6 +15,7 @@
 //#include <QMediaPlaylist>
 //#include <QMediaPlayer>
 
+#include "./base/Bullet.h"
 #include "./base/Plane.h"
 #include "./base/MyPlane.h"
 #include "./base/EnemyPlane.h"
@@ -61,10 +62,16 @@ public:
     bool skilluse(int sk_index);
     bool changeBulletPosition(Bullet * bullet, int newX, int newY);
 
-    std::shared_ptr<MyPlane> GetMyPlane();
+    std::shared_ptr<POS>    GetPlayerPosX();
+    std::shared_ptr<POS>    GetPlayerPosY();
     std::shared_ptr<SCORE> GetPlayerScore();
-    std::shared_ptr<vector<Bullet *>> GetBullets();
-    std::shared_ptr<vector<EnemyPlane *>> GetEnemiesPlane();
+    std::shared_ptr<POSES>    GetBulletsPosX();
+    std::shared_ptr<POSES>    GetBulletsPosY();
+    std::shared_ptr<BULLETTYPES>    GetBulletsType();
+    std::shared_ptr<POSES>    GetEmemiesPosX();
+    std::shared_ptr<POSES>    GetEmemiesPosY();
+    std::shared_ptr<ENEMYTYPES>    GetEmemiesType();
+    std::shared_ptr<vector<Object *>>GetLifeSupplies();
     std::shared_ptr<int> GetPlayerLife();
     std::shared_ptr<int> GetPlayerSkill();
 

@@ -15,9 +15,6 @@
 #include "../model/model.h"
 #include "../common/etlbase.h"
 #include "../common/precomp.h"
-#include "../base/Bullet.h"
-#include "../base/EnemyPlane.h"
-#include "../base/MyPlane.h"
 
 class ViewModel: public Proxy_PropertyNotification<ViewModel>
 {
@@ -32,19 +29,23 @@ public:
     bool CallModelGamePause();
     bool CallModelGameReset();
     bool CallModelPlayerBulletShoot();
-    bool CallModelPlayerMove(std::string direction);
+    bool CallModelPlayerMove(char direction);
     bool CallModelSkillUse(int skill_index);
 
-    std::shared_ptr<MyPlane>              GetMyPlane();
-    std::shared_ptr<SCORE>                GetPlayerScore();
+    std::shared_ptr<POS>    GetPlayerPosX();
+    std::shared_ptr<POS>    GetPlayerPosY();
+    std::shared_ptr<SCORE>    GetPlayerScore();
 
-    std::shared_ptr<vector<EnemyPlane *>> GetEnemiesPlane();
-    std::shared_ptr<vector<Bullet *>>     GetBullets();
-    std::shared_ptr<vector<Object *>>     GetLifeSupplies();
+    std::shared_ptr<POSES>    GetBulletsPosX();
+    std::shared_ptr<POSES>    GetBulletsPosY();
+    std::shared_ptr<BULLETTYPES>    GetBulletsType();
 
-    std::shared_ptr<BAR>                  GetPlayerLife();
-    std::shared_ptr<BAR>                  GetPlayerSkill();
+    std::shared_ptr<POSES>    GetEmemiesPosX();
+    std::shared_ptr<POSES>    GetEmemiesPosY();
+    std::shared_ptr<ENEMYTYPES>    GetEmemiesType();
 
+    std::shared_ptr<BAR>    GetPlayerLife();
+    std::shared_ptr<BAR>    GetPlayerSkill();
     std::shared_ptr<ICommandBase> GetAllBulletMove();
     std::shared_ptr<ICommandBase> GetBossGenerate();
     std::shared_ptr<ICommandBase> GetEnemyBulletShoot();

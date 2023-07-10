@@ -8,11 +8,9 @@ Plane::Plane()
 {
 }
 
-Plane::Plane(double x, double y, int life, enum WarPart part):Object(part)
+Plane::Plane(double x, double y, int life, enum WarPart part):Object(x, y, part)
 {
-    setPos(x, y);
     this->life = life;
-    update();
 }
 
 bool Plane::crash()

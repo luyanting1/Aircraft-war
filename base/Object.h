@@ -1,23 +1,23 @@
-#ifndef OBJECT_H
+﻿#ifndef OBJECT_H
 #define OBJECT_H
 
 #include <QtWidgets>
 #include <string>
+#include<common/precomp.h>
 using namespace std;
 
-enum WarPart { ME, ENEMY, LIFESUPPLY };
-
-class Object : public QGraphicsPixmapItem
+class Object
 {
     friend class model;
 public:
     Object();
-    Object(WarPart part);
+    Object(double x,double y,WarPart part);
     ~Object();
    // void synScreen(QGraphicsScene *scene);
     //void delScreen(QGraphicsScene *scene);
 
 protected:
+    double x,y;
     enum WarPart part;
 };
 

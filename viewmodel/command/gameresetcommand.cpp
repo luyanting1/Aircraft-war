@@ -1,4 +1,4 @@
-#include "gameresetcommand.h"
+﻿#include "gameresetcommand.h"
 #include "viewmodel/viewmodel.h"
 GameResetCommand::GameResetCommand(ViewModel *p) throw():viewmodel_ptr(p)
 {}
@@ -10,5 +10,5 @@ void GameResetCommand::SetParameter(const std::any &param){
 
 void GameResetCommand::Exec(){
     bool b;
-    b = viewmodel_ptr->CallModelGameReset(m_param);
+    b = viewmodel_ptr->CallModelGameReset();
 }
