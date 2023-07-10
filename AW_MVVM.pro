@@ -20,6 +20,7 @@ SOURCES += \
     mainwindow.cpp \
     app/app.cpp \
     model/model.cpp \
+    view/sinks/viewpropertysink.cpp \
     view/view.cpp \
     viewmodel/command/allbulletmovecommand.cpp \
     viewmodel/command/bossgeneratecommand.cpp \
@@ -45,8 +46,8 @@ HEADERS += \
     mainwindow.h \
     app/app.h \
     model/model.h \
+    view/sinks/viewpropertysink.h \
     view/view.h \
-    view/sinks/updatesink.h \
     viewmodel/command/allbulletmovecommand.h \
     viewmodel/command/bossgeneratecommand.h \
     viewmodel/command/enemybulletshootcommand.h \
