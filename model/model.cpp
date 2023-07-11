@@ -153,6 +153,12 @@ bool model::skilluse(int sk_index)
     return 1;
 }
 
+bool model::playergenerate()
+{
+     myplane = new MyPlane(width1/2, height1/2, 50, 5);
+     return true;
+}
+
 inline bool collidesWithItem(double x0,double y0,double len0,double h0,double x2,double y2,double len2,double h2)
 {
     double top0 = y0+h0/2, bot0 = y0-h0/2, left0 = x0-len0/2, right0 = x0+len0/2;
