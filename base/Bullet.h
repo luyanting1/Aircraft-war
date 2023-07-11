@@ -16,8 +16,8 @@ public:
     Bullet(WarPart part, double x, double y,const QPointF &dir, int power);
     pair<double,double> updatePosition();
     //bool hit(QGraphicsScene *scene);
-    double getx() { return this->x; }
-    double gety() { return this->y; }
+    double& getx() { return this->x; }
+    double& gety() { return this->y; }
     void setx(double x) { this->x = x; }
     void sety(double y) { this->y = y; }
     int gett() { return this->type1; }

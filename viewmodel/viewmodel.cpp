@@ -109,11 +109,11 @@ std::shared_ptr<ICommandBase> ViewModel::GetSkillUse(){
     return std::static_pointer_cast<ICommandBase>(m_cmdSkillUse);
 }
 
-std::shared_ptr<POS> ViewModel::GetPlayerPosX(){
+POS* ViewModel::GetPlayerPosX(){
     return m_model->GetPlayerPosX();
 }
 
-std::shared_ptr<POS> ViewModel::GetPlayerPosY(){
+POS* ViewModel::GetPlayerPosY(){
     return m_model->GetPlayerPosY();
 }
 

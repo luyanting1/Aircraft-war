@@ -10,7 +10,7 @@
 #include <algorithm>
 #include <windows.h>
 #include <QGraphicsItem>
-
+#include <QDebug>
 #include <QUrl>
 //#include <QMediaPlaylist>
 //#include <QMediaPlayer>
@@ -84,8 +84,8 @@ public:
     bool skilluse(int sk_index);
     bool changeBulletPosition(Bullet * bullet, int newX, int newY);
 
-    std::shared_ptr<POS>    GetPlayerPosX();
-    std::shared_ptr<POS>    GetPlayerPosY();
+    POS*  GetPlayerPosX();
+    POS*  GetPlayerPosY();
     std::shared_ptr<SCORE> GetPlayerScore();
     std::shared_ptr<POSES>    GetBulletsPosX();
     std::shared_ptr<POSES>    GetBulletsPosY();

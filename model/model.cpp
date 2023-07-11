@@ -99,7 +99,7 @@ std::shared_ptr<POSES> model::GetEnemiesPosY()
     std::shared_ptr<POSES> enemiePosY = std::make_shared<POSES>();
     for(auto it:*enemyplanes)
     {
-        double y2 = it->getx();
+        double y2 = it->gety();
         enemiePosY->push_back(&y2);
     }
     return enemiePosY;
@@ -155,8 +155,10 @@ bool model::skilluse(int sk_index)
 
 bool model::playergenerate()
 {
-     myplane = new MyPlane(1000, 5000, 50, 5);
-     //myplane = new MyPlane(WIDTH, HEIGHT/2, 50, 5);
+     //myplane = new MyPlane(1000, 5000, 50, 5);
+    myplane->setx(WIDTH/2);
+    myplane->sety(HEIGHT/2);
+    qDebug()<< "x's address: " << &myplane->x <<Qt::endl;
      return true;
 }
 
@@ -563,12 +565,13 @@ std::shared_ptr<POSES> model::GetLifeSuppliesPosY()
     return SuppliesPosY;
 }
 
-std::shared_ptr<POS> model::GetPlayerPosX()
+POS* model::GetPlayerPosX()
 {
-    return std::make_shared<POS>(myplane->x);
+    qDebug()<<"x's address1:"<<&(myplane->getx())<<Qt::endl;
+    return &(myplane->getx());
 }
 
-std::shared_ptr<POS> model::GetPlayerPosY()
+POS* model::GetPlayerPosY()
 {
-    return std::make_shared<POS>(myplane->y);
+    return &(myplane->gety());
 }

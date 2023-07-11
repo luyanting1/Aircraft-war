@@ -14,10 +14,10 @@ public:
     EnemyPlane();
     EnemyPlane(double x, double y,EnemyType type, int life);
     pair<double,double> updatePosition();
-    double getx() { return this->x; }
-    double gety() { return this->y; }
+    double& getx() { return this->x; }
+    double& gety() { return this->y; }
     int gett() { return this->type; }
-    int getl() { return this->life; }
+    int& getl() { return this->life; }
     bool crash1() { return this->crash(); }
 
 protected:

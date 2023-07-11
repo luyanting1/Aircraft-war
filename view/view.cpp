@@ -213,11 +213,13 @@ void View::startGame()
     {
         enemyplane_generate();
     }
-
+    //SetEnemiesPosX(GetEnemiesPosX());
+    //SetEnemiesPosY(GetEnemiesPosY());
     for (int i=0;i<(*enemy_posX).size();i++)
     {
         QPixmap pixmap(enemyPlaneImageFile); // 加载图像
         QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
+        qDebug()<<*((*enemy_posX)[i])<<"  "<<*((*enemy_posY)[i])<<Qt::endl;
         pixmapItem->setPos(*((*enemy_posX)[i]), *((*enemy_posY)[i]));
         this->addItem(pixmapItem);
     }
@@ -734,14 +736,14 @@ void View::SetPlayerSkill(shared_ptr<BAR> a)
     player_skill=a;
 }
 
-void View::SetPlayerPosX(shared_ptr<POS> a)
+void View::SetPlayerPosX(POS* a)
 {
-    play_posX=a;
+    play_posX = a ;
 }
 
-void View::SetPlayerPosY(shared_ptr<POS> a)
+void View::SetPlayerPosY(POS* a)
 {
-    play_posY=a;
+    play_posY = a;
 }
 
 

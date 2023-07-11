@@ -11,10 +11,12 @@ class MyPlane:public Plane
 public:
     MyPlane();
     MyPlane(double x, double y, int life, int skill);
-    double getx() { return this->x; }
-    double gety() { return this->y; }
-    int getskill() { return this->skill; }
-    int getlife() { return this->life; }
+    double& getx() { return this->x; }
+    double& gety() { return this->y; }
+    int& getskill() { return this->skill; }
+    int& getlife() { return this->life; }
+    void setx(double x) { this->x = x; }
+    void sety(double y) { this->y = y; }
     void setskill(int _skill) { this->skill = _skill; }
     void setlife(int life1) { this->life = life1; }
     //Plane getp() { return this; }

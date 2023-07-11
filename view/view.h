@@ -93,9 +93,9 @@ public:
 
     void SetSkillUseCommand(shared_ptr<ICommandBase> a);
 
-    void SetPlayerPosX(shared_ptr<POS>);
+    void SetPlayerPosX(POS* );
 
-    void SetPlayerPosY(shared_ptr<POS>);
+    void SetPlayerPosY(POS* );
 
     void SetBulletsPosX(shared_ptr<POSES>);
 
@@ -163,9 +163,9 @@ private:
        shared_ptr<ICommandBase> m_cmdmoveenemyplane;
        shared_ptr <ICommandBase> m_cmdgeneratemyplane;
        shared_ptr<ViewPropertySink> m_propertysink;
-       shared_ptr<POS>  play_posX;
+       POS*  play_posX;
 
-       shared_ptr<POS>  play_posY;
+       POS*  play_posY;
 
        shared_ptr<POSES>  bullet_posX;
 

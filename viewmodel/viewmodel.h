@@ -37,8 +37,8 @@ public:
     bool CallModelPlayerMove(char direction);
     bool CallModelSkillUse(int skill_index);
 
-    std::shared_ptr<POS>    GetPlayerPosX();
-    std::shared_ptr<POS>    GetPlayerPosY();
+    POS*    GetPlayerPosX();
+    POS*    GetPlayerPosY();
     std::shared_ptr<SCORE>    GetPlayerScore();
 
     std::shared_ptr<POSES>    GetBulletsPosX();
