@@ -155,7 +155,8 @@ bool model::skilluse(int sk_index)
 
 bool model::playergenerate()
 {
-     myplane = new MyPlane(width1/2, height1/2, 50, 5);
+     myplane = new MyPlane(1000, 5000, 50, 5);
+     //myplane = new MyPlane(WIDTH, HEIGHT/2, 50, 5);
      return true;
 }
 
@@ -263,6 +264,12 @@ bool model::allbulletmove()
     return true;
 }
 
+int abs1(int x)
+{
+    if(x<0) return -x;
+     else return x;
+}
+
 bool model::bossgenerate()
 {
     /* 随机在第一行生成敌机 */
@@ -273,14 +280,11 @@ bool model::bossgenerate()
     {
         bool flag = true; //此位置是否合法
         for(auto iter:*enemyplanes)
-        {
-            QGraphicsItem *iter1 =(QGraphicsItem *)(iter);
-            if(iter1->sceneBoundingRect().intersects(QRectF(x, 0, bosswidth, bossheight)))
+            if(abs1(x-iter->x)<=45)
             {
                 flag = false;
                 break;
             }
-        }
 
         if(flag)
             break;
@@ -341,15 +345,11 @@ bool model::enemygenerate()
     {
         bool flag = true; //此位置是否合法
         for(auto iter:*enemyplanes)
-        {
-            QGraphicsItem *iter1 =(QGraphicsItem *)(iter);
-            if(iter1->sceneBoundingRect().intersects(QRectF(x, 0, enemyplanewidth, enemyplaneheight)))
+            if(abs1(x-iter->x)<=45)
             {
                 flag = false;
                 break;
             }
-        }
-
         if(flag)
             break;
         else
