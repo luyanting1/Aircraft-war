@@ -775,3 +775,8 @@ void View::SetEnemiesType(shared_ptr<ENEMYTYPES> a)
 {
     enemy_type=a;
 }
+
+std::shared_ptr<IPropertyNotification> View::GetPropertySink()
+{
+    return std::static_pointer_cast<IPropertyNotification>(m_propertysink);
+}

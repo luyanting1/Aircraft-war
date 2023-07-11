@@ -93,6 +93,10 @@ std::shared_ptr<ICommandBase> ViewModel::GetGameReset(){
     return std::static_pointer_cast<ICommandBase>(m_cmdGameReset);
 }
 
+std::shared_ptr<ICommandBase> ViewModel::GetPlayerGenerate(){
+    return std::static_pointer_cast<ICommandBase>(m_cmdPlayerGenerate);
+}
+
 std::shared_ptr<ICommandBase> ViewModel::GetPlayerBulletShoot(){
     return std::static_pointer_cast<ICommandBase>(m_cmdPlayerBulletShoot);
 }

@@ -38,13 +38,14 @@ void app::run(QGraphicsView* game_interface){//std::shared_ptr<QGraphicsView> ga
     ctrl->SetEnemyMoveCommand(viewmodel_ptr->GetEnemyMove());
     ctrl->SetGamePauseCommand(viewmodel_ptr->GetGamePause());
     ctrl->SetGameResetCommand(viewmodel_ptr->GetGameReset());
-    ctrl->SetPlayerGenerateCommand(viewmodel_ptr->GetPlayerGenerateCommand());
+    ctrl->SetPlayerGenerateCommand(viewmodel_ptr->GetPlayerGenerate());
     ctrl->SetPlayerBulletShootCommand(viewmodel_ptr->GetPlayerBulletShoot());
     ctrl->SetPlayerMoveCommand(viewmodel_ptr->GetPlayerMove());
     ctrl->SetSkillUseCommand(viewmodel_ptr->GetSkillUse());
 
     //notifications
-    viewmodel_ptr->AddPropertyNotification(ctrl->get_updateSink());
+    model_ptr->AddPropertyNotification(ctrl->GetPropertySink());
+    viewmodel_ptr->AddPropertyNotification(ctrl->GetPropertySink());
 
 }
 
