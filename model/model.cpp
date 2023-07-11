@@ -463,7 +463,7 @@ bool model::enemymove()
 
     return myplane->life > 0;
 }
-
+/*
 bool model::gamereset()
 {
     score = std::make_shared<int>(0); //得分
@@ -484,11 +484,12 @@ bool model::gamereset()
     lifesupplys = std::make_shared<vector<Object*>>();
     myplane = new MyPlane(width1 / 2, height1 / 2,  myLife, mySkill);
     /* 添加敌机 */
+/*
     for (int i = 0; i < 3; i++)
         enemygenerate();
     return true;
 }
-
+*/
 bool model::playerbulletshoot()
 {
     if((*myBulletType)==0)

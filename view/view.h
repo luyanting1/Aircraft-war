@@ -26,7 +26,28 @@
 #include "../base/Plane.h"
 #include "../common/etlbase.h"
 #include "../common/precomp.h"
+
+#define myBulletImageFile  ":/images/mybullet.png"
+
+#define enemyPlaneImageFile  ":/images/enemyplane.png"
+
+#define myPlaneImageFile  ":/images/myplane.png"
+
+#define bossImageFile  ":/images/boss2.gif"
+//boss图片
+
+#define enemyBulletImageFile  ":/images/76446d7d2b8c45cb8ed30baf1f75397e.png"
+//敌机子弹图片
+
+
+#define bossBulletImageFile  ":/images/76446d7d2b8c45cb8ed30baf1f75397e.png"
+//boss子弹图片
+
+#define lifeSupplyImageFile  ":/images/lifesupply.png"
+//补给图片
+
 #include "./sinks/viewpropertysink.h"
+
 using namespace std;
 class View : public QGraphicsScene
 {
@@ -37,13 +58,21 @@ protected:
 public:
     View();
     std::shared_ptr<IPropertyNotification> get_updateSink();
+
     void SetMyPlane(std::shared_ptr<MyPlane>);
+
     void SetEnemiesPlane( std::shared_ptr<vector<EnemyPlane *>>);
+
     void SetBullets(std::shared_ptr<vector<Bullet *>>);
+
     void SetLifeSupplies(std::shared_ptr<vector<Object *>> );
+
     void SetPlayerLife(shared_ptr<BAR>);
+
     void SetPlayerSkill(shared_ptr<BAR>);
+
     void SetPlayerScore(std::shared_ptr<int>);
+
     void SetAllBulletMoveCommand(shared_ptr<ICommandBase> a);
 
     void SetBossGenerateCommand(shared_ptr<ICommandBase>a);
@@ -63,6 +92,25 @@ public:
     void SetPlayerMoveCommand(shared_ptr<ICommandBase> a);
 
     void SetSkillUseCommand(shared_ptr<ICommandBase> a);
+
+    void SetPlayerPosX(shared_ptr<POS>);
+
+    void SetPlayerPosY(shared_ptr<POS>);
+
+    void SetBulletsPosX(shared_ptr<POSES>);
+
+    void SetBulletsPosY(shared_ptr<POSES>  );
+
+    void SetBulletsType(shared_ptr<BULLETTYPES> );
+
+    void SetEnemiesPosX(shared_ptr<POSES> );
+
+    void SetEnemiesPosY(shared_ptr<POSES>);
+
+    void SetEnemiesType(shared_ptr<ENEMYTYPES>);
+
+    void PlayerGenerateCommand(shared_ptr<ICommandBase>);
+
 private:
        //各种模型的属性
        int myLife;
@@ -110,34 +158,37 @@ private:
        shared_ptr<ICommandBase> m_cmdshootmybullet;
        shared_ptr<ICommandBase> m_cmdmoveenemyplane;
        shared_ptr <updateSink> m_updateSink;
-       //MyPlane *myplane;
-       /*
-       void SetPlayerPosX(shared_ptr<POS>);
+       shared_ptr <ICommandBase> m_cmdgeneratemyplane;
        shared_ptr<POS>  play_posX;
-       void SetPlayerPosY(shared_ptr<POS>);
+
        shared_ptr<POS>  play_posY;
-       void SetPlayerScore(shared_ptr<SCORE>);
-       shared_ptr<SCORE>  player_score;
-       void SetBulletsPosX(shared_ptr<POSES>);
+
        shared_ptr<POSES>  bullet_posX;
-       void SetBulletsPosY(shared_ptr<POSES>  );
+
        shared_ptr<POSES>  bullet_posY;
-       void SetBulletsType(shared_ptr<BULLETTYPES> );
+
        shared_ptr<BULLETTYPES>  bullet_type;
-       void SetEnemiesPosX(shared_ptr<POSES> );
+
        shared_ptr<POSES>  enemy_posX;
-       void SetEnemiesPosY(shared_ptr<POSES>);
+
        shared_ptr<POSES>  enemy_posY;
-       void SetEnemiesType(shared_ptr<ENEMYTYPES>);
+
        shared_ptr<ENEMYTYPES>  enemy_type;
-       */
+
        std::shared_ptr<vector<EnemyPlane *>> EnemiesPlane;
+
        std::shared_ptr<vector<Bullet *>> Bullets;
+
        std::shared_ptr<MyPlane>  myplane;
+
        std::shared_ptr<vector<Object *>> LifeSupplies;
+
        std::shared_ptr<int> PlayerScore;
+
        shared_ptr<BAR>  player_life;
+
        shared_ptr<BAR>  player_skill;
+
        void enemyplane_move();
 
        void boss_generate();

@@ -193,6 +193,7 @@ void View::startGame()
     skillBar->show();
 
     /* 设置各动作更新时钟 */
+    /*
     myPlaneMove = QPointF(0, 0);
     myBulletShootTimerId = startTimer(myBulletShootTimerItv);
     enemyBulletShootTimerId = startTimer(enemyBulletShootTimerItv);
@@ -200,16 +201,27 @@ void View::startGame()
     enemyPlaneMoveTimerId = startTimer(enemyPlaneMoveTimerItv);
     enemyPlaneGenerateTimerId = startTimer(enemyPlaneGenerateTimerItv);
     bossGenerateTimeId = startTimer(bossGenerateTimeItv);
-
+*/
     /* 添加玩家飞机 */
-    myplane = std::make_shared<MyPlane>(width() / 2, height() / 2, myPlaneImageFile, *player_life, *player_skill);
-    this->addItem(((std::shared_ptr<QGraphicsItem>)(myplane)).get());
+
+    myplane = make_shared<MyPlane>(width() / 2, height() / 2, myPlaneImageFile, *player_life, *player_skill);
+    QPixmap pixmap(myPlaneImageFile); // 加载图像
+    QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
+    pixmapItem->setPos(*play_posX, *play_posY);
+    this->addItem(pixmapItem);
     /* 添加敌机 */
     for (int i = 0; i < 3; i++)
     {
         enemyplane_generate();
     }
-    changescene();
+
+    for (int i=0;i<(*enemy_posX).size();i++)
+    {
+        QPixmap pixmap(enemyPlaneImageFile); // 加载图像
+        QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
+        pixmapItem->setPos(*((*enemy_posX)[i]), *((*enemy_posY)[i]));
+        this->addItem(pixmapItem);
+    }
 }
 
 void View::showHelpMessage()
@@ -587,21 +599,63 @@ void View::changescene()
     skillBar->update();
     skillBar->show();
 
-
-    for(Bullet* bullet: *Bullets)
+    for (int i=0;i<(*enemy_posX).size();i++)
     {
-       this->addItem(bullet);
+        QPixmap pixmap(enemyPlaneImageFile); // 加载图像
+        QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
+        pixmapItem->setPos(*((*enemy_posX)[i]), *((*enemy_posY)[i]));
+        this->addItem(pixmapItem);
     }
-    for (EnemyPlane* enemyPlane : *EnemiesPlane)
+    for(int i=0;i<(*bullet_posX).size();i++)
     {
-        this->addItem(enemyPlane);
+        if(*((*bullet_type)[i])==0)
+        {
+           QPixmap pixmap(myBulletImageFile); // 加载图像
+           QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
+           pixmapItem->setPos(*((*bullet_posX)[i]), *((*bullet_posY)[i]));
+           this->addItem(pixmapItem);
+        }else if(*((*bullet_type)[i])==1)
+        {
+            QPixmap pixmap(enemyBulletImageFile);
+            QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
+            pixmapItem->setPos(*((*bullet_posX)[i]), *((*bullet_posY)[i]));
+            this->addItem(pixmapItem);
+        }
+        else if(*((*bullet_type)[i])==2)
+        {
+            QPixmap pixmap(enemyBulletImageFile);
+            QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
+            pixmapItem->setPos(*((*bullet_posX)[i]), *((*bullet_posY)[i]));
+            this->addItem(pixmapItem);
+        }
     }
-    for(Object* lifesupply:*LifeSupplies)
+    for (int i=0;i<(*enemy_posX).size();i++)
     {
-        this->addItem(lifesupply);
-
+        if(*((*enemy_type)[i])==0)
+        {
+           QPixmap pixmap(enemyPlaneImageFile); // 加载图像
+           QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
+           pixmapItem->setPos(*((*enemy_posX)[i]), *((*enemy_posY)[i]));
+           this->addItem(pixmapItem);
+        }else if(*((*enemy_type)[i])==1)
+        {
+            QPixmap pixmap(bossImageFile);
+            QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
+            pixmapItem->setPos(*((*enemy_posX)[i]), *((*enemy_posY)[i]));
+            this->addItem(pixmapItem);
+        }
     }
-    this->addItem(((std::shared_ptr<QGraphicsItem>)(myplane)).get());
+    for(int i=0;i<(*lifesuppy_posX).size();i++)
+    {
+        QPixmap pixmap(lifeSupplyImageFile);
+        QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
+        pixmapItem->setPos(*((*lifesupply_posX)[i]), *((*lifesupply_posY)[i]));
+        this->addItem(pixmapItem);
+    }
+    QPixmap pixmap(myPlaneImageFile);
+    QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
+    pixmapItem->setPos(*play_posX, *play_posY);
+    this->addItem(pixmapItem);
 }
  void View::SetMyPlane(std::shared_ptr<MyPlane> a)
 {
@@ -623,7 +677,6 @@ void View::SetPlayerScore(std::shared_ptr<int> a)
 {
      PlayerScore=a;
 }
-
 void View::SetAllBulletMoveCommand(shared_ptr<ICommandBase> a)
 {
     m_cmdmovebullet=a;
@@ -631,6 +684,10 @@ void View::SetAllBulletMoveCommand(shared_ptr<ICommandBase> a)
 void View::SetBossGenerateCommand(shared_ptr<ICommandBase>a)
 {
     m_cmdgenerateboss=a;
+}
+void View::PlayerGenerateCommand(shared_ptr<ICommandBase>a)
+{
+    m_cmdgeneratemyplane=a;
 }
 void View::SetEnemyBulletShootCommand(shared_ptr<ICommandBase> a)
 {
@@ -678,3 +735,43 @@ void View::SetPlayerSkill(shared_ptr<BAR> a)
     player_skill=a;
 }
 
+void View::SetPlayerPosX(shared_ptr<POS> a)
+{
+    play_posX=a;
+}
+
+void View::SetPlayerPosY(shared_ptr<POS> a)
+{
+    play_posY=a;
+}
+
+
+void View::SetBulletsPosX(shared_ptr<POSES> a)
+{
+     bullet_posX=a;
+}
+
+void View::SetBulletsPosY(shared_ptr<POSES>  a)
+{
+    bullet_posY=a;
+}
+void View::SetBulletsType(shared_ptr<BULLETTYPES> a)
+{
+    bullet_type=a;
+}
+
+void View::SetEnemiesPosX(shared_ptr<POSES> a )
+{
+    enemy_posX=a;
+}
+
+
+void View::SetEnemiesPosY(shared_ptr<POSES> a)
+{
+    enemy_posY=a;
+}
+
+void View::SetEnemiesType(shared_ptr<ENEMYTYPES> a)
+{
+    enemy_type=a;
+}
