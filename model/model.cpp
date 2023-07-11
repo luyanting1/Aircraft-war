@@ -83,36 +83,36 @@ std::shared_ptr<BULLETTYPES> model::GetBulletsType()
      return BulletType;
 }
 
-std::shared_ptr<POSES> model::GetEmemiesPosX()
+std::shared_ptr<POSES> model::GetEnemiesPosX()
 {
-    std::shared_ptr<POSES> EmemiePosX = std::make_shared<POSES>();
+    std::shared_ptr<POSES> enemiePosX = std::make_shared<POSES>();
     for(auto it:*enemyplanes)
     {
         double x2 = it->getx();
-        EmemiePosX->push_back(&x2);
+        enemiePosX->push_back(&x2);
     }
-    return EmemiePosX;
+    return enemiePosX;
 }
 
-std::shared_ptr<POSES> model::GetEmemiesPosY()
+std::shared_ptr<POSES> model::GetEnemiesPosY()
 {
-    std::shared_ptr<POSES> EmemiePosY = std::make_shared<POSES>();
+    std::shared_ptr<POSES> enemiePosY = std::make_shared<POSES>();
     for(auto it:*enemyplanes)
     {
         double y2 = it->getx();
-        EmemiePosY->push_back(&y2);
+        enemiePosY->push_back(&y2);
     }
-    return EmemiePosY;
+    return enemiePosY;
 }
-std::shared_ptr<ENEMYTYPES> model::GetEmemiesType()
+std::shared_ptr<ENEMYTYPES> model::GetEnemiesType()
 {
-    std::shared_ptr<ENEMYTYPES> EmemieType1 = std::make_shared<ENEMYTYPES>();
+    std::shared_ptr<ENEMYTYPES> enemieType1 = std::make_shared<ENEMYTYPES>();
     for(auto it:*enemyplanes)
     {
         int t2 = it->gett();
-        EmemieType1->push_back(&t2);
+        enemieType1->push_back(&t2);
     }
-    return EmemieType1;
+    return enemieType1;
 }
 std::shared_ptr<int> model::GetPlayerLife()
 {

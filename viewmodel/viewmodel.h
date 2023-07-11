@@ -45,9 +45,9 @@ public:
     std::shared_ptr<POSES>    GetBulletsPosY();
     std::shared_ptr<BULLETTYPES>    GetBulletsType();
 
-    std::shared_ptr<POSES>    GetEmemiesPosX();
-    std::shared_ptr<POSES>    GetEmemiesPosY();
-    std::shared_ptr<ENEMYTYPES>    GetEmemiesType();
+    std::shared_ptr<POSES>    GetEnemiesPosX();
+    std::shared_ptr<POSES>    GetEnemiesPosY();
+    std::shared_ptr<ENEMYTYPES>    GetEnemiesType();
 
     std::shared_ptr<POSES>  GetLifeSuppliesPosX();
     std::shared_ptr<POSES>  GetLifeSuppliesPosY();

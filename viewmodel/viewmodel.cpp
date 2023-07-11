@@ -110,11 +110,11 @@ std::shared_ptr<ICommandBase> ViewModel::GetSkillUse(){
 }
 
 std::shared_ptr<POS> ViewModel::GetPlayerPosX(){
-    return m_model->GetPlayerPosx();
+    return m_model->GetPlayerPosX();
 }
 
 std::shared_ptr<POS> ViewModel::GetPlayerPosY(){
-    return m_model->GetPlayerPosy();
+    return m_model->GetPlayerPosY();
 }
 
 std::shared_ptr<SCORE> ViewModel::GetPlayerScore(){
@@ -122,35 +122,35 @@ std::shared_ptr<SCORE> ViewModel::GetPlayerScore(){
 }
 
 std::shared_ptr<POSES> ViewModel::GetBulletsPosX(){
-    return m_model->GetBulletPosx();
+    return m_model->GetBulletsPosX();
 }
 
 std::shared_ptr<POSES> ViewModel::GetBulletsPosY(){
-    return m_model->GetBulletPosy();
+    return m_model->GetBulletsPosY();
 }
 
-std::shared_ptr<POSES> ViewModel::GetEmemiesPosX(){
-    return m_model->GetEnemyPosx();
+std::shared_ptr<POSES> ViewModel::GetEnemiesPosX(){
+    return m_model->GetEnemiesPosX();
 }
 
-std::shared_ptr<POSES> ViewModel::GetEmemiesPosY(){
-    return m_model->GetEnemyPosy();
+std::shared_ptr<POSES> ViewModel::GetEnemiesPosY(){
+    return m_model->GetEnemiesPosY();
 }
 
-std::shared_ptr<ENEMYTYPES> ViewModel::GetEmemiesType(){
-    return m_model->GetEnemyType();
+std::shared_ptr<ENEMYTYPES> ViewModel::GetEnemiesType(){
+    return m_model->GetEnemiesType();
 }
 
 std::shared_ptr<POSES> ViewModel::GetLifeSuppliesPosX(){
-    return m_model->GetLifeSupplyPosx();
+    return m_model->GetLifeSuppliesPosX();
 }
 
 std::shared_ptr<POSES> ViewModel::GetLifeSuppliesPosY(){
-    return m_model->GetLifeSupplyPosy();
+    return m_model->GetLifeSuppliesPosY();
 }
 
 std::shared_ptr<BULLETTYPES> ViewModel::GetBulletsType(){
-    return m_model->GetBulletType();
+    return m_model->GetBulletsType();
 }
 
 std::shared_ptr<BAR>  ViewModel::GetPlayerLife(){
