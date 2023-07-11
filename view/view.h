@@ -161,7 +161,6 @@ private:
        shared_ptr<ICommandBase> m_cmdshootenemybullet;
        shared_ptr<ICommandBase> m_cmdshootmybullet;
        shared_ptr<ICommandBase> m_cmdmoveenemyplane;
-
        shared_ptr <ICommandBase> m_cmdgeneratemyplane;
        shared_ptr<ViewPropertySink> m_propertysink;
        shared_ptr<POS>  play_posX;
@@ -203,6 +202,8 @@ private:
        void boss_generate();
 
        void enemyplane_generate();
+
+       void myplane_generate();
 
        void bullet_move();
 

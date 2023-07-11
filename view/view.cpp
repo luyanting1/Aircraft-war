@@ -203,8 +203,7 @@ void View::startGame()
     bossGenerateTimeId = startTimer(bossGenerateTimeItv);
 */
     /* 添加玩家飞机 */
-
-    myplane = make_shared<MyPlane>(width() / 2, height() / 2, myPlaneImageFile, *player_life, *player_skill);
+    myplane_generate();
     QPixmap pixmap(myPlaneImageFile); // 加载图像
     QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
     pixmapItem->setPos(*play_posX, *play_posY);
@@ -436,7 +435,10 @@ void View::enemyplane_generate()
 {
     m_cmdgenerateenemyplane->Exec();
 }
-
+void View::myplane_generate()
+{
+    m_cmdgeneratemyplane->Exec();
+}
 void View::enemyplane_move()
 {
     m_cmdmoveenemyplane->Exec();
