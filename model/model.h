@@ -74,6 +74,7 @@ public:
     bool enemygenerate();
     bool changePlanePosition(Plane *plane, int newX, int newY);
     bool enemymove();
+    bool playergenerate();
     bool playermove(char dir);
     bool playerbulletshoot();
     bool gamereset();

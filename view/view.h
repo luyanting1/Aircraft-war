@@ -109,7 +109,11 @@ public:
 
     void SetEnemiesType(shared_ptr<ENEMYTYPES>);
 
-    void PlayerGenerateCommand(shared_ptr<ICommandBase>);
+    void SetLifeSuppliesPosX(shared_ptr<POSES>);
+
+    void SetLifeSuppliesPosY(shared_ptr<POSES>);
+
+    void SetPlayerGenerateCommand(shared_ptr<ICommandBase>);
 
 private:
        //各种模型的属性
@@ -157,6 +161,7 @@ private:
        shared_ptr<ICommandBase> m_cmdshootenemybullet;
        shared_ptr<ICommandBase> m_cmdshootmybullet;
        shared_ptr<ICommandBase> m_cmdmoveenemyplane;
+
        shared_ptr <ICommandBase> m_cmdgeneratemyplane;
        shared_ptr<ViewPropertySink> m_propertysink;
        shared_ptr<POS>  play_posX;
@@ -166,6 +171,10 @@ private:
        shared_ptr<POSES>  bullet_posX;
 
        shared_ptr<POSES>  bullet_posY;
+
+       shared_ptr<POSES>  lifesupply_posX;
+
+       shared_ptr<POSES>  lifesupply_posY;
 
        shared_ptr<BULLETTYPES>  bullet_type;
 
