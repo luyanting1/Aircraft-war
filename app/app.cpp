@@ -22,9 +22,9 @@ void app::run(QGraphicsView* game_interface){//std::shared_ptr<QGraphicsView> ga
     ctrl->SetBulletsPosX(viewmodel_ptr->GetBulletsPosX());
     ctrl->SetBulletsPosY(viewmodel_ptr->GetBulletsPosY());
     ctrl->SetBulletsType(viewmodel_ptr->GetBulletsType());
-    ctrl->SetEnemiesPosX(viewmodel_ptr->GetEmemiesPosX());
-    ctrl->SetEnemiesPosY(viewmodel_ptr->GetEmemiesPosY());
-    ctrl->SetEnemiesType(viewmodel_ptr->GetEmemiesType());
+    ctrl->SetEnemiesPosX(viewmodel_ptr->GetEnemiesPosX());
+    ctrl->SetEnemiesPosY(viewmodel_ptr->GetEnemiesPosY());
+    ctrl->SetEnemiesType(viewmodel_ptr->GetEnemiesType());
     ctrl->SetLifeSuppliesPosX(viewmodel_ptr->GetLifeSuppliesPosX());
     ctrl->SetLifeSuppliesPosY(viewmodel_ptr->GetLifeSuppliesPosY());
     ctrl->SetPlayerLife(viewmodel_ptr->GetPlayerLife());

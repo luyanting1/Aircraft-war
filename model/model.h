@@ -90,9 +90,9 @@ public:
     std::shared_ptr<POSES>    GetBulletsPosX();
     std::shared_ptr<POSES>    GetBulletsPosY();
     std::shared_ptr<BULLETTYPES>    GetBulletsType();
-    std::shared_ptr<POSES>    GetEmemiesPosX();
-    std::shared_ptr<POSES>    GetEmemiesPosY();
-    std::shared_ptr<ENEMYTYPES>    GetEmemiesType();
+    std::shared_ptr<POSES>    GetEnemiesPosX();
+    std::shared_ptr<POSES>    GetEnemiesPosY();
+    std::shared_ptr<ENEMYTYPES>    GetEnemiesType();
     std::shared_ptr<vector<Object *>>GetLifeSupplies();
     std::shared_ptr<int> GetPlayerLife();
     std::shared_ptr<int> GetPlayerSkill();
