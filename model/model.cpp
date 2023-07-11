@@ -150,6 +150,7 @@ bool model::skilluse(int sk_index)
        break;
        default: return 0;
     }
+    Fire_OnPropertyChanged("skill");
     return 1;
 }
 
@@ -158,7 +159,8 @@ bool model::playergenerate()
      //myplane = new MyPlane(1000, 5000, 50, 5);
     myplane->setx(WIDTH/2);
     myplane->sety(HEIGHT/2);
-    qDebug()<< "x's address: " << &myplane->x <<Qt::endl;
+    Fire_OnPropertyChanged("myplane");
+    //qDebug()<< "x's address: " << &myplane->x <<Qt::endl;
      return true;
 }
 
@@ -263,6 +265,7 @@ bool model::allbulletmove()
             it = enemybullets->erase(it);
         }
     }
+    Fire_OnPropertyChanged("allbullet");
     return true;
 }
 
@@ -301,6 +304,7 @@ bool model::bossgenerate()
     /* 新增敌机 */
     EnemyPlane *enemy = new EnemyPlane(x, 0, BOSS, 10);
     enemyplanes->push_back(enemy);
+    Fire_OnPropertyChanged("enemy");
     return true;
 }
 
@@ -334,6 +338,7 @@ bool model::enemybulletshoot()
                // addItem(bullet2);
             }
         }
+    Fire_OnPropertyChanged("bullet");
     return true;
 }
 
@@ -365,6 +370,7 @@ bool model::enemygenerate()
     /* 新增敌机 */
     EnemyPlane *enemy = new EnemyPlane(x, 0, ORD, enemyLife);
     enemyplanes->push_back(enemy);
+    Fire_OnPropertyChanged("enemy");
     return true;
 }
 
@@ -468,7 +474,7 @@ bool model::enemymove()
         else
             it = enemyplanes->erase(it);
     }
-
+    Fire_OnPropertyChanged("enemy");
     return myplane->life > 0;
 }
 
@@ -526,6 +532,7 @@ bool model::playerbulletshoot()
         //bullet3->setRotation(45);
         //addItem(bullet3);
     }
+    Fire_OnPropertyChanged("bullet");
     return true;
 }
 
@@ -540,6 +547,7 @@ bool model::playermove(char dir)
      default: myPlaneMove = QPointF(0, 0); break;
     }
     changePlanePosition(myplane, myplane->x+myPlaneMove.x(), myplane->y+myPlaneMove.y());
+    Fire_OnPropertyChanged("myplane");
     return true;
 }
 
