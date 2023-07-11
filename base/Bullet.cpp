@@ -6,10 +6,10 @@ Bullet::Bullet()
 {
 }
 
-Bullet::Bullet(WarPart part, double x, double y, const string &imageFile,const QPointF &dir, int power):
-    Object(part,imageFile)
+Bullet::Bullet(WarPart part, double x, double y,const QPointF &dir, int power):
+    Object(x,y,part)
 {
-    setPos(x, y);
+    //setPos(x, y);
 	this->dir = dir;
 	this->power = power;
 }

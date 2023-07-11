@@ -8,6 +8,7 @@ ViewModel::ViewModel():
     m_cmdEnemyMove(std::make_shared<EnemyMoveCommand>(this)),
     m_cmdGamePause(std::make_shared<GamePauseCommand>(this)),
     m_cmdGameReset(std::make_shared<GameResetCommand>(this)),
+    m_cmdPlayerGenerate(std::make_shard<PlayerGenerateCommand>(this)),
     m_cmdPlayerBulletShoot(std::make_shared<PlayerBulletShootCommand>(this)),
     m_cmdPlayerMove(std::make_shared<PlayerMoveCommand>(this)),
     m_cmdSkillUse(std::make_shared<SkillUseCommand>(this)),
@@ -16,8 +17,7 @@ ViewModel::ViewModel():
 
 void ViewModel::SetModel(const std::shared_ptr<model> &model_){
     m_model = model_;
-    //m_model->AddPropertyNotification(std::static_pointer_cast<IPropertyNotification>(m_sink));
-//    todo : notification
+    m_model->AddPropertyNotification(std::static_pointer_cast<IPropertyNotification>(m_sink));
 }
 
 bool ViewModel::CallModelAllBulletMove(){
@@ -47,6 +47,10 @@ bool ViewModel::CallModelGamePause(){
 
 bool ViewModel::CallModelGameReset(){
     return m_model->gamereset();
+}
+
+bool ViewModel::CallModelPlayerGenerate(){
+    return m_model->playergenerate();
 }
 
 bool ViewModel::CallModelPlayerBulletShoot(){
@@ -101,24 +105,48 @@ std::shared_ptr<ICommandBase> ViewModel::GetSkillUse(){
     return std::static_pointer_cast<ICommandBase>(m_cmdSkillUse);
 }
 
-std::shared_ptr<MyPlane> ViewModel::GetMyPlane(){
-    return m_model->GetMyPlane();
+std::shared_ptr<POS> ViewModel::GetPlayerPosX(){
+    return m_model->GetPlayerPosx();
+}
+
+std::shared_ptr<POS> ViewModel::GetPlayerPosY(){
+    return m_model->GetPlayerPosy();
 }
 
 std::shared_ptr<SCORE> ViewModel::GetPlayerScore(){
     return m_model->GetPlayerScore();
 }
 
-std::shared_ptr<vector<EnemyPlane *>> ViewModel::GetEnemiesPlane(){
-    return m_model->GetEnemiesPlane();
+std::shared_ptr<POSES> ViewModel::GetBulletsPosX(){
+    return m_model->GetBulletPosx();
 }
 
-std::shared_ptr<vector<Bullet *>> ViewModel::GetBullets(){
-    return m_model->GetBullets();
+std::shared_ptr<POSES> ViewModel::GetBulletsPosY(){
+    return m_model->GetBulletPosy();
 }
 
-std::shared_ptr<vector<Object *>> ViewModel::GetLifeSupplies(){
-    return m_model->GetLifeSupplies();
+std::shared_ptr<POSES> ViewModel::GetEmemiesPosX(){
+    return m_model->GetEnemyPosx();
+}
+
+std::shared_ptr<POSES> ViewModel::GetEmemiesPosY(){
+    return m_model->GetEnemyPosy();
+}
+
+std::shared_ptr<ENEMYTYPES> ViewModel::GetEmemiesType(){
+    return m_model->GetEnemyType();
+}
+
+std::shared_ptr<POSES> ViewModel::GetLifeSuppliesPosX(){
+    return m_model->GetLifeSupplyPosx();
+}
+
+std::shared_ptr<POSES> ViewModel::GetLifeSuppliesPosY(){
+    return m_model->GetLifeSupplyPosy();
+}
+
+std::shared_ptr<BULLETTYPES> ViewModel::GetBulletsType(){
+    return m_model->GetBulletType();
 }
 
 std::shared_ptr<BAR>  ViewModel::GetPlayerLife(){

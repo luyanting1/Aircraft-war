@@ -20,6 +20,7 @@ SOURCES += \
     mainwindow.cpp \
     app/app.cpp \
     model/model.cpp \
+    view/sinks/viewpropertysink.cpp \
     view/view.cpp \
     viewmodel/command/allbulletmovecommand.cpp \
     viewmodel/command/bossgeneratecommand.cpp \
@@ -29,6 +30,7 @@ SOURCES += \
     viewmodel/command/gamepausecommand.cpp \
     viewmodel/command/gameresetcommand.cpp \
     viewmodel/command/playerbulletshootcommand.cpp \
+    viewmodel/command/playergeneratecommand.cpp \
     viewmodel/command/playermovecommand.cpp \
     viewmodel/command/skillusecommand.cpp \
     viewmodel/sink/viewmodelsink.cpp \
@@ -41,11 +43,12 @@ SOURCES += \
     base/Object.cpp
 
 HEADERS += \
+    base/init.h \
     mainwindow.h \
     app/app.h \
     model/model.h \
+    view/sinks/viewpropertysink.h \
     view/view.h \
-    view/sinks/updatesink.h \
     viewmodel/command/allbulletmovecommand.h \
     viewmodel/command/bossgeneratecommand.h \
     viewmodel/command/enemybulletshootcommand.h \
@@ -54,6 +57,7 @@ HEADERS += \
     viewmodel/command/gamepausecommand.h \
     viewmodel/command/gameresetcommand.h \
     viewmodel/command/playerbulletshootcommand.h \
+    viewmodel/command/playergeneratecommand.h \
     viewmodel/command/playermovecommand.h \
     viewmodel/command/skillusecommand.h \
     viewmodel/sink/viewmodelsink.h \

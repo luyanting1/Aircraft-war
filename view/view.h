@@ -26,7 +26,6 @@
 #include "../base/Plane.h"
 #include "../common/etlbase.h"
 #include "../common/precomp.h"
-#include "./sinks/updatesink.h"
 
 #define myBulletImageFile  ":/images/mybullet.png"
 
@@ -46,6 +45,9 @@
 
 #define lifeSupplyImageFile  ":/images/lifesupply.png"
 //补给图片
+
+#include "./sinks/viewpropertysink.h"
+
 using namespace std;
 class View : public QGraphicsScene
 {

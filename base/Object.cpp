@@ -5,9 +5,10 @@ Object::Object()
 
 }
 
-Object::Object(WarPart part, const string &imageFile):
-   QGraphicsPixmapItem(QPixmap(QString::fromStdString(imageFile)))
+Object::Object(double x,double y,WarPart part):
 {
+    this->x = x;
+    this->y = y;
     this->part = part;
 }
 
