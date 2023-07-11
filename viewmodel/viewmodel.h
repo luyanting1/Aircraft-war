@@ -8,6 +8,7 @@
 #include "./command/enemymovecommand.h"
 #include "./command/gamepausecommand.h"
 #include "./command/gameresetcommand.h"
+#include "./command/playergeneratecommand.h"
 #include "./command/playerbulletshootcommand.h"
 #include "./command/playermovecommand.h"
 #include "./command/skillusecommand.h"
@@ -31,19 +32,28 @@ public:
     bool CallModelEnemyMove();
     bool CallModelGamePause();
     bool CallModelGameReset();
+    bool CallModelPlayerGenerate();
     bool CallModelPlayerBulletShoot();
     bool CallModelPlayerMove(char direction);
     bool CallModelSkillUse(int skill_index);
 
-    std::shared_ptr<MyPlane>              GetMyPlane();
-    std::shared_ptr<SCORE>                GetPlayerScore();
+    std::shared_ptr<POS>    GetPlayerPosX();
+    std::shared_ptr<POS>    GetPlayerPosY();
+    std::shared_ptr<SCORE>    GetPlayerScore();
 
-    std::shared_ptr<vector<EnemyPlane *>> GetEnemiesPlane();
-    std::shared_ptr<vector<Bullet *>>     GetBullets();
-    std::shared_ptr<vector<Object *>>     GetLifeSupplies();
+    std::shared_ptr<POSES>    GetBulletsPosX();
+    std::shared_ptr<POSES>    GetBulletsPosY();
+    std::shared_ptr<BULLETTYPES>    GetBulletsType();
 
-    std::shared_ptr<BAR>                  GetPlayerLife();
-    std::shared_ptr<BAR>                  GetPlayerSkill();
+    std::shared_ptr<POSES>    GetEmemiesPosX();
+    std::shared_ptr<POSES>    GetEmemiesPosY();
+    std::shared_ptr<ENEMYTYPES>    GetEmemiesType();
+
+    std::shared_ptr<POSES>  GetLifeSuppliesPosX();
+    std::shared_ptr<POSES>  GetLifeSuppliesPosY();
+
+    std::shared_ptr<BAR>    GetPlayerLife();
+    std::shared_ptr<BAR>    GetPlayerSkill();
 
     std::shared_ptr<ICommandBase> GetAllBulletMove();
     std::shared_ptr<ICommandBase> GetBossGenerate();

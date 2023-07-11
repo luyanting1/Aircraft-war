@@ -26,7 +26,7 @@
 #include "../base/Plane.h"
 #include "../common/etlbase.h"
 #include "../common/precomp.h"
-#include "./sinks/updatesink.h"
+#include "./sinks/viewpropertysink.h"
 using namespace std;
 class View : public QGraphicsScene
 {

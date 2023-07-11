@@ -16,10 +16,17 @@ void app::run(QGraphicsView* game_interface){//std::shared_ptr<QGraphicsView> ga
     viewmodel_ptr = std::make_shared<ViewModel>();
     viewmodel_ptr->SetModel(model_ptr);
 
-    ctrl->SetMyPlane(viewmodel_ptr->GetMyPlane());
+    ctrl->SetPlayerPosX(viewmodel_ptr->GetPlayerPosX());
+    ctrl->SetPlayerPosY(viewmodel_ptr->GetPlayerPosY());
     ctrl->SetPlayerScore(viewmodel_ptr->GetPlayerScore());
-    ctrl->SetEnemiesPlane(viewmodel_ptr->GetEnemiesPlane());
-    ctrl->SetBullets(viewmodel_ptr->GetBullets());
+    ctrl->SetBulletsPosX(viewmodel_ptr->GetBulletsPosX());
+    ctrl->SetBulletsPosY(viewmodel_ptr->GetBulletsPosY());
+    ctrl->SetBulletsType(viewmodel_ptr->GetBulletsType());
+    ctrl->SetEnemiesPosX(viewmodel_ptr->GetEmemiesPosX());
+    ctrl->SetEnemiesPosY(viewmodel_ptr->GetEmemiesPosY());
+    ctrl->SetEnemiesType(viewmodel_ptr->GetEmemiesType());
+    ctrl->SetLifeSuppliesPosX(viewmodel_ptr->GetLifeSuppliesPosX());
+    ctrl->SetLifeSuppliesPosY(viewmodel_ptr->GetLifeSuppliesPosY());
     ctrl->SetPlayerLife(viewmodel_ptr->GetPlayerLife());
     ctrl->SetPlayerSkill(viewmodel_ptr->GetPlayerSkill());
 
@@ -31,6 +38,7 @@ void app::run(QGraphicsView* game_interface){//std::shared_ptr<QGraphicsView> ga
     ctrl->SetEnemyMoveCommand(viewmodel_ptr->GetEnemyMove());
     ctrl->SetGamePauseCommand(viewmodel_ptr->GetGamePause());
     ctrl->SetGameResetCommand(viewmodel_ptr->GetGameReset());
+    ctrl->SetPlayerGenerateCommand(viewmodel_ptr->GetPlayerGenerateCommand());
     ctrl->SetPlayerBulletShootCommand(viewmodel_ptr->GetPlayerBulletShoot());
     ctrl->SetPlayerMoveCommand(viewmodel_ptr->GetPlayerMove());
     ctrl->SetSkillUseCommand(viewmodel_ptr->GetSkillUse());

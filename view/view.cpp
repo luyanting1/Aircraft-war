@@ -202,13 +202,14 @@ void View::startGame()
     bossGenerateTimeId = startTimer(bossGenerateTimeItv);
 
     /* 添加玩家飞机 */
-    myplane = make_shared<MyPlane>(width() / 2, height() / 2, myPlaneImageFile, *player_life, *player_skill);
+    myplane = std::make_shared<MyPlane>(width() / 2, height() / 2, myPlaneImageFile, *player_life, *player_skill);
     this->addItem(((std::shared_ptr<QGraphicsItem>)(myplane)).get());
     /* 添加敌机 */
     for (int i = 0; i < 3; i++)
     {
         enemyplane_generate();
     }
+    changescene();
 }
 
 void View::showHelpMessage()
