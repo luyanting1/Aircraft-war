@@ -721,10 +721,6 @@ void View::SetSkillUseCommand(shared_ptr<ICommandBase> a)
 {
     m_cmdskilluse=a;
 }
-/*
-std::shared_ptr<IPropertyNotification> View::get_updateSink(){
-    return std::static_pointer_cast<IPropertyNotification>(m_updateSink);
-}*/
 
 void View::SetPlayerLife(shared_ptr<BAR> a)
 {
@@ -776,6 +772,12 @@ void View::SetEnemiesType(shared_ptr<ENEMYTYPES> a)
 {
     enemy_type=a;
 }
+
+std::shared_ptr<IPropertyNotification> View::GetPropertySink()
+{
+    return std::static_pointer_cast<IPropertyNotification>(m_propertysink);
+}
+
 void View::SetLifeSuppliesPosX(shared_ptr<POSES> a)
 {
     lifesupply_posX=a;

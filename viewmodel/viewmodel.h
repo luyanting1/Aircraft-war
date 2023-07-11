@@ -62,6 +62,7 @@ public:
     std::shared_ptr<ICommandBase> GetEnemyMove();
     std::shared_ptr<ICommandBase> GetGamePause();
     std::shared_ptr<ICommandBase> GetGameReset();
+    std::shared_ptr<ICommandBase> GetPlayerGenerate();
     std::shared_ptr<ICommandBase> GetPlayerBulletShoot();
     std::shared_ptr<ICommandBase> GetPlayerMove();
     std::shared_ptr<ICommandBase> GetSkillUse();
@@ -75,6 +76,7 @@ private:
     std::shared_ptr<EnemyMoveCommand> m_cmdEnemyMove;
     std::shared_ptr<GamePauseCommand> m_cmdGamePause;
     std::shared_ptr<GameResetCommand> m_cmdGameReset;
+    std::shared_ptr<PlayerGenerateCommand> m_cmdPlayerGenerate;
     std::shared_ptr<PlayerBulletShootCommand> m_cmdPlayerBulletShoot;
     std::shared_ptr<PlayerMoveCommand> m_cmdPlayerMove;
     std::shared_ptr<SkillUseCommand> m_cmdSkillUse;

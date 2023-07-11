@@ -2,14 +2,14 @@
 #define VIEWPROPERTYSINK_H
 #include "../../common/etlbase.h"
 
-class view;
+class View;
 
 class ViewPropertySink: public IPropertyNotification
 {
 public:
-    ViewPropertySink(view* ctrl);
+    ViewPropertySink(View* ctrl) throw();
     virtual void OnPropertyChanged(const std::string &str);
 private:
-    view *ctrl;
+    View *ctrl;
 };
 #endif //VIEWPROPERTYSINK_H

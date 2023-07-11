@@ -57,7 +57,7 @@ protected:
     void keyReleaseEvent(QKeyEvent *event);
 public:
     View();
-    std::shared_ptr<IPropertyNotification> get_updateSink();
+    std::shared_ptr<IPropertyNotification> GetPropertySink();
 
     void SetMyPlane(std::shared_ptr<MyPlane>);
 
@@ -161,8 +161,9 @@ private:
        shared_ptr<ICommandBase> m_cmdshootenemybullet;
        shared_ptr<ICommandBase> m_cmdshootmybullet;
        shared_ptr<ICommandBase> m_cmdmoveenemyplane;
-       //shared_ptr <updateSink> m_updateSink;
+
        shared_ptr <ICommandBase> m_cmdgeneratemyplane;
+       shared_ptr<ViewPropertySink> m_propertysink;
        shared_ptr<POS>  play_posX;
 
        shared_ptr<POS>  play_posY;
