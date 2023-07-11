@@ -93,7 +93,8 @@ public:
     std::shared_ptr<POSES>    GetEnemiesPosX();
     std::shared_ptr<POSES>    GetEnemiesPosY();
     std::shared_ptr<ENEMYTYPES>    GetEnemiesType();
-    std::shared_ptr<vector<Object *>>GetLifeSupplies();
+    std::shared_ptr<POSES> GetLifeSuppliesPosX();
+    std::shared_ptr<POSES> GetLifeSuppliesPosY();
     std::shared_ptr<int> GetPlayerLife();
     std::shared_ptr<int> GetPlayerSkill();
 

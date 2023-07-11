@@ -469,7 +469,7 @@ bool model::enemymove()
 
     return myplane->life > 0;
 }
-/*
+
 bool model::gamereset()
 {
     score = std::make_shared<int>(0); //得分
@@ -490,12 +490,12 @@ bool model::gamereset()
     lifesupplys = std::make_shared<vector<Object*>>();
     myplane = new MyPlane(width1 / 2, height1 / 2,  myLife, mySkill);
     /* 添加敌机 */
-/*
+ /*
     for (int i = 0; i < 3; i++)
-        enemygenerate();
+        enemygenerate();*/
     return true;
 }
-*/
+
 bool model::playerbulletshoot()
 {
     if((*myBulletType)==0)
@@ -541,9 +541,34 @@ bool model::playermove(char dir)
     return true;
 }
 
-std::shared_ptr<vector<Object *>> model::GetLifeSupplies()
+std::shared_ptr<POSES>  model::GetLifeSuppliesPosX()
 {
-      return lifesupplys;
+    std::shared_ptr<POSES>  SuppliesPosX =std::make_shared<POSES>();
+    for(auto it:*lifesupplys)
+    {
+        double x2= it->x;
+        SuppliesPosX->push_back(&x2);
+    }
+    return SuppliesPosX;
 }
 
+std::shared_ptr<POSES> model::GetLifeSuppliesPosY()
+{
+    std::shared_ptr<POSES>  SuppliesPosY =std::make_shared<POSES>();
+    for(auto it:*lifesupplys)
+    {
+        double y2= it->y;
+        SuppliesPosY->push_back(&y2);
+    }
+    return SuppliesPosY;
+}
 
+std::shared_ptr<POS> model::GetPlayerPosX()
+{
+    return std::make_shared<POS>(myplane->x);
+}
+
+std::shared_ptr<POS> model::GetPlayerPosY()
+{
+    return std::make_shared<POS>(myplane->y);
+}
