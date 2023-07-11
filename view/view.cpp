@@ -645,7 +645,7 @@ void View::changescene()
             this->addItem(pixmapItem);
         }
     }
-    for(int i=0;i<(*lifesuppy_posX).size();i++)
+    for(int i=0;i<(*lifesupply_posX).size();i++)
     {
         QPixmap pixmap(lifeSupplyImageFile);
         QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
@@ -685,7 +685,7 @@ void View::SetBossGenerateCommand(shared_ptr<ICommandBase>a)
 {
     m_cmdgenerateboss=a;
 }
-void View::PlayerGenerateCommand(shared_ptr<ICommandBase>a)
+void View::SetPlayerGenerateCommand(shared_ptr<ICommandBase>a)
 {
     m_cmdgeneratemyplane=a;
 }
@@ -721,9 +721,10 @@ void View::SetSkillUseCommand(shared_ptr<ICommandBase> a)
 {
     m_cmdskilluse=a;
 }
+/*
 std::shared_ptr<IPropertyNotification> View::get_updateSink(){
     return std::static_pointer_cast<IPropertyNotification>(m_updateSink);
-}
+}*/
 
 void View::SetPlayerLife(shared_ptr<BAR> a)
 {
@@ -774,4 +775,13 @@ void View::SetEnemiesPosY(shared_ptr<POSES> a)
 void View::SetEnemiesType(shared_ptr<ENEMYTYPES> a)
 {
     enemy_type=a;
+}
+void View::SetLifeSuppliesPosX(shared_ptr<POSES> a)
+{
+    lifesupply_posX=a;
+}
+
+void View::SetLifeSuppliesPosY(shared_ptr<POSES> a)
+{
+  lifesupply_posY=a;
 }
