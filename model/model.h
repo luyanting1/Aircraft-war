@@ -21,6 +21,26 @@
 #include "./base/EnemyPlane.h"
 #include "./common/precomp.h"
 
+#define WIDTH 600
+#define HEIGHT 800
+
+#define bosswidth 240
+#define bossheight 240
+
+#define enemyplanewidth 90
+#define enemyplaneheight 69
+
+#define lifesupplywidth 26
+#define lifesupplyheight 24
+
+#define myplanewidth 120
+#define myplaneheight 79
+
+#define mybulletwidth 128
+#define mybulletheight 128
+
+#define enemybulletwidth 90
+#define enemybulletheight 44
 
 class model
 {
@@ -62,10 +82,15 @@ public:
     bool skilluse(int sk_index);
     bool changeBulletPosition(Bullet * bullet, int newX, int newY);
 
-    std::shared_ptr<MyPlane> GetMyPlane();
+    std::shared_ptr<POS>    GetPlayerPosX();
+    std::shared_ptr<POS>    GetPlayerPosY();
     std::shared_ptr<SCORE> GetPlayerScore();
-    std::shared_ptr<vector<Bullet *>> GetBullets();
-    std::shared_ptr<vector<EnemyPlane *>> GetEnemiesPlane();
+    std::shared_ptr<POSES>    GetBulletsPosX();
+    std::shared_ptr<POSES>    GetBulletsPosY();
+    std::shared_ptr<BULLETTYPES>    GetBulletsType();
+    std::shared_ptr<POSES>    GetEmemiesPosX();
+    std::shared_ptr<POSES>    GetEmemiesPosY();
+    std::shared_ptr<ENEMYTYPES>    GetEmemiesType();
     std::shared_ptr<vector<Object *>>GetLifeSupplies();
     std::shared_ptr<int> GetPlayerLife();
     std::shared_ptr<int> GetPlayerSkill();

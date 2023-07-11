@@ -41,6 +41,7 @@ SOURCES += \
     base/Object.cpp
 
 HEADERS += \
+    base/init.h \
     mainwindow.h \
     app/app.h \
     model/model.h \
