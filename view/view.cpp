@@ -721,9 +721,6 @@ void View::SetSkillUseCommand(shared_ptr<ICommandBase> a)
 {
     m_cmdskilluse=a;
 }
-std::shared_ptr<IPropertyNotification> View::get_updateSink(){
-    return std::static_pointer_cast<IPropertyNotification>(m_updateSink);
-}
 
 void View::SetPlayerLife(shared_ptr<BAR> a)
 {

@@ -8,7 +8,7 @@ ViewModel::ViewModel():
     m_cmdEnemyMove(std::make_shared<EnemyMoveCommand>(this)),
     m_cmdGamePause(std::make_shared<GamePauseCommand>(this)),
     m_cmdGameReset(std::make_shared<GameResetCommand>(this)),
-    m_cmdPlayerGenerate(std::make_shard<PlayerGenerateCommand>(this)),
+    m_cmdPlayerGenerate(std::make_shared<PlayerGenerateCommand>(this)),
     m_cmdPlayerBulletShoot(std::make_shared<PlayerBulletShootCommand>(this)),
     m_cmdPlayerMove(std::make_shared<PlayerMoveCommand>(this)),
     m_cmdSkillUse(std::make_shared<SkillUseCommand>(this)),
