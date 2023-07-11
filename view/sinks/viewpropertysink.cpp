@@ -7,5 +7,5 @@ ViewPropertySink::ViewPropertySink(View* ctrl) throw() : ctrl(ctrl)
 
 void ViewPropertySink::OnPropertyChanged(const std::string& str)
 {
-    ctrl->update();
+
 }
