@@ -19,6 +19,7 @@
 #include "./base/Plane.h"
 #include "./base/MyPlane.h"
 #include "./base/EnemyPlane.h"
+#include "./common/etlbase.h"
 #include "./common/precomp.h"
 
 #define WIDTH 600
@@ -42,7 +43,7 @@
 #define enemybulletwidth 90
 #define enemybulletheight 44
 
-class model
+class model: public Proxy_PropertyNotification<model>
 {
 private:
      std::shared_ptr<vector<EnemyPlane *>> enemyplanes;
