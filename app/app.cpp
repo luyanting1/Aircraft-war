@@ -6,15 +6,16 @@ app::~app(){}
 void app::run(QGraphicsView* game_interface){//std::shared_ptr<QGraphicsView> game_interface){
 
     //std::shared_ptr<View>ctrl = make_shared<View>();
-    ctrl = std::make_shared<View>();
+    ctrl = new View();
     //std::shared_ptr<QGraphicsScene> game_ctrl = static_pointer_cast<QGraphicsScene>(ctrl);
-    game_interface->setScene(ctrl.get());//game_ctrl.get());
+    game_interface->setScene(ctrl);//game_ctrl.get());
     game_interface->setBackgroundBrush(QBrush(QPixmap("://images/background1.png")));
     game_interface->show();
 
     model_ptr = std::make_shared<model>();
     viewmodel_ptr = std::make_shared<ViewModel>();
     viewmodel_ptr->SetModel(model_ptr);
+    viewmodel_ptr->SetView(ctrl);
 
     ctrl->SetPlayerPosX(viewmodel_ptr->GetPlayerPosX());
     ctrl->SetPlayerPosY(viewmodel_ptr->GetPlayerPosY());
@@ -44,12 +45,12 @@ void app::run(QGraphicsView* game_interface){//std::shared_ptr<QGraphicsView> ga
     ctrl->SetSkillUseCommand(viewmodel_ptr->GetSkillUse());
 
     //notifications
-    model_ptr->AddPropertyNotification(ctrl->GetPropertySink());
+    model_ptr->AddPropertyNotification(viewmodel_ptr->GetPropertySink());
     viewmodel_ptr->AddPropertyNotification(ctrl->GetPropertySink());
 
 }
 
-std::shared_ptr<View> app::GetCtrl(){
+View* app::GetCtrl(){
     return ctrl;
 }
 

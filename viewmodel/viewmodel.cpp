@@ -11,13 +11,17 @@ ViewModel::ViewModel():
     m_cmdPlayerGenerate(std::make_shared<PlayerGenerateCommand>(this)),
     m_cmdPlayerBulletShoot(std::make_shared<PlayerBulletShootCommand>(this)),
     m_cmdPlayerMove(std::make_shared<PlayerMoveCommand>(this)),
-    m_cmdSkillUse(std::make_shared<SkillUseCommand>(this)),
-    m_sink(std::make_shared<ViewModelSink>(this))
+    m_cmdSkillUse(std::make_shared<SkillUseCommand>(this))
 {}
 
 void ViewModel::SetModel(const std::shared_ptr<model> &model_){
     m_model = model_;
-    m_model->AddPropertyNotification(std::static_pointer_cast<IPropertyNotification>(m_sink));
+    //m_model->AddPropertyNotification(std::static_pointer_cast<IPropertyNotification>(m_propertysink));
+}
+
+void ViewModel::SetView(View* & view_){
+    m_view = view_;
+m_propertysink = std::make_shared<ViewModelSink>(this, m_view);
 }
 
 bool ViewModel::CallModelAllBulletMove(){
@@ -159,4 +163,8 @@ std::shared_ptr<BAR>  ViewModel::GetPlayerLife(){
 
 std::shared_ptr<BAR>  ViewModel::GetPlayerSkill(){
     return m_model->GetPlayerSkill();
+}
+
+std::shared_ptr<ViewModelSink> ViewModel::GetPropertySink(){
+    return m_propertysink;
 }

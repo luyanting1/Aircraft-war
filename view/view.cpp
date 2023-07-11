@@ -13,6 +13,7 @@ const int bossGenerateTimeItv = 5000;
 
 View::View()
 {
+    m_propertysink = std::make_shared<ViewPropertySink>(this);
     setSceneRect(0,0,800,600);//设置整个界面的大小
 
     myLife=50;

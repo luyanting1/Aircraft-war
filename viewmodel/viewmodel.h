@@ -14,17 +14,16 @@
 #include "./command/skillusecommand.h"
 #include "./sink/viewmodelsink.h"
 #include "../model/model.h"
+#include "../view/view.h"
 #include "../common/etlbase.h"
 #include "../common/precomp.h"
-#include "../base/Bullet.h"
-#include "../base/EnemyPlane.h"
-#include "../base/MyPlane.h"
-
+class ViewModelSink;
 class ViewModel: public Proxy_PropertyNotification<ViewModel>
 {
 public:
     ViewModel();
     void SetModel(const std::shared_ptr<model>& model_);
+    void SetView(View*& view_);
     bool CallModelAllBulletMove();
     bool CallModelBossGenerate();
     bool CallModelEnemyBulletShoot();
@@ -67,8 +66,11 @@ public:
     std::shared_ptr<ICommandBase> GetPlayerMove();
     std::shared_ptr<ICommandBase> GetSkillUse();
 
+    std::shared_ptr<ViewModelSink> GetPropertySink();
+
 private:
     std::shared_ptr<model> m_model;
+    View* m_view;
     std::shared_ptr<AllBulletMoveCommand> m_cmdAllBulletMove;
     std::shared_ptr<BossGenerateCommand> m_cmdBossGenerate;
     std::shared_ptr<EnemyBulletShootCommand> m_cmdEnemyBulletShoot;
@@ -81,7 +83,7 @@ private:
     std::shared_ptr<PlayerMoveCommand> m_cmdPlayerMove;
     std::shared_ptr<SkillUseCommand> m_cmdSkillUse;
 
-    std::shared_ptr<ViewModelSink> m_sink;
+    std::shared_ptr<ViewModelSink> m_propertysink;
 };
 
 #endif // VIEWMODEL_H
