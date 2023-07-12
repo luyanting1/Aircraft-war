@@ -6,10 +6,15 @@ Bullet::Bullet()
 {
 }
 
-Bullet::Bullet(WarPart part, double x, double y,const QPointF &dir, int power):
+Bullet::Bullet(WarPart part, double x, double y,EnemyType type1, const QPointF &dir, int power):
     Object(x,y,part)
 {
     //setPos(x, y);
+    if(part == ME) type2 = 0;
+       else
+        if(type1 == ORD)
+           type2 =1;
+       else type2 = 2;
 	this->dir = dir;
 	this->power = power;
 }

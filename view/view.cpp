@@ -194,7 +194,7 @@ void View::startGame()
     skillBar->show();
 
     /* 设置各动作更新时钟 */
-    /*
+
     myPlaneMove = QPointF(0, 0);
     myBulletShootTimerId = startTimer(myBulletShootTimerItv);
     enemyBulletShootTimerId = startTimer(enemyBulletShootTimerItv);
@@ -202,7 +202,7 @@ void View::startGame()
     enemyPlaneMoveTimerId = startTimer(enemyPlaneMoveTimerItv);
     enemyPlaneGenerateTimerId = startTimer(enemyPlaneGenerateTimerItv);
     bossGenerateTimeId = startTimer(bossGenerateTimeItv);
-*/
+
     /* 添加玩家飞机 */
     myplane_generate();
     QPixmap pixmap(myPlaneImageFile); // 加载图像
@@ -218,6 +218,7 @@ void View::startGame()
     //SetEnemiesPosY(GetEnemiesPosY());
     for (int i=0;i<(*enemy_posX).size();i++)
     {
+      //  qDebug()<<x<<Qt::endl;
         QPixmap pixmap(enemyPlaneImageFile); // 加载图像
         QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
         qDebug()<<*((*enemy_posX)[i])<<"  "<<*((*enemy_posY)[i])<<Qt::endl;

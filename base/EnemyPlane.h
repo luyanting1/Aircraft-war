@@ -16,7 +16,7 @@ public:
     pair<double,double> updatePosition();
     double& getx() { return this->x; }
     double& gety() { return this->y; }
-    int gett() { return this->type; }
+    EnemyType& gett() { return this->type; }
     int& getl() { return this->life; }
     bool crash1() { return this->crash(); }
 

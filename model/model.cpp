@@ -26,6 +26,7 @@ model::model() {
     this->mySkill = 5;
     mybullets = std::make_shared<vector<Bullet*>>();
     lifesupplys = std::make_shared<vector<Object*>>();
+    //qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
 }
 
 std::shared_ptr<SCORE> model::GetPlayerScore()
@@ -38,13 +39,11 @@ std::shared_ptr<POSES> model::GetBulletsPosX()
      std::shared_ptr<POSES> BulletPosX = std::make_shared<POSES>();
      for(auto it:*mybullets)
      {
-         double x2 = it->getx();
-         BulletPosX->push_back(&x2);
+         BulletPosX->push_back(&it->getx());
      }
      for(auto it:*enemybullets)
      {
-         double x2 = it->getx();
-         BulletPosX->push_back(&x2);
+         BulletPosX->push_back(&it->getx());
      }
      return BulletPosX;
 }
@@ -54,13 +53,11 @@ std::shared_ptr<POSES> model::GetBulletsPosY()
     std::shared_ptr<POSES> BulletPosY = std::make_shared<POSES>();
     for(auto it:*mybullets)
     {
-        double y2 = it->gety();
-        BulletPosY->push_back(&y2);
+        BulletPosY->push_back(&it->gety());
     }
     for(auto it:*enemybullets)
     {
-        double y2 = it->gety();
-        BulletPosY->push_back(&y2);
+        BulletPosY->push_back(&it->gety());
     }
     return BulletPosY;
 }
@@ -68,17 +65,13 @@ std::shared_ptr<POSES> model::GetBulletsPosY()
 std::shared_ptr<BULLETTYPES> model::GetBulletsType()
 {
     std::shared_ptr<BULLETTYPES> BulletType = std::make_shared<BULLETTYPES>();
-    for(int i=1;i<=(*mybullets).size();++i)
+    for(auto it:*mybullets)
     {
-        int p=0;
-        BulletType->push_back(&p);
+        BulletType->push_back(&it->gett2());
     }
-    for(auto it:*enemyplanes)
+    for(auto it:*enemybullets)
      {
-        int p;
-        if(it->type == ORD) p = 1;
-         else p = 2;
-        BulletType->push_back(&p);
+        BulletType->push_back(&it->gett2());
      }
      return BulletType;
 }
@@ -88,8 +81,7 @@ std::shared_ptr<POSES> model::GetEnemiesPosX()
     std::shared_ptr<POSES> enemiePosX = std::make_shared<POSES>();
     for(auto it:*enemyplanes)
     {
-        double x2 = it->getx();
-        enemiePosX->push_back(&x2);
+        enemiePosX->push_back(&it->getx());
     }
     return enemiePosX;
 }
@@ -99,8 +91,7 @@ std::shared_ptr<POSES> model::GetEnemiesPosY()
     std::shared_ptr<POSES> enemiePosY = std::make_shared<POSES>();
     for(auto it:*enemyplanes)
     {
-        double y2 = it->gety();
-        enemiePosY->push_back(&y2);
+        enemiePosY->push_back(&it->gety());
     }
     return enemiePosY;
 }
@@ -109,8 +100,8 @@ std::shared_ptr<ENEMYTYPES> model::GetEnemiesType()
     std::shared_ptr<ENEMYTYPES> enemieType1 = std::make_shared<ENEMYTYPES>();
     for(auto it:*enemyplanes)
     {
-        int t2 = it->gett();
-        enemieType1->push_back(&t2);
+        //int p = ;
+        enemieType1->push_back((int *)(&it->gett()));
     }
     return enemieType1;
 }
@@ -217,8 +208,9 @@ bool model::changeBulletPosition(Bullet * bullet, int newX, int newY)
                 delete *it;
                 it = enemyplanes->erase(it);
                 /* 25%的概率掉落生命补给 */
-                srand(time(NULL));
-                if(rand()%4==0)
+                //srand(time(NULL));
+                int number = QRandomGenerator::global()->bounded(32766);
+                if(number%4==0)
                 {
                     Object *lifeSupply = new Object(x, y, LIFESUPPLY);
                     lifesupplys->push_back(lifeSupply);
@@ -278,9 +270,9 @@ int abs1(int x)
 bool model::bossgenerate()
 {
     /* 随机在第一行生成敌机 */
-    srand(time(NULL));//初始化时间种子
+    //srand(time(NULL));//初始化时间种子
     int cnt = 0;
-    int x = rand() % width1; //敌机最左端位置
+    int x = QRandomGenerator::global()->bounded(width1); //敌机最左端位置
     for(cnt=0;cnt<100;cnt++)
     {
         bool flag = true; //此位置是否合法
@@ -294,7 +286,7 @@ bool model::bossgenerate()
         if(flag)
             break;
         else
-            x = rand() % width1;
+            x = QRandomGenerator::global()->bounded(width1);
     }
 
     /* 若生成100次随机都未能找到合适的位置则退出 */
@@ -316,23 +308,23 @@ bool model::enemybulletshoot()
             if((*iter)->type==ORD)
             {
                 Bullet *bullet = new Bullet(ENEMY, (*iter)->getx()+enemyplanewidth/2, (*iter)->gety()+enemyplaneheight-15,
-                                         QPointF(0,1), enemyBulletPower);
+                                            ORD, QPointF(0,1), enemyBulletPower);
                 enemybullets->push_back(bullet);
               //  addItem(bullet);
             }
             else if((*iter)->type==BOSS)
             {
                 Bullet *bullet0 = new Bullet(ENEMY, (*iter)->getx()+bosswidth/2, (*iter)->gety()+bossheight-15,
-                                         QPointF(0,1), bossBulletPower);
+                                            BOSS, QPointF(0,1), bossBulletPower);
                 enemybullets->push_back(bullet0);
 
                 Bullet *bullet1 = new Bullet(ENEMY, (*iter)->getx()+bosswidth/2, (*iter)->gety()+bossheight-15,
-                                         QPointF(-1,1), bossBulletPower);
+                                            BOSS, QPointF(-1,1), bossBulletPower);
                 //bullet1->setRotation(45);
                 enemybullets->push_back(bullet1);
 
                 Bullet *bullet2 = new Bullet(ENEMY, (*iter)->getx()+bosswidth/2, (*iter)->gety()+bossheight-15,
-                                        QPointF(1,1), bossBulletPower);
+                                            BOSS, QPointF(1,1), bossBulletPower);
                 //bullet2->setRotation(-45);
                 enemybullets->push_back(bullet2);
                // addItem(bullet2);
@@ -344,10 +336,11 @@ bool model::enemybulletshoot()
 
 bool model::enemygenerate()
 {
-    srand(time(NULL));//初始化时间种子
+    //srand(time(NULL));//初始化时间种子
     //QPixmap pixmap(QPixmap(QString::fromStdString(enemyPlaneImageFile)));
     int cnt = 0;
-    int x = rand() % (int)width1; //敌机最左端位置
+    int x = QRandomGenerator::global()->bounded(width1); //敌机最左端位置
+    qDebug()<<x<<Qt::endl;
     for(cnt=0;cnt<100;cnt++)
     {
         bool flag = true; //此位置是否合法
@@ -360,15 +353,19 @@ bool model::enemygenerate()
         if(flag)
             break;
         else
-            x = rand() % width1;
+        {
+            x = QRandomGenerator::global()->bounded(width1);
+            qDebug()<<x<<Qt::endl;
+        }
     }
 
     /* 若生成100次随机都未能找到合适的位置则退出 */
     if(cnt>=100)
         return false;
-
+    //x = 5000;
     /* 新增敌机 */
     EnemyPlane *enemy = new EnemyPlane(x, 0, ORD, enemyLife);
+    qDebug()<<enemy->getx()<<Qt::endl;
     enemyplanes->push_back(enemy);
     Fire_OnPropertyChanged("enemy");
     return true;
@@ -509,25 +506,25 @@ bool model::playerbulletshoot()
     if((*myBulletType)==0)
     {
         Bullet *bullet = new Bullet(ME, myplane->x+40, myplane->y-38,
-                                    QPointF(0,-3), myBulletPower);
+                                    BOSS, QPointF(0,-3), myBulletPower);
         mybullets->push_back(bullet);
        // addItem(bullet);
     }
     else if((*myBulletType)==1)
     {
         Bullet *bullet1 = new Bullet(ME, myplane->x+40, myplane->y-38,
-                                    QPointF(-3,-3), myBulletPower);
+                                    BOSS, QPointF(-3,-3), myBulletPower);
         mybullets->push_back(bullet1);
         //bullet1->setRotation(-45);
         //addItem(bullet1);
 
         Bullet *bullet2 = new Bullet(ME, myplane->x+40, myplane->y-38,
-                                    QPointF(0,-3), myBulletPower);
+                                    BOSS, QPointF(0,-3), myBulletPower);
         mybullets->push_back(bullet2);
         //addItem(bullet2);
 
         Bullet *bullet3 = new Bullet(ME, myplane->x+40, myplane->y-38,
-                                    QPointF(3,-3), myBulletPower);
+                                    BOSS, QPointF(3,-3), myBulletPower);
         mybullets->push_back(bullet3);
         //bullet3->setRotation(45);
         //addItem(bullet3);
