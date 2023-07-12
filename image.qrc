@@ -14,5 +14,8 @@
         <file>images/myplane.png</file>
         <file>images/protect.png</file>
         <file>images/warning.png</file>
+        <file>images/bossbullet_new.png</file>
+        <file>images/enemybullet_new.png</file>
+        <file>images/mybullet_new.png</file>
     </qresource>
 </RCC>

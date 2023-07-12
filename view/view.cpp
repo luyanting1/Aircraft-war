@@ -134,11 +134,6 @@ View::View()
        skillBar->setBrush(QBrush(Qt::blue));
        addItem(skillBar);
        skillBar->hide();
-
-
-
-
-
        start();
 }
 void View::start()
