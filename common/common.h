@@ -10,7 +10,7 @@ typedef std::vector<int*> BULLETTYPES;
 //int -> Whether Boss
 typedef std::vector<int*> ENEMYTYPES;
 */
-typedef vector<Object> OBJECTS;
+typedef vector<Object *> OBJECTS;
 typedef int BAR;
 typedef int SCORE;
 

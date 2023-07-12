@@ -8,13 +8,12 @@
 #include <cstdlib>
 #include <iostream>
 #include <algorithm>
-#include <windows.h>
 #include <QGraphicsItem>
+#include <QRandomGenerator>
 #include <QDebug>
 #include <QUrl>
 //#include <QMediaPlaylist>
 //#include <QMediaPlayer>
-
 #include "./base/Bullet.h"
 #include "./base/Plane.h"
 #include "./base/MyPlane.h"
@@ -47,9 +46,13 @@ class model: public Proxy_PropertyNotification<model>
 {
 private:
      std::shared_ptr<vector<EnemyPlane *>> enemyplanes;
+     std::shared_ptr<OBJECTS> enemyplanes1;
      std::shared_ptr<vector<Bullet*>> enemybullets;
-     MyPlane *myplane;
+     std::shared_ptr<OBJECTS> enemybullets1;
+     std::shared_ptr<MyPlane> myplane;
+     std::shared_ptr<Object> myplane1;
      std::shared_ptr<vector<Bullet*>> mybullets;
+     std::shared_ptr<OBJECTS> mybullets1;
      std::shared_ptr<vector<Object*>> lifesupplys;
      QPointF myPlaneMove;
 
@@ -84,17 +87,13 @@ public:
     bool skilluse(int sk_index);
     bool changeBulletPosition(Bullet * bullet, int newX, int newY);
 
-    POS*  GetPlayerPosX();
-    POS*  GetPlayerPosY();
+   // POS*  GetPlayerPosX();
+   // POS*  GetPlayerPosY();
     std::shared_ptr<SCORE> GetPlayerScore();
-    std::shared_ptr<POSES>    GetBulletsPosX();
-    std::shared_ptr<POSES>    GetBulletsPosY();
-    std::shared_ptr<BULLETTYPES>    GetBulletsType();
-    std::shared_ptr<POSES>    GetEnemiesPosX();
-    std::shared_ptr<POSES>    GetEnemiesPosY();
-    std::shared_ptr<ENEMYTYPES>    GetEnemiesType();
-    std::shared_ptr<POSES> GetLifeSuppliesPosX();
-    std::shared_ptr<POSES> GetLifeSuppliesPosY();
+    std::shared_ptr<Object> GetMyPlane();
+    std::shared_ptr<OBJECTS> GetEnemiesPlane();
+    std::shared_ptr<OBJECTS> GetBullets();
+    std::shared_ptr<OBJECTS> GetLifeSupplies();
     std::shared_ptr<int> GetPlayerLife();
     std::shared_ptr<int> GetPlayerSkill();
 

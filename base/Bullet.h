@@ -1,11 +1,13 @@
 ﻿#ifndef BULLET_H
 #define BULLET_H
 
-#include "Object.h"
+#include "common/Object.h"
 #include<common/common.h>
+#include "init.h"
 #include <utility>
 #include <fstream>
 #include <iostream>
+#include <QPointF>
 using namespace std;
 
 class Bullet: public Object

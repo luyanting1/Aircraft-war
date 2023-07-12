@@ -3,8 +3,8 @@
 
 #include "init.h"
 #include<common/common.h>
-#include "Object.h"
-#include <QtWidgets>
+#include "common/Object.h"
+//#include <QtWidgets>
 #include <cstring>
 #include <vector>
 using namespace std;
@@ -21,6 +21,7 @@ public:
 
 protected:
     int life; //生命值
+    WarPart part;
 };
 
 #endif // !PLANE_H

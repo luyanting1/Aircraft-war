@@ -8,9 +8,10 @@ Plane::Plane()
 {
 }
 
-Plane::Plane(double x, double y, int life, enum WarPart part):Object(x, y, part)
+Plane::Plane(double x, double y, int life, enum WarPart part):Object(x, y, 0)
 {
     this->life = life;
+    this->part = part;
 }
 
 bool Plane::crash()

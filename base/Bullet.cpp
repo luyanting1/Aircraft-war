@@ -6,8 +6,7 @@ Bullet::Bullet()
 {
 }
 
-Bullet::Bullet(WarPart part, double x, double y,EnemyType type1, const QPointF &dir, int power):
-    Object(x,y,part)
+Bullet::Bullet(WarPart part, double x, double y,EnemyType type1, const QPointF &dir, int power)
 {
     //setPos(x, y);
     if(part == ME) type2 = 0;
@@ -17,6 +16,7 @@ Bullet::Bullet(WarPart part, double x, double y,EnemyType type1, const QPointF &
        else type2 = 2;
 	this->dir = dir;
 	this->power = power;
+    Object(x,y,type2);
 }
 
 pair<qreal, qreal> Bullet::updatePosition()
