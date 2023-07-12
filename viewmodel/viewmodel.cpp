@@ -113,48 +113,24 @@ std::shared_ptr<ICommandBase> ViewModel::GetSkillUse(){
     return std::static_pointer_cast<ICommandBase>(m_cmdSkillUse);
 }
 
-POS* ViewModel::GetPlayerPosX(){
-    return m_model->GetPlayerPosX();
+std::shared_ptr<Object> ViewModel::GetMyPlane(){
+    return m_model->GetMyPlane();
 }
 
-POS* ViewModel::GetPlayerPosY(){
-    return m_model->GetPlayerPosY();
+std::shared_ptr<OBJECTS> ViewModel::GetEnemiesPlane(){
+    return m_model->GetEnemiesPlane();
+}
+
+std::shared_ptr<OBJECTS> ViewModel::GetBullets(){
+    return m_model->GetBullets();
+}
+
+std::shared_ptr<OBJECTS> ViewModel::GetLifeSupplies(){
+    return m_model->GetLifeSupplies();
 }
 
 std::shared_ptr<SCORE> ViewModel::GetPlayerScore(){
     return m_model->GetPlayerScore();
-}
-
-std::shared_ptr<POSES> ViewModel::GetBulletsPosX(){
-    return m_model->GetBulletsPosX();
-}
-
-std::shared_ptr<POSES> ViewModel::GetBulletsPosY(){
-    return m_model->GetBulletsPosY();
-}
-
-std::shared_ptr<POSES> ViewModel::GetEnemiesPosX(){
-    return m_model->GetEnemiesPosX();
-}
-
-std::shared_ptr<POSES> ViewModel::GetEnemiesPosY(){
-    return m_model->GetEnemiesPosY();
-}
-
-std::shared_ptr<ENEMYTYPES> ViewModel::GetEnemiesType(){
-    return m_model->GetEnemiesType();
-}
-
-std::shared_ptr<POSES> ViewModel::GetLifeSuppliesPosX(){
-    return m_model->GetLifeSuppliesPosX();
-}
-
-std::shared_ptr<POSES> ViewModel::GetLifeSuppliesPosY(){
-    return m_model->GetLifeSuppliesPosY();
-}
-
-std::shared_ptr<BULLETTYPES> ViewModel::GetBulletsType(){
-    return m_model->GetBulletsType();
 }
 
 std::shared_ptr<BAR>  ViewModel::GetPlayerLife(){
@@ -163,8 +139,4 @@ std::shared_ptr<BAR>  ViewModel::GetPlayerLife(){
 
 std::shared_ptr<BAR>  ViewModel::GetPlayerSkill(){
     return m_model->GetPlayerSkill();
-}
-
-std::shared_ptr<ViewModelSink> ViewModel::GetPropertySink(){
-    return m_propertysink;
 }
