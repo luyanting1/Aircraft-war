@@ -528,6 +528,7 @@ void View::changescene()
     QList<QGraphicsItem *> itemslist = items();
     for (auto item : itemslist) {
         removeItem(item);
+        delete item;
     }
     /* 游戏标题 */
     titleText = new QGraphicsTextItem;
