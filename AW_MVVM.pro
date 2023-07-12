@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    common/Object.cpp \
     common/common.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -39,11 +40,11 @@ SOURCES += \
     base/Bullet.cpp \
     base/EnemyPlane.cpp \
     base/MyPlane.cpp \
-    base/Plane.cpp \
-    base/Object.cpp
+    base/Plane.cpp
 
 HEADERS += \
     base/init.h \
+    common/Object.h \
     common/common.h \
     mainwindow.h \
     app/app.h \
@@ -67,8 +68,7 @@ HEADERS += \
     base/Bullet.h \
     base/EnemyPlane.h \
     base/MyPlane.h \
-    base/Plane.h \
-    base/Object.h
+    base/Plane.h
 
 FORMS += \
     mainwindow.ui

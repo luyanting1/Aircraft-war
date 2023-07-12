@@ -1,7 +1,6 @@
 ﻿#ifndef OBJECT_H
 #define OBJECT_H
 
-#include "init.h"
 #include <QtWidgets>
 #include <string>
 #include<common/common.h>
@@ -21,7 +20,7 @@ public:
 
 protected:
     double x,y;
-    enum WarPart part;
+    int type2;
 };
 
 #endif // OBJECT_H
