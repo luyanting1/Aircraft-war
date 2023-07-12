@@ -37,11 +37,11 @@
 #define myplanewidth 120
 #define myplaneheight 79
 
-#define mybulletwidth 128
-#define mybulletheight 128
+#define mybulletwidth 18
+#define mybulletheight 35
 
-#define enemybulletwidth 90
-#define enemybulletheight 44
+#define enemybulletwidth 18
+#define enemybulletheight 18
 
 class model: public Proxy_PropertyNotification<model>
 {

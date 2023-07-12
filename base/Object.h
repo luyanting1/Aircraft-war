@@ -14,6 +14,8 @@ public:
     Object();
     Object(double x,double y,WarPart part);
     ~Object();
+    double& getx() { return this->x; }
+    double& gety() { return this->y; }
    // void synScreen(QGraphicsScene *scene);
     //void delScreen(QGraphicsScene *scene);
 
