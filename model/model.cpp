@@ -157,6 +157,8 @@ bool model::playergenerate()
 
 inline bool collidesWithItem(double x0,double y0,double len0,double h0,double x2,double y2,double len2,double h2)
 {
+    x0 = x0 + len0 / 2, y0 = y0 + h0 / 2;
+    x2 = x2 + len2 / 2, y2 = y2 + h2 / 2;
     double top0 = y0+h0/2, bot0 = y0-h0/2, left0 = x0-len0/2, right0 = x0+len0/2;
     double top2 = y2+h2/2, bot2 = y2-h2/2, left2 = x2-len2/2, right2 = x2+len2/2;
     if(left0 > right2 || left2 > right0 || bot0 > top2 || bot2 < top0)
