@@ -385,7 +385,10 @@ void View::keyReleaseEvent(QKeyEvent *event)
             && !event->isAutoRepeat())
     {
         direction='N';//不移动的时候
-        killTimer(myPlaneMoveTimerId);//当飞机不动以后将他的时钟释放掉
+        if (myPlaneMoveTimerId > 0) {
+            killTimer(myPlaneMoveTimerId);//当飞机不动以后将他的时钟释放掉
+            myPlaneMoveTimerId = -1;
+        }
     }
 }
 
@@ -406,12 +409,31 @@ void View::pauseGame()
     if(!isPause)
        {
            isPause = true;
-           killTimer(myBulletShootTimerId);
-           killTimer(enemyBulletShootTimerId);
-           killTimer(allBulletMoveTimerId);
-           killTimer(enemyPlaneMoveTimerId);
-           killTimer(enemyPlaneGenerateTimerId);
-           killTimer(bossGenerateTimeId);
+           if (myBulletShootTimerId > 0) {
+               killTimer(myBulletShootTimerId);
+               myBulletShootTimerId = -1;
+           }
+           if (enemyBulletShootTimerId > 0) {
+               killTimer(enemyBulletShootTimerId);
+               enemyBulletShootTimerId = -1;
+           }
+           if (allBulletMoveTimerId > 0) {
+               killTimer(allBulletMoveTimerId);
+               allBulletMoveTimerId = -1;
+           }
+           if (enemyPlaneMoveTimerId > 0) {
+               killTimer(enemyPlaneMoveTimerId);
+               enemyPlaneMoveTimerId = -1;
+           }
+           if (enemyPlaneGenerateTimerId > 0) {
+               killTimer(enemyPlaneGenerateTimerId);
+               enemyPlaneGenerateTimerId = -1;
+           }
+           if (bossGenerateTimeId > 0) {
+               killTimer(bossGenerateTimeId);
+               bossGenerateTimeId = -1;
+           }
+
            maskWidget->show();
            continueGameButton->show();
            helpGameButton->show();
@@ -472,12 +494,31 @@ void View::mybullet_shoot()
 }
 void View::loseGame()
 {
-    killTimer(myBulletShootTimerId);
-    killTimer(enemyBulletShootTimerId);
-    killTimer(allBulletMoveTimerId);
-    killTimer(enemyPlaneMoveTimerId);
-    killTimer(enemyPlaneGenerateTimerId);
-    killTimer(bossGenerateTimeId);
+    if (myBulletShootTimerId > 0) {
+        killTimer(myBulletShootTimerId);
+        myBulletShootTimerId = -1;
+    }
+    if (enemyBulletShootTimerId > 0) {
+        killTimer(enemyBulletShootTimerId);
+        enemyBulletShootTimerId = -1;
+    }
+    if (allBulletMoveTimerId > 0) {
+        killTimer(allBulletMoveTimerId);
+        allBulletMoveTimerId = -1;
+    }
+    if (enemyPlaneMoveTimerId > 0) {
+        killTimer(enemyPlaneMoveTimerId);
+        enemyPlaneMoveTimerId = -1;
+    }
+    if (enemyPlaneGenerateTimerId > 0) {
+        killTimer(enemyPlaneGenerateTimerId);
+        enemyPlaneGenerateTimerId = -1;
+    }
+    if (bossGenerateTimeId > 0) {
+        killTimer(bossGenerateTimeId);
+        bossGenerateTimeId = -1;
+    }
+
     maskWidget->show();
     gameLostText->setHtml(tr("<font color=white>Game Over, Your Score: %1</font>").arg(score));
     gameLostText->show();
