@@ -28,7 +28,7 @@
 #include "../common/etlbase.h"
 #include "../common/precomp.h"
 
-#define myBulletImageFile  ":/images/mybullet.png"
+#define myBulletImageFile  ":/images/mybullet_new.png"
 
 #define enemyPlaneImageFile  ":/images/enemyplane.png"
 
@@ -37,11 +37,11 @@
 #define bossImageFile  ":/images/boss2.gif"
 //boss图片
 
-#define enemyBulletImageFile  ":/images/76446d7d2b8c45cb8ed30baf1f75397e.png"
+#define enemyBulletImageFile  ":/images/enemybullet_new.png"
 //敌机子弹图片
 
 
-#define bossBulletImageFile  ":/images/76446d7d2b8c45cb8ed30baf1f75397e.png"
+#define bossBulletImageFile  ":/images/bossbullet_new.pngd"
 //boss子弹图片
 
 #define lifeSupplyImageFile  ":/images/lifesupply.png"
