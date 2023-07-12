@@ -254,7 +254,7 @@ bool model::allbulletmove()
         else
         {
             delete *it;
-            it = enemybullets->erase(it);
+            it = mybullets->erase(it);
         }
     }
     Fire_OnPropertyChanged("allbullet");
