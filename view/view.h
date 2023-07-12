@@ -212,7 +212,7 @@ private:
 
        void mybullet_shoot();
 
-       void myplane_move(string direction);
+       void myplane_move(char direction);
 
        void skill_use(int skillselect);
 
@@ -222,7 +222,7 @@ private:
 
        void changescene();
 
-       string direction;
+       char direction;
        bool  hasStarted; //是否已经开始游戏
        int   score;//游戏得分
        bool  isPause; //游戏是否暂停

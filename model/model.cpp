@@ -246,7 +246,7 @@ bool model::allbulletmove()
             it = enemybullets->erase(it);
         }
     }
-    for(vector<Bullet*>::iterator it = enemybullets->begin(); it!=enemybullets->end(); )
+    for(vector<Bullet*>::iterator it = mybullets->begin(); it!=mybullets->end(); )
     {
         pair<int ,int> loc = (*it)->updatePosition();
         if(changeBulletPosition(*it, loc.first, loc.second))
@@ -340,7 +340,7 @@ bool model::enemygenerate()
     //QPixmap pixmap(QPixmap(QString::fromStdString(enemyPlaneImageFile)));
     int cnt = 0;
     int x = QRandomGenerator::global()->bounded(width1); //敌机最左端位置
-    qDebug()<<x<<Qt::endl;
+   // qDebug()<<x<<Qt::endl;
     for(cnt=0;cnt<100;cnt++)
     {
         bool flag = true; //此位置是否合法
@@ -355,7 +355,7 @@ bool model::enemygenerate()
         else
         {
             x = QRandomGenerator::global()->bounded(width1);
-            qDebug()<<x<<Qt::endl;
+           // qDebug()<<x<<Qt::endl;
         }
     }
 
@@ -365,7 +365,7 @@ bool model::enemygenerate()
     //x = 5000;
     /* 新增敌机 */
     EnemyPlane *enemy = new EnemyPlane(x, 0, ORD, enemyLife);
-    qDebug()<<enemy->getx()<<Qt::endl;
+   // qDebug()<<enemy->getx()<<Qt::endl;
     enemyplanes->push_back(enemy);
     Fire_OnPropertyChanged("enemy");
     return true;
@@ -572,7 +572,7 @@ std::shared_ptr<POSES> model::GetLifeSuppliesPosY()
 
 POS* model::GetPlayerPosX()
 {
-    qDebug()<<"x's address1:"<<&(myplane->getx())<<Qt::endl;
+   // qDebug()<<"x's address1:"<<&(myplane->getx())<<Qt::endl;
     return &(myplane->getx());
 }
 

@@ -221,7 +221,7 @@ void View::startGame()
       //  qDebug()<<x<<Qt::endl;
         QPixmap pixmap(enemyPlaneImageFile); // 加载图像
         QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
-        qDebug()<<*((*enemy_posX)[i])<<"  "<<*((*enemy_posY)[i])<<Qt::endl;
+      //  qDebug()<<*((*enemy_posX)[i])<<"  "<<*((*enemy_posY)[i])<<Qt::endl;
         pixmapItem->setPos(*((*enemy_posX)[i]), *((*enemy_posY)[i]));
         this->addItem(pixmapItem);
     }
@@ -259,25 +259,25 @@ void View::keyPressEvent(QKeyEvent *event)
     {
         if(myPlaneMove==QPointF(0,0))
             myPlaneMoveTimerId = startTimer(myPlaneMoveTimerItv);
-        direction="W";
+        direction='W';
     }
     else if(event->key()==Qt::Key_S && !event->isAutoRepeat())
     {
         if(myPlaneMove==QPointF(0,0))
             myPlaneMoveTimerId = startTimer(myPlaneMoveTimerItv);
-        direction="S";
+        direction='S';
     }
     else if(event->key()==Qt::Key_A && !event->isAutoRepeat())
     {
         if(myPlaneMove==QPointF(0,0))
             myPlaneMoveTimerId = startTimer(myPlaneMoveTimerItv);
-        direction="A";
+        direction='A';
     }
     else if(event->key()==Qt::Key_D && !event->isAutoRepeat())
     {
         if(myPlaneMove==QPointF(0,0))
             myPlaneMoveTimerId = startTimer(myPlaneMoveTimerItv);
-        direction="D";
+        direction='D';
     }
     else if(event->key()==Qt::Key_J && myplane->getskill()>=5)
     {
@@ -376,12 +376,12 @@ void View::keyReleaseEvent(QKeyEvent *event)
     if((event->key()==Qt::Key_W || event->key()==Qt::Key_S || event->key()==Qt::Key_A || event->key()==Qt::Key_D)
             && !event->isAutoRepeat())
     {
-        direction="N";//不移动的时候
+        direction='N';//不移动的时候
         killTimer(myPlaneMoveTimerId);//当飞机不动以后将他的时钟释放掉
     }
 }
 
-void View::myplane_move(string direction)
+void View::myplane_move(char direction)
 {
     m_cmdplanemove->SetParameter(direction);
     m_cmdplanemove->Exec();
