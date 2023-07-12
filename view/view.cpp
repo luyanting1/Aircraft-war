@@ -333,6 +333,10 @@ void View::timerEvent(QTimerEvent *event)
     if(event->timerId()==myPlaneMoveTimerId)
     {
         myplane_move(direction);
+        if(*(player_life)<=0)
+        {
+            loseGame();
+        }
         changescene();
       }  //changePlanePosition(myplane, myplane->x()+myPlaneMove.x(), myplane->y()+myPlaneMove.y());
     if(event->timerId()==enemyBulletShootTimerId)
@@ -350,6 +354,10 @@ void View::timerEvent(QTimerEvent *event)
     else if(event->timerId()==allBulletMoveTimerId)
     {
         bullet_move();
+        if(*(player_life)<=0)
+        {
+            loseGame();
+        }
         changescene();
     }
     else if(event->timerId()==enemyPlaneMoveTimerId)
@@ -462,7 +470,21 @@ void View::mybullet_shoot()
 {
     m_cmdshootmybullet->Exec();
 }
-
+void View::loseGame()
+{
+    killTimer(myBulletShootTimerId);
+    killTimer(enemyBulletShootTimerId);
+    killTimer(allBulletMoveTimerId);
+    killTimer(enemyPlaneMoveTimerId);
+    killTimer(enemyPlaneGenerateTimerId);
+    killTimer(bossGenerateTimeId);
+    maskWidget->show();
+    gameLostText->setHtml(tr("<font color=white>Game Over, Your Score: %1</font>").arg(score));
+    gameLostText->show();
+    //retryGameButton->show();
+    helpGameButton->show();
+    quitGameButton->show();
+}
 void View::changescene()
 {
     QList<QGraphicsItem *> itemslist = items();
