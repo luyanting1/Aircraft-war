@@ -1,5 +1,5 @@
-﻿#ifndef PRECOMP_H
-#define PRECOMP_H
+﻿#ifndef COMMON_H
+#define COMMON_H
 #include <vector>
 #include <cmath>
 #include <iostream>

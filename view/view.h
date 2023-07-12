@@ -26,7 +26,7 @@
 #include "../base/Object.h"
 #include "../base/Plane.h"
 #include "../common/etlbase.h"
-#include "../common/precomp.h"
+#include "../common/common.h"
 
 #define myBulletImageFile  ":/images/mybullet_new.png"
 
@@ -222,7 +222,8 @@ private:
 
        void changescene();
 
-       char direction;
+       int   hasLoseGmae=0;
+       char  direction;
        bool  hasStarted; //是否已经开始游戏
        int   score;//游戏得分
        bool  isPause; //游戏是否暂停

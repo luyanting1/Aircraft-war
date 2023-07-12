@@ -4,7 +4,7 @@
 #include "init.h"
 #include <QtWidgets>
 #include <string>
-#include<common/precomp.h>
+#include<common/common.h>
 using namespace std;
 
 class Object

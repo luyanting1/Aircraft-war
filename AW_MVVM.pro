@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    common/common.cpp \
     main.cpp \
     mainwindow.cpp \
     app/app.cpp \
@@ -35,7 +36,6 @@ SOURCES += \
     viewmodel/command/skillusecommand.cpp \
     viewmodel/sink/viewmodelsink.cpp \
     viewmodel/viewmodel.cpp \
-    common/precomp.cpp \
     base/Bullet.cpp \
     base/EnemyPlane.cpp \
     base/MyPlane.cpp \
@@ -44,6 +44,7 @@ SOURCES += \
 
 HEADERS += \
     base/init.h \
+    common/common.h \
     mainwindow.h \
     app/app.h \
     model/model.h \
@@ -63,7 +64,6 @@ HEADERS += \
     viewmodel/sink/viewmodelsink.h \
     viewmodel/viewmodel.h \
     common/etlbase.h \
-    common/precomp.h \
     base/Bullet.h \
     base/EnemyPlane.h \
     base/MyPlane.h \

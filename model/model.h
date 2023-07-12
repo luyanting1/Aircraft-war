@@ -20,7 +20,7 @@
 #include "./base/MyPlane.h"
 #include "./base/EnemyPlane.h"
 #include "./common/etlbase.h"
-#include "./common/precomp.h"
+#include "./common/common.h"
 
 #define WIDTH 600
 #define HEIGHT 800

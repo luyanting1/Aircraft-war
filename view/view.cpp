@@ -330,7 +330,8 @@ void View::timerEvent(QTimerEvent *event)
         myplane_move(direction);
         if(*(player_life)<=0)
         {
-            loseGame();
+            hasLoseGmae=1;
+            //loseGame();
         }
         changescene();
       }  //changePlanePosition(myplane, myplane->x()+myPlaneMove.x(), myplane->y()+myPlaneMove.y());
@@ -351,7 +352,8 @@ void View::timerEvent(QTimerEvent *event)
         bullet_move();
         if(*(player_life)<=0)
         {
-            loseGame();
+            hasLoseGmae=1;
+            //loseGame();
         }
         changescene();
     }
@@ -720,6 +722,43 @@ void View::changescene()
     QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
     pixmapItem->setPos(*play_posX, *play_posY);
     this->addItem(pixmapItem);
+    if(hasLoseGmae==1)
+    {
+        if (myBulletShootTimerId > 0) {
+            killTimer(myBulletShootTimerId);
+            myBulletShootTimerId = -1;
+        }
+        if (enemyBulletShootTimerId > 0) {
+            killTimer(enemyBulletShootTimerId);
+            enemyBulletShootTimerId = -1;
+        }
+        if (allBulletMoveTimerId > 0) {
+            killTimer(allBulletMoveTimerId);
+            allBulletMoveTimerId = -1;
+        }
+        if (enemyPlaneMoveTimerId > 0) {
+            killTimer(enemyPlaneMoveTimerId);
+            enemyPlaneMoveTimerId = -1;
+        }
+        if (enemyPlaneGenerateTimerId > 0) {
+            killTimer(enemyPlaneGenerateTimerId);
+            enemyPlaneGenerateTimerId = -1;
+        }
+        if (bossGenerateTimeId > 0) {
+            killTimer(bossGenerateTimeId);
+            bossGenerateTimeId = -1;
+        }
+
+        maskWidget->show();
+        gameLostText->setHtml(tr("<font color=white>Game Over,Your Score: %1</font>").arg(*(PlayerScore)));
+        gameLostText->setPos(200, 200);
+        QFont font("Arial", 16);
+        gameLostText->setFont(font);
+        gameLostText->show();
+        //retryGameButton->show();
+        helpGameButton->show();
+        quitGameButton->show();
+    }
 }
  void View::SetMyPlane(std::shared_ptr<MyPlane> a)
 {

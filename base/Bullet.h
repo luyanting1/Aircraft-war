@@ -2,7 +2,7 @@
 #define BULLET_H
 
 #include "Object.h"
-#include<common/precomp.h>
+#include<common/common.h>
 #include <utility>
 #include <fstream>
 #include <iostream>

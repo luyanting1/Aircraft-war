@@ -2,7 +2,7 @@
 #define PLANE_H
 
 #include "init.h"
-#include<common/precomp.h>
+#include<common/common.h>
 #include "Object.h"
 #include <QtWidgets>
 #include <cstring>

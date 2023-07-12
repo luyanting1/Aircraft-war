@@ -16,7 +16,7 @@
 #include "../model/model.h"
 #include "../view/view.h"
 #include "../common/etlbase.h"
-#include "../common/precomp.h"
+#include "../common/common.h"
 class ViewModelSink;
 class ViewModel: public Proxy_PropertyNotification<ViewModel>
 {
