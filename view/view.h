@@ -59,7 +59,7 @@ protected:
 public:
     View();
     std::shared_ptr<IPropertyNotification> GetPropertySink();
-
+/*
     void SetMyPlane(std::shared_ptr<MyPlane>);
 
     void SetEnemiesPlane( std::shared_ptr<vector<EnemyPlane *>>);
@@ -67,7 +67,7 @@ public:
     void SetBullets(std::shared_ptr<vector<Bullet *>>);
 
     void SetLifeSupplies(std::shared_ptr<vector<Object *>> );
-
+*/
     void SetPlayerLife(shared_ptr<BAR>);
 
     void SetPlayerSkill(shared_ptr<BAR>);
@@ -93,7 +93,7 @@ public:
     void SetPlayerMoveCommand(shared_ptr<ICommandBase> a);
 
     void SetSkillUseCommand(shared_ptr<ICommandBase> a);
-
+/*
     void SetPlayerPosX(POS* );
 
     void SetPlayerPosY(POS* );
@@ -113,8 +113,22 @@ public:
     void SetLifeSuppliesPosX(shared_ptr<POSES>);
 
     void SetLifeSuppliesPosY(shared_ptr<POSES>);
-
+*/
     void SetPlayerGenerateCommand(shared_ptr<ICommandBase>);
+    void SetBullets(std::shared_ptr<OBJECTS> a){
+        view_Bullets=a;
+    }
+
+    void SetLifeSupplies(std::shared_ptr<OBJECTS> a){
+        LifeSupplies_view=a;
+    }
+    void SetMyPlane(std::shared_ptr<Object> a){
+        MyPlane_view=a;
+    }
+
+    void SetEnemiesPlane(std::shared_ptr<OBJECTS> a){
+        EnemiesPlane_view=a;
+    }
 
 private:
        //各种模型的属性
@@ -167,6 +181,15 @@ private:
        POS*  play_posX;
 
        POS*  play_posY;
+
+
+       shared_ptr<OBJECTS>  Bullets_view;
+
+       shared_ptr<OBJECTS>  LifeSupplies_view;
+
+       shared_ptr<Object>   MyPlane_view;
+
+       shared_ptr<OBJECTS>    EnemiesPlane_view;
 
        shared_ptr<POSES>  bullet_posX;
 
