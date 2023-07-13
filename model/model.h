@@ -8,7 +8,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <algorithm>
-#include <QGraphicsItem>
+//#include <QGraphicsItem>
 #include <QRandomGenerator>
 #include <QDebug>
 #include <QUrl>

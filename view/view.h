@@ -58,6 +58,7 @@ protected:
     void keyReleaseEvent(QKeyEvent *event);
 public:
     View();
+    void changescene();
     std::shared_ptr<IPropertyNotification> GetPropertySink();
 /*
     void SetMyPlane(std::shared_ptr<MyPlane>);
@@ -235,8 +236,6 @@ private:
        void pause_game();
 
        void reset_game();
-
-       void changescene();
 
        int   hasLoseGmae=0;
        char  direction;

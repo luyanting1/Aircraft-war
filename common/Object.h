@@ -7,7 +7,7 @@ using namespace std;
 
 class Object
 {
-    friend class model;
+   // friend class model;
 public:
     Object();
     Object(double x,double y,int type2);
