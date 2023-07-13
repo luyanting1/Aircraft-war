@@ -16,6 +16,7 @@ Bullet::Bullet(WarPart part, double x, double y,EnemyType type1, const QPointF &
        else type2 = 2;
 	this->dir = dir;
 	this->power = power;
+    this->part = part;
     Object(x,y,type2);
 }
 

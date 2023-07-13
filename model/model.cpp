@@ -154,11 +154,17 @@ bool model::skilluse(int sk_index)
             delete iter;
         }
         enemyplanes->clear();
+        for(auto iter: *enemyplanes1)
+            delete iter;
+        enemyplanes1->clear();
         break;
     case 7:
         for(auto iter: *enemybullets)
             delete iter;
         enemybullets->clear();
+        for(auto iter: *enemybullets1)
+            delete iter;
+        enemybullets1->clear();
         break;
     default: return 0;
     }
