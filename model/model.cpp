@@ -52,12 +52,12 @@ std::shared_ptr<OBJECTS> model::GetLifeSupplies()
 
 std::shared_ptr<int> model::GetPlayerLife()
 {
-    return std::make_shared<int>(myplane->getlife());
+    return std::shared_ptr<int>(&myplane->getlife());
 }
 
 std::shared_ptr<int> model::GetPlayerSkill()
 {
-    return std::make_shared<int>(myplane->getskill());
+    return std::shared_ptr<int>(&myplane->getskill());
 }
 
 bool model::skilluse(int sk_index)
