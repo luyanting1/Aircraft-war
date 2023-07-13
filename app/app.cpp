@@ -15,19 +15,12 @@ void app::run(QGraphicsView* game_interface){//std::shared_ptr<QGraphicsView> ga
     model_ptr = std::make_shared<model>();
     viewmodel_ptr = std::make_shared<ViewModel>();
     viewmodel_ptr->SetModel(model_ptr);
-    viewmodel_ptr->SetView(ctrl);
 
-    ctrl->SetPlayerPosX(viewmodel_ptr->GetPlayerPosX());
-    ctrl->SetPlayerPosY(viewmodel_ptr->GetPlayerPosY());
+    ctrl->SetMyPlane(viewmodel_ptr->GetMyPlane());
+    ctrl->SetEnemiesPlane(viewmodel_ptr->GetEnemiesPlane());
+    ctrl->SetBullets(viewmodel_ptr->GetBullets());
+    ctrl->SetLifeSupplies(viewmodel_ptr->GetLifeSupplies());
     ctrl->SetPlayerScore(viewmodel_ptr->GetPlayerScore());
-    ctrl->SetBulletsPosX(viewmodel_ptr->GetBulletsPosX());
-    ctrl->SetBulletsPosY(viewmodel_ptr->GetBulletsPosY());
-    ctrl->SetBulletsType(viewmodel_ptr->GetBulletsType());
-    ctrl->SetEnemiesPosX(viewmodel_ptr->GetEnemiesPosX());
-    ctrl->SetEnemiesPosY(viewmodel_ptr->GetEnemiesPosY());
-    ctrl->SetEnemiesType(viewmodel_ptr->GetEnemiesType());
-    ctrl->SetLifeSuppliesPosX(viewmodel_ptr->GetLifeSuppliesPosX());
-    ctrl->SetLifeSuppliesPosY(viewmodel_ptr->GetLifeSuppliesPosY());
     ctrl->SetPlayerLife(viewmodel_ptr->GetPlayerLife());
     ctrl->SetPlayerSkill(viewmodel_ptr->GetPlayerSkill());
 
@@ -45,7 +38,6 @@ void app::run(QGraphicsView* game_interface){//std::shared_ptr<QGraphicsView> ga
     ctrl->SetSkillUseCommand(viewmodel_ptr->GetSkillUse());
 
     //notifications
-    model_ptr->AddPropertyNotification(viewmodel_ptr->GetPropertySink());
     viewmodel_ptr->AddPropertyNotification(ctrl->GetPropertySink());
 
 }
@@ -56,4 +48,8 @@ View* app::GetCtrl(){
 
 std::shared_ptr<ViewModel> app::GetViewModel(){
     return viewmodel_ptr;
+}
+
+std::shared_ptr<model> app::GetModel(){
+    return model_ptr;
 }

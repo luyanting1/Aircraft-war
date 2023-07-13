@@ -29,7 +29,6 @@ private:
     QPointF dir; //子弹方向，同时也控制了子弹速度
     int power; //子弹杀伤力
     EnemyType type1;
-    int type2;
 };
 
 #endif // !BULLET_H
