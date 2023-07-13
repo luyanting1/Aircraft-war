@@ -1,9 +1,8 @@
 ﻿#ifndef OBJECT_H
 #define OBJECT_H
-
-#include <QtWidgets>
+//#include <QtWidgets>
 #include <string>
-#include<common/common.h>
+//#include<common/common.h>
 using namespace std;
 
 class Object
@@ -11,10 +10,11 @@ class Object
     friend class model;
 public:
     Object();
-    Object(double x,double y,WarPart part);
+    Object(double x,double y,int type2);
     ~Object();
     double& getx() { return this->x; }
     double& gety() { return this->y; }
+    int& gett() { return this->type2; }
    // void synScreen(QGraphicsScene *scene);
     //void delScreen(QGraphicsScene *scene);
 
