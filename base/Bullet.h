@@ -1,11 +1,13 @@
 ﻿#ifndef BULLET_H
 #define BULLET_H
 
-#include "Object.h"
+#include "common/Object.h"
 #include<common/common.h>
+#include "init.h"
 #include <utility>
 #include <fstream>
 #include <iostream>
+#include <QPointF>
 using namespace std;
 
 class Bullet: public Object
@@ -29,6 +31,7 @@ private:
     QPointF dir; //子弹方向，同时也控制了子弹速度
     int power; //子弹杀伤力
     EnemyType type1;
+    WarPart part;
 };
 
 #endif // !BULLET_H

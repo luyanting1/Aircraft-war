@@ -7,7 +7,7 @@ EnemyPlane::EnemyPlane()
 }
 
 EnemyPlane::EnemyPlane(double x, double y, EnemyType type, int life):
-    Plane(x, y, life, ENEMY)
+    Plane(x, y, life, ENEMY, type)
 {
     this->type = type;
 }
