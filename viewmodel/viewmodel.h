@@ -35,8 +35,18 @@ public:
     bool CallModelPlayerMove(char direction);
     bool CallModelSkillUse(int skill_index);
 
-    std::shared_ptr<BAR>                  GetPlayerLife();
-    std::shared_ptr<BAR>                  GetPlayerSkill();
+    std::shared_ptr<Object> GetMyPlane();
+
+    std::shared_ptr<OBJECTS> GetEnemiesPlane();
+
+    std::shared_ptr<OBJECTS> GetBullets();
+
+    std::shared_ptr<OBJECTS> GetLifeSupplies();
+
+    std::shared_ptr<SCORE> GetPlayerScore();
+
+    std::shared_ptr<BAR> GetPlayerLife();
+    std::shared_ptr<BAR> GetPlayerSkill();
 
     std::shared_ptr<ICommandBase> GetAllBulletMove();
     std::shared_ptr<ICommandBase> GetBossGenerate();
