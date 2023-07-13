@@ -1,7 +1,7 @@
 ﻿#ifndef VIEWMODELSINK_H
 #define VIEWMODELSINK_H
 #include "../../common/etlbase.h"
-#include "../viewmodel.h"
+class ViewModel;
 
 class ViewModelSink:public IPropertyNotification
 {

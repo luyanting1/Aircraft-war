@@ -22,7 +22,7 @@ SOURCES += \
     mainwindow.cpp \
     app/app.cpp \
     model/model.cpp \
-    view/sinks/viewpropertysink.cpp \
+    view/sink/viewpropertysink.cpp \
     view/view.cpp \
     viewmodel/command/allbulletmovecommand.cpp \
     viewmodel/command/bossgeneratecommand.cpp \
@@ -49,7 +49,7 @@ HEADERS += \
     mainwindow.h \
     app/app.h \
     model/model.h \
-    view/sinks/viewpropertysink.h \
+    view/sink/viewpropertysink.h \
     view/view.h \
     viewmodel/command/allbulletmovecommand.h \
     viewmodel/command/bossgeneratecommand.h \

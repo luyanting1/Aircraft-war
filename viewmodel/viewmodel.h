@@ -14,16 +14,15 @@
 #include "./command/skillusecommand.h"
 #include "./sink/viewmodelsink.h"
 #include "../model/model.h"
-#include "../view/view.h"
 #include "../common/etlbase.h"
 #include "../common/common.h"
+
 class ViewModelSink;
 class ViewModel: public Proxy_PropertyNotification<ViewModel>
 {
 public:
     ViewModel();
     void SetModel(const std::shared_ptr<model>& model_);
-    void SetView(View*& view_);
     bool CallModelAllBulletMove();
     bool CallModelBossGenerate();
     bool CallModelEnemyBulletShoot();
@@ -36,23 +35,8 @@ public:
     bool CallModelPlayerMove(char direction);
     bool CallModelSkillUse(int skill_index);
 
-    POS*    GetPlayerPosX();
-    POS*    GetPlayerPosY();
-    std::shared_ptr<SCORE>    GetPlayerScore();
-
-    std::shared_ptr<POSES>    GetBulletsPosX();
-    std::shared_ptr<POSES>    GetBulletsPosY();
-    std::shared_ptr<BULLETTYPES>    GetBulletsType();
-
-    std::shared_ptr<POSES>    GetEnemiesPosX();
-    std::shared_ptr<POSES>    GetEnemiesPosY();
-    std::shared_ptr<ENEMYTYPES>    GetEnemiesType();
-
-    std::shared_ptr<POSES>  GetLifeSuppliesPosX();
-    std::shared_ptr<POSES>  GetLifeSuppliesPosY();
-
-    std::shared_ptr<BAR>    GetPlayerLife();
-    std::shared_ptr<BAR>    GetPlayerSkill();
+    std::shared_ptr<BAR>                  GetPlayerLife();
+    std::shared_ptr<BAR>                  GetPlayerSkill();
 
     std::shared_ptr<ICommandBase> GetAllBulletMove();
     std::shared_ptr<ICommandBase> GetBossGenerate();
@@ -66,11 +50,8 @@ public:
     std::shared_ptr<ICommandBase> GetPlayerMove();
     std::shared_ptr<ICommandBase> GetSkillUse();
 
-    std::shared_ptr<ViewModelSink> GetPropertySink();
-
 private:
     std::shared_ptr<model> m_model;
-    View* m_view;
     std::shared_ptr<AllBulletMoveCommand> m_cmdAllBulletMove;
     std::shared_ptr<BossGenerateCommand> m_cmdBossGenerate;
     std::shared_ptr<EnemyBulletShootCommand> m_cmdEnemyBulletShoot;
