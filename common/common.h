@@ -2,7 +2,6 @@
 #define COMMON_H
 #include <vector>
 #include "Object.h"
-
 /*
 typedef double POS;
 typedef std::vector<POS*> POSES;
