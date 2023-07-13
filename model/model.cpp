@@ -13,10 +13,13 @@ model::model() {
     score = std::make_shared<int>(0); //得分
     myBulletType = std::make_shared<int>(0);
     enemyplanes = std::make_shared<vector<EnemyPlane *>>();
+    enemyplanes1 = std::make_shared<OBJECTS>();
     enemybullets = std::make_shared<vector<Bullet*>>();
-    myplane = new MyPlane();
+    enemybullets1 = std::make_shared<OBJECTS>();
+    myplane = std::make_shared<MyPlane>();
     myplane->setlife(50);
     myplane->setskill(5);
+    myplane1 = std::make_shared<Object>();
     this->myBulletPower = 1;
     this->enemyLife = 1;
     this->enemyBulletPower = 1;
@@ -25,7 +28,9 @@ model::model() {
     this->myLife = 50;
     this->mySkill = 5;
     mybullets = std::make_shared<vector<Bullet*>>();
+    mybullets1 = std::make_shared<OBJECTS>();
     lifesupplys = std::make_shared<vector<Object*>>();
+  //  lifesupplys1 = std::make_shared<OBJECTS>();
     //qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
 }
 
@@ -33,7 +38,7 @@ std::shared_ptr<SCORE> model::GetPlayerScore()
 {
     return this->score;
 }
-
+/*
 std::shared_ptr<POSES> model::GetBulletsPosX()
 {
     std::shared_ptr<POSES> BulletPosX = std::make_shared<POSES>();
@@ -74,8 +79,23 @@ std::shared_ptr<BULLETTYPES> model::GetBulletsType()
         BulletType->push_back(&it->gett2());
     }
     return BulletType;
+}*/
+
+std::shared_ptr<Object>  model::GetMyPlane()
+{
+    return myplane1;
 }
 
+std::shared_ptr<OBJECTS> model::GetBullets()
+{
+    return enemybullets1;
+}
+
+std::shared_ptr<OBJECTS> model::GetEnemiesPlane()
+{
+    return enemyplanes1;
+}
+/*
 std::shared_ptr<POSES> model::GetEnemiesPosX()
 {
     std::shared_ptr<POSES> enemiePosX = std::make_shared<POSES>();
@@ -104,7 +124,8 @@ std::shared_ptr<ENEMYTYPES> model::GetEnemiesType()
         enemieType1->push_back((int *)(&it->gett()));
     }
     return enemieType1;
-}
+}*/
+
 std::shared_ptr<int> model::GetPlayerLife()
 {
     return std::make_shared<int>(myplane->getlife());
@@ -133,11 +154,17 @@ bool model::skilluse(int sk_index)
             delete iter;
         }
         enemyplanes->clear();
+        for(auto iter: *enemyplanes1)
+            delete iter;
+        enemyplanes1->clear();
         break;
     case 7:
         for(auto iter: *enemybullets)
             delete iter;
         enemybullets->clear();
+        for(auto iter: *enemybullets1)
+            delete iter;
+        enemybullets1->clear();
         break;
     default: return 0;
     }
@@ -150,6 +177,7 @@ bool model::playergenerate()
     //myplane = new MyPlane(1000, 5000, 50, 5);
     myplane->setx(WIDTH/2);
     myplane->sety(HEIGHT/2);
+    myplane1 = myplane;
     Fire_OnPropertyChanged("myplane");
     //qDebug()<< "x's address: " << &myplane->x <<Qt::endl;
     return true;
@@ -210,6 +238,8 @@ bool model::changeBulletPosition(Bullet * bullet, int newX, int newY)
                 double x = (*it)->x;
                 double y = (*it)->y;
                 delete *it;
+                OBJECTS::iterator it1 = enemyplanes1->begin()+(it-enemyplanes->begin());
+                enemyplanes1->erase(it1);
                 it = enemyplanes->erase(it);
                 (*score)++;
                 /* 25%的概率掉落生命补给 */
@@ -248,7 +278,10 @@ bool model::allbulletmove()
         else
         {
             delete *it;
+            OBJECTS::iterator it1 = enemybullets1->begin()+(it-enemybullets->begin());
+            enemybullets1->erase(it1);
             it = enemybullets->erase(it);
+
         }
     }
     for(vector<Bullet*>::iterator it = mybullets->begin(); it!=mybullets->end(); )
@@ -259,6 +292,8 @@ bool model::allbulletmove()
         else
         {
             delete *it;
+            OBJECTS::iterator it1 = mybullets1->begin()+(it-mybullets->begin());
+            mybullets1->erase(it1);
             it = mybullets->erase(it);
         }
     }
@@ -301,6 +336,7 @@ bool model::bossgenerate()
     /* 新增敌机 */
     EnemyPlane *enemy = new EnemyPlane(x, 0, BOSS, 10);
     enemyplanes->push_back(enemy);
+    enemyplanes1->push_back(enemy);
     Fire_OnPropertyChanged("enemy");
     return true;
 }
@@ -315,6 +351,7 @@ bool model::enemybulletshoot()
                 Bullet *bullet = new Bullet(ENEMY, (*iter)->getx()+enemyplanewidth/2, (*iter)->gety()+enemyplaneheight-15,
                                             ORD, QPointF(0,5), enemyBulletPower);
                 enemybullets->push_back(bullet);
+                enemybullets1->push_back(bullet);
                 //  addItem(bullet);
             }
             else if((*iter)->type==BOSS)
@@ -322,16 +359,19 @@ bool model::enemybulletshoot()
                 Bullet *bullet0 = new Bullet(ENEMY, (*iter)->getx()+bosswidth/2, (*iter)->gety()+bossheight-15,
                                              BOSS, QPointF(0,5), bossBulletPower);
                 enemybullets->push_back(bullet0);
+                enemybullets1->push_back(bullet0);
 
                 Bullet *bullet1 = new Bullet(ENEMY, (*iter)->getx()+bosswidth/2, (*iter)->gety()+bossheight-15,
                                              BOSS, QPointF(-5,5), bossBulletPower);
                 //bullet1->setRotation(45);
                 enemybullets->push_back(bullet1);
+                enemybullets1->push_back(bullet1);
 
                 Bullet *bullet2 = new Bullet(ENEMY, (*iter)->getx()+bosswidth/2, (*iter)->gety()+bossheight-15,
                                              BOSS, QPointF(5,5), bossBulletPower);
                 //bullet2->setRotation(-45);
                 enemybullets->push_back(bullet2);
+                enemybullets1->push_back(bullet2);
                 // addItem(bullet2);
             }
         }
@@ -372,6 +412,7 @@ bool model::enemygenerate()
     EnemyPlane *enemy = new EnemyPlane(x, 0, ORD, enemyLife);
     // qDebug()<<enemy->getx()<<Qt::endl;
     enemyplanes->push_back(enemy);
+    enemyplanes1->push_back(enemy);
     Fire_OnPropertyChanged("enemy");
     return true;
 }
@@ -437,6 +478,8 @@ bool model::changePlanePosition(Plane *plane, int newX, int newY)
         else //若飞机坠毁，则将此飞机去掉
         {
             delete *it;
+            OBJECTS::iterator it1 = enemyplanes1->begin()+(it-enemyplanes->begin());
+            enemybullets1->erase(it1);
             it = enemyplanes->erase(it);
         }
     }
@@ -474,7 +517,12 @@ bool model::enemymove()
         if (changePlanePosition((Plane *)(*it), loc.first, loc.second))
             it++;
         else
+        {
+            delete *it;
+            OBJECTS::iterator it1 = enemyplanes1->begin()+(it-enemyplanes->begin());
+            enemybullets1->erase(it1);
             it = enemyplanes->erase(it);
+        }
     }
     Fire_OnPropertyChanged("enemy");
     return myplane->life > 0;
@@ -485,10 +533,13 @@ bool model::gamereset()
     score = std::make_shared<int>(0); //得分
     myBulletType = std::make_shared<int>(0);
     enemyplanes = std::make_shared<vector<EnemyPlane *>>();
+    enemyplanes1 = std::make_shared<OBJECTS>();
     enemybullets = std::make_shared<vector<Bullet*>>();
-    myplane = new MyPlane();
+    enemybullets1 = std::make_shared<OBJECTS>();
+    myplane = std::make_shared<MyPlane>();
     myplane->setlife(50);
     myplane->setskill(5);
+    myplane1 = std::make_shared<Object>();
     this->myBulletPower = 1;
     this->enemyLife = 1;
     this->enemyBulletPower = 1;
@@ -497,12 +548,8 @@ bool model::gamereset()
     this->myLife = 50;
     this->mySkill = 5;
     mybullets = std::make_shared<vector<Bullet*>>();
+    mybullets1 = std::make_shared<OBJECTS>();
     lifesupplys = std::make_shared<vector<Object*>>();
-    myplane = new MyPlane(width1 / 2, height1 / 2,  myLife, mySkill);
-    /* 添加敌机 */
-    /*
-    for (int i = 0; i < 3; i++)
-        enemygenerate();*/
     return true;
 }
 
@@ -513,6 +560,7 @@ bool model::playerbulletshoot()
         Bullet *bullet = new Bullet(ME, myplane->x+40, myplane->y-38,
                                     BOSS, QPointF(0,-5), myBulletPower);
         mybullets->push_back(bullet);
+        mybullets1->push_back(bullet);
         // addItem(bullet);
     }
     else if((*myBulletType)==1)
@@ -520,17 +568,20 @@ bool model::playerbulletshoot()
         Bullet *bullet1 = new Bullet(ME, myplane->x+40, myplane->y-38,
                                      BOSS, QPointF(-5,-5), myBulletPower);
         mybullets->push_back(bullet1);
+        mybullets1->push_back(bullet1);
         //bullet1->setRotation(-45);
         //addItem(bullet1);
 
         Bullet *bullet2 = new Bullet(ME, myplane->x+40, myplane->y-38,
                                      BOSS, QPointF(0,-5), myBulletPower);
         mybullets->push_back(bullet2);
+        mybullets1->push_back(bullet2);
         //addItem(bullet2);
 
         Bullet *bullet3 = new Bullet(ME, myplane->x+40, myplane->y-38,
                                      BOSS, QPointF(5,-5), myBulletPower);
         mybullets->push_back(bullet3);
+        mybullets1->push_back(bullet3);
         //bullet3->setRotation(45);
         //addItem(bullet3);
     }
@@ -548,11 +599,11 @@ bool model::playermove(char dir)
     case 'D': myPlaneMove = QPointF(10, 0); break;
     default: myPlaneMove = QPointF(0, 0); break;
     }
-    changePlanePosition(myplane, myplane->x+myPlaneMove.x(), myplane->y+myPlaneMove.y());
+    changePlanePosition(myplane.get(), myplane->x+myPlaneMove.x(), myplane->y+myPlaneMove.y());
     Fire_OnPropertyChanged("myplane");
     return true;
 }
-
+/*
 std::shared_ptr<POSES>  model::GetLifeSuppliesPosX()
 {
     std::shared_ptr<POSES>  SuppliesPosX =std::make_shared<POSES>();
@@ -582,4 +633,4 @@ POS* model::GetPlayerPosX()
 POS* model::GetPlayerPosY()
 {
     return &(myplane->gety());
-}
+}*/

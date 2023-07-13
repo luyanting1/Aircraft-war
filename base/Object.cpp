@@ -5,11 +5,11 @@ Object::Object()
 
 }
 
-Object::Object(double x,double y,int type2)
+Object::Object(double x,double y,WarPart part)
 {
     this->x = x;
     this->y = y;
-    this->type2 = type2;
+    this->part = part;
 }
 
 Object::~Object()
