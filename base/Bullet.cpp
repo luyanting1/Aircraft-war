@@ -1,6 +1,5 @@
 ﻿#include "Bullet.h"
 #include <iostream>
-using namespace std;
 
 Bullet::Bullet()
 {
@@ -20,9 +19,9 @@ Bullet::Bullet(WarPart part, double x, double y,EnemyType type1, const QPointF &
     Object(x,y,type2);
 }
 
-pair<qreal, qreal> Bullet::updatePosition()
+std::pair<qreal, qreal> Bullet::updatePosition()
 {
-    return make_pair(x+dir.x(), y+dir.y());
+    return std::make_pair(x+dir.x(), y+dir.y());
 }
 /*
 bool Bullet::hit(QGraphicsScene *scene)

@@ -1,8 +1,7 @@
-#include "Plane.h"
+﻿#include "Plane.h"
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
-using namespace std;
 
 Plane::Plane()
 {

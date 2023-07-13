@@ -290,7 +290,7 @@ void View::keyPressEvent(QKeyEvent *event)
         //按E的技能可以打掉所有飞机，消耗3点技能值
 
         /*
-        for(vector<EnemyPlane*>::iterator iter=enemyplanes.begin(); iter!=enemyplanes.end(); iter++)
+        for(std::vector<EnemyPlane*>::iterator iter=enemyplanes.begin(); iter!=enemyplanes.end(); iter++)
         {
             score++;
             scoreText->setHtml(tr("<font color=white>SCORE: %1</font>").arg(score));
@@ -308,7 +308,7 @@ void View::keyPressEvent(QKeyEvent *event)
     {
         //按R可以消掉所有敌机子弹，消耗7点技能值
         /*
-        for(vector<Bullet*>::iterator it = enemybullets.begin(); it!= enemybullets.end(); it++)
+        for(std::vector<Bullet*>::iterator it = enemybullets.begin(); it!= enemybullets.end(); it++)
         {
             removeItem(*it);
             delete *it;
@@ -773,57 +773,57 @@ void View::SetPlayerScore(std::shared_ptr<int> a)
 {
      PlayerScore=a;
 }
-void View::SetAllBulletMoveCommand(shared_ptr<ICommandBase> a)
+void View::SetAllBulletMoveCommand(std::shared_ptr<ICommandBase> a)
 {
     m_cmdmovebullet=a;
 }
-void View::SetBossGenerateCommand(shared_ptr<ICommandBase>a)
+void View::SetBossGenerateCommand(std::shared_ptr<ICommandBase>a)
 {
     m_cmdgenerateboss=a;
 }
-void View::SetPlayerGenerateCommand(shared_ptr<ICommandBase>a)
+void View::SetPlayerGenerateCommand(std::shared_ptr<ICommandBase>a)
 {
     m_cmdgeneratemyplane=a;
 }
-void View::SetEnemyBulletShootCommand(shared_ptr<ICommandBase> a)
+void View::SetEnemyBulletShootCommand(std::shared_ptr<ICommandBase> a)
 {
    m_cmdshootenemybullet=a;
 }
-void View::SetEnemyGenerateCommand(shared_ptr<ICommandBase> a)
+void View::SetEnemyGenerateCommand(std::shared_ptr<ICommandBase> a)
 {
     m_cmdgenerateenemyplane=a;
 }
-void View::SetEnemyMoveCommand(shared_ptr<ICommandBase> a)
+void View::SetEnemyMoveCommand(std::shared_ptr<ICommandBase> a)
 {
     m_cmdmoveenemyplane=a;
 }
-void View::SetGamePauseCommand(shared_ptr<ICommandBase> a)
+void View::SetGamePauseCommand(std::shared_ptr<ICommandBase> a)
 {
     m_cmdgamepause=a;
 }
-void View::SetGameResetCommand(shared_ptr<ICommandBase> a)
+void View::SetGameResetCommand(std::shared_ptr<ICommandBase> a)
 {
     m_cmdgamereset=a;
 }
-void View::SetPlayerBulletShootCommand(shared_ptr<ICommandBase> a)
+void View::SetPlayerBulletShootCommand(std::shared_ptr<ICommandBase> a)
 {
      m_cmdshootmybullet=a;
 }
-void View::SetPlayerMoveCommand(shared_ptr<ICommandBase> a)
+void View::SetPlayerMoveCommand(std::shared_ptr<ICommandBase> a)
 {
     m_cmdplanemove=a;
 }
-void View::SetSkillUseCommand(shared_ptr<ICommandBase> a)
+void View::SetSkillUseCommand(std::shared_ptr<ICommandBase> a)
 {
     m_cmdskilluse=a;
 }
 
-void View::SetPlayerLife(shared_ptr<BAR> a)
+void View::SetPlayerLife(std::shared_ptr<BAR> a)
 {
     player_life=a;
 }
 
-void View::SetPlayerSkill(shared_ptr<BAR> a)
+void View::SetPlayerSkill(std::shared_ptr<BAR> a)
 {
     player_skill=a;
 }

@@ -3,7 +3,6 @@
 //#include <QtWidgets>
 #include <string>
 //#include<common/common.h>
-using namespace std;
 
 class Object
 {
@@ -18,7 +17,7 @@ public:
    // void synScreen(QGraphicsScene *scene);
     //void delScreen(QGraphicsScene *scene);
 
-protected:
+public:
     double x,y;
     int type2;
 };

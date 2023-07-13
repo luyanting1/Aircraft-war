@@ -12,9 +12,9 @@ const int bossGenerateTimeItv = 5000;*/
 model::model() {
     score = std::make_shared<int>(0); //得分
     myBulletType = std::make_shared<int>(0);
-    enemyplanes = std::make_shared<vector<EnemyPlane *>>();
+    enemyplanes = std::make_shared<std::vector<EnemyPlane *>>();
     enemyplanes1 = std::make_shared<OBJECTS>();
-    enemybullets = std::make_shared<vector<Bullet*>>();
+    enemybullets = std::make_shared<std::vector<Bullet*>>();
     enemybullets1 = std::make_shared<OBJECTS>();
     myplane = std::make_shared<MyPlane>();
     myplane->setlife(50);
@@ -27,9 +27,9 @@ model::model() {
     this->bossBulletPower = 2;
     this->myLife = 50;
     this->mySkill = 5;
-    mybullets = std::make_shared<vector<Bullet*>>();
+    mybullets = std::make_shared<std::vector<Bullet*>>();
     mybullets1 = std::make_shared<OBJECTS>();
-    lifesupplys = std::make_shared<vector<Object*>>();
+    lifesupplys = std::make_shared<std::vector<Object*>>();
   //  lifesupplys1 = std::make_shared<OBJECTS>();
     //qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
 }
@@ -94,6 +94,11 @@ std::shared_ptr<OBJECTS> model::GetBullets()
 std::shared_ptr<OBJECTS> model::GetEnemiesPlane()
 {
     return enemyplanes1;
+}
+
+std::shared_ptr<OBJECTS> model::GetLifeSupplies()
+{
+    return lifesupplys;
 }
 /*
 std::shared_ptr<POSES> model::GetEnemiesPosX()
@@ -219,7 +224,7 @@ bool model::changeBulletPosition(Bullet * bullet, int newX, int newY)
         //vector<EnemyPlane *> *enemyplanes1 = enemyplanes.get();
         //MyPlane *enplane;
         /* 然后检查敌机：若敌机已经没有生命值，就从enemyplanes中删去 */
-        for (vector<EnemyPlane*>::iterator it = enemyplanes->begin(); it != enemyplanes->end();)
+        for (std::vector<EnemyPlane*>::iterator it = enemyplanes->begin(); it != enemyplanes->end();)
         {
             bool alive = true;
             if(collidesWithItem((*it)->x, (*it)->y, enemyplanewidth, enemyplaneheight, newX, newY, mybulletwidth, mybulletheight))
@@ -270,9 +275,9 @@ bool model::changeBulletPosition(Bullet * bullet, int newX, int newY)
 
 bool model::allbulletmove()
 {
-    for(vector<Bullet*>::iterator it = (*enemybullets).begin(); it!=(*enemybullets).end(); )
+    for(std::vector<Bullet*>::iterator it = (*enemybullets).begin(); it!=(*enemybullets).end(); )
     {
-        pair<int ,int> loc = (*it)->updatePosition();
+        std::pair<int ,int> loc = (*it)->updatePosition();
         if(changeBulletPosition(*it, loc.first, loc.second))
             it++;
         else
@@ -284,9 +289,9 @@ bool model::allbulletmove()
 
         }
     }
-    for(vector<Bullet*>::iterator it = mybullets->begin(); it!=mybullets->end(); )
+    for(std::vector<Bullet*>::iterator it = mybullets->begin(); it!=mybullets->end(); )
     {
-        pair<int ,int> loc = (*it)->updatePosition();
+        std::pair<int ,int> loc = (*it)->updatePosition();
         if(changeBulletPosition(*it, loc.first, loc.second))
             it++;
         else
@@ -343,7 +348,7 @@ bool model::bossgenerate()
 
 bool model::enemybulletshoot()
 {
-    for (vector<EnemyPlane*>::iterator iter = enemyplanes->begin(); iter != enemyplanes->end(); iter++)
+    for (std::vector<EnemyPlane*>::iterator iter = enemyplanes->begin(); iter != enemyplanes->end(); iter++)
         if ((*iter)->getl() > 0)
         {
             if((*iter)->type==ORD)
@@ -440,11 +445,11 @@ bool model::changePlanePosition(Plane *plane, int newX, int newY)
 
     /* 若为玩家飞机，则首先检查是否与补给碰撞，遇到生命补给则+5 */
     if(plane->part==ME)
-        for(vector<Object*>::iterator it=lifesupplys->begin();it!=lifesupplys->end(); )
+        for(std::vector<Object*>::iterator it=lifesupplys->begin();it!=lifesupplys->end(); )
         {
             if(collidesWithItem(newX , newY, myplanewidth, myplaneheight, (*it)->x, (*it)->y, lifesupplywidth, lifesupplyheight))
             {
-                plane->life = min(plane->life+10, myLife);
+                plane->life = std::min(plane->life+10, myLife);
                 delete *it;
                 it = lifesupplys->erase(it);
             }
@@ -454,7 +459,7 @@ bool model::changePlanePosition(Plane *plane, int newX, int newY)
 
     /* 检查新位置是否与某一飞机位置冲突 */
     /* 首先检查是否与敌机碰撞 */
-    for (vector<EnemyPlane*>::iterator it = enemyplanes->begin(); it != enemyplanes->end(); ) //遍历敌机
+    for (std::vector<EnemyPlane*>::iterator it = enemyplanes->begin(); it != enemyplanes->end(); ) //遍历敌机
     {
         if (plane == (Plane *)(*it)) //跳过自己
         {
@@ -510,10 +515,10 @@ bool model::enemymove()
     }
 
     /* 所有敌机移动位置 */
-    for (vector<EnemyPlane*>::iterator it = enemyplanes->begin(); it != enemyplanes->end(); )
+    for (std::vector<EnemyPlane*>::iterator it = enemyplanes->begin(); it != enemyplanes->end(); )
     {
         //qDebug() << it-enemyplanes.begin() << "  (" << (*it)->x() << "," << (*it)->y() << ")";
-        pair<int, int> loc = (*it)->updatePosition();
+        std::pair<int, int> loc = (*it)->updatePosition();
         if (changePlanePosition((Plane *)(*it), loc.first, loc.second))
             it++;
         else
@@ -532,9 +537,9 @@ bool model::gamereset()
 {
     score = std::make_shared<int>(0); //得分
     myBulletType = std::make_shared<int>(0);
-    enemyplanes = std::make_shared<vector<EnemyPlane *>>();
+    enemyplanes = std::make_shared<std::vector<EnemyPlane *>>();
     enemyplanes1 = std::make_shared<OBJECTS>();
-    enemybullets = std::make_shared<vector<Bullet*>>();
+    enemybullets = std::make_shared<std::vector<Bullet*>>();
     enemybullets1 = std::make_shared<OBJECTS>();
     myplane = std::make_shared<MyPlane>();
     myplane->setlife(50);
@@ -547,9 +552,9 @@ bool model::gamereset()
     this->bossBulletPower = 2;
     this->myLife = 50;
     this->mySkill = 5;
-    mybullets = std::make_shared<vector<Bullet*>>();
+    mybullets = std::make_shared<std::vector<Bullet*>>();
     mybullets1 = std::make_shared<OBJECTS>();
-    lifesupplys = std::make_shared<vector<Object*>>();
+    lifesupplys = std::make_shared<std::vector<Object*>>();
     return true;
 }
 

@@ -13,7 +13,7 @@ class EnemyPlane :public Plane
 public:
     EnemyPlane();
     EnemyPlane(double x, double y,EnemyType type, int life);
-    pair<double,double> updatePosition();
+    std::pair<double,double> updatePosition();
     double& getx() { return this->x; }
     double& gety() { return this->y; }
     EnemyType& gett() { return this->type; }

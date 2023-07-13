@@ -7,7 +7,6 @@
 //#include <QtWidgets>
 #include <cstring>
 #include <vector>
-using namespace std;
 
 class Plane: public Object
 {

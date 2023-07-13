@@ -1,7 +1,5 @@
-#include "MyPlane.h"
+﻿#include "MyPlane.h"
 #include <iostream>
-using namespace std;
-
 MyPlane::MyPlane():Plane()
 {
 }

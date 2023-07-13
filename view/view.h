@@ -49,7 +49,6 @@
 
 #include "./sink/viewpropertysink.h"
 
-using namespace std;
 class View : public QGraphicsScene
 {
 protected:
@@ -69,31 +68,31 @@ public:
 
     void SetLifeSupplies(std::shared_ptr<vector<Object *>> );
 */
-    void SetPlayerLife(shared_ptr<BAR>);
+    void SetPlayerLife(std::shared_ptr<BAR>);
 
-    void SetPlayerSkill(shared_ptr<BAR>);
+    void SetPlayerSkill(std::shared_ptr<BAR>);
 
     void SetPlayerScore(std::shared_ptr<int>);
 
-    void SetAllBulletMoveCommand(shared_ptr<ICommandBase> a);
+    void SetAllBulletMoveCommand(std::shared_ptr<ICommandBase> a);
 
-    void SetBossGenerateCommand(shared_ptr<ICommandBase>a);
+    void SetBossGenerateCommand(std::shared_ptr<ICommandBase>a);
 
-    void SetEnemyBulletShootCommand(shared_ptr<ICommandBase> a);
+    void SetEnemyBulletShootCommand(std::shared_ptr<ICommandBase> a);
 
-    void SetEnemyGenerateCommand(shared_ptr<ICommandBase> a);
+    void SetEnemyGenerateCommand(std::shared_ptr<ICommandBase> a);
 
-    void SetEnemyMoveCommand(shared_ptr<ICommandBase> a);
+    void SetEnemyMoveCommand(std::shared_ptr<ICommandBase> a);
 
-    void SetGamePauseCommand(shared_ptr<ICommandBase> a);
+    void SetGamePauseCommand(std::shared_ptr<ICommandBase> a);
 
-    void SetGameResetCommand(shared_ptr<ICommandBase> a);
+    void SetGameResetCommand(std::shared_ptr<ICommandBase> a);
 
-    void SetPlayerBulletShootCommand(shared_ptr<ICommandBase> a);
+    void SetPlayerBulletShootCommand(std::shared_ptr<ICommandBase> a);
 
-    void SetPlayerMoveCommand(shared_ptr<ICommandBase> a);
+    void SetPlayerMoveCommand(std::shared_ptr<ICommandBase> a);
 
-    void SetSkillUseCommand(shared_ptr<ICommandBase> a);
+    void SetSkillUseCommand(std::shared_ptr<ICommandBase> a);
 /*
     void SetPlayerPosX(POS* );
 
@@ -115,7 +114,7 @@ public:
 
     void SetLifeSuppliesPosY(shared_ptr<POSES>);
 */
-    void SetPlayerGenerateCommand(shared_ptr<ICommandBase>);
+    void SetPlayerGenerateCommand(std::shared_ptr<ICommandBase>);
     void SetBullets(std::shared_ptr<OBJECTS> a);
 
     void SetLifeSupplies(std::shared_ptr<OBJECTS> a);
@@ -159,61 +158,61 @@ private:
        QGraphicsWidget *retryGameButton;
        QGraphicsWidget *quitGameButton;
 
-       shared_ptr<ICommandBase> m_cmdgenerateboss;
-       shared_ptr<ICommandBase> m_cmdgamereset;
-       shared_ptr<ICommandBase> m_cmdgamepause;
-       shared_ptr<ICommandBase> m_cmdskilluse;
-       shared_ptr<ICommandBase> m_cmdplanemove;
-       shared_ptr<ICommandBase> m_cmdgenerateenemyplane;
-       shared_ptr<ICommandBase> m_cmdmovebullet;
-       shared_ptr<ICommandBase> m_cmdshootenemybullet;
-       shared_ptr<ICommandBase> m_cmdshootmybullet;
-       shared_ptr<ICommandBase> m_cmdmoveenemyplane;
-       shared_ptr <ICommandBase> m_cmdgeneratemyplane;
-       shared_ptr<ViewPropertySink> m_propertysink;
+       std::shared_ptr<ICommandBase> m_cmdgenerateboss;
+       std::shared_ptr<ICommandBase> m_cmdgamereset;
+       std::shared_ptr<ICommandBase> m_cmdgamepause;
+       std::shared_ptr<ICommandBase> m_cmdskilluse;
+       std::shared_ptr<ICommandBase> m_cmdplanemove;
+       std::shared_ptr<ICommandBase> m_cmdgenerateenemyplane;
+       std::shared_ptr<ICommandBase> m_cmdmovebullet;
+       std::shared_ptr<ICommandBase> m_cmdshootenemybullet;
+       std::shared_ptr<ICommandBase> m_cmdshootmybullet;
+       std::shared_ptr<ICommandBase> m_cmdmoveenemyplane;
+       std::shared_ptr <ICommandBase> m_cmdgeneratemyplane;
+       std::shared_ptr<ViewPropertySink> m_propertysink;
        /*
        POS*  play_posX;
 
        POS*  play_posY;
 
 */
-       shared_ptr<OBJECTS>  Bullets_view;
+       std::shared_ptr<OBJECTS>  Bullets_view;
 
-       shared_ptr<OBJECTS>  LifeSupplies_view;
+       std::shared_ptr<OBJECTS>  LifeSupplies_view;
 
-       shared_ptr<Object>   MyPlane_view;
+       std::shared_ptr<Object>   MyPlane_view;
 
-       shared_ptr<OBJECTS>    EnemiesPlane_view;
+       std::shared_ptr<OBJECTS>    EnemiesPlane_view;
 /*
-       shared_ptr<POSES>  bullet_posX;
+       std::shared_ptr<POSES>  bullet_posX;
 
-       shared_ptr<POSES>  bullet_posY;
+       std::shared_ptr<POSES>  bullet_posY;
 
-       shared_ptr<POSES>  lifesupply_posX;
+       std::shared_ptr<POSES>  lifesupply_posX;
 
-       shared_ptr<POSES>  lifesupply_posY;
+       std::shared_ptr<POSES>  lifesupply_posY;
 
-       shared_ptr<BULLETTYPES>  bullet_type;
+       std::shared_ptr<BULLETTYPES>  bullet_type;
 
-       shared_ptr<POSES>  enemy_posX;
+       std::shared_ptr<POSES>  enemy_posX;
 
-       shared_ptr<POSES>  enemy_posY;
+       std::shared_ptr<POSES>  enemy_posY;
 
-       shared_ptr<ENEMYTYPES>  enemy_type;
+       std::shared_ptr<ENEMYTYPES>  enemy_type;
 */
-       std::shared_ptr<vector<EnemyPlane *>> EnemiesPlane;
+       std::shared_ptr<std::vector<EnemyPlane *>> EnemiesPlane;
 
-       std::shared_ptr<vector<Bullet *>> Bullets;
+       std::shared_ptr<std::vector<Bullet *>> Bullets;
 
        std::shared_ptr<MyPlane>  myplane;
 
-       std::shared_ptr<vector<Object *>> LifeSupplies;
+       std::shared_ptr<std::vector<Object *>> LifeSupplies;
 
        std::shared_ptr<int> PlayerScore;
 
-       shared_ptr<BAR>  player_life;
+       std::shared_ptr<BAR>  player_life;
 
-       shared_ptr<BAR>  player_skill;
+       std::shared_ptr<BAR>  player_skill;
 
        void enemyplane_move();
 

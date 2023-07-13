@@ -45,15 +45,15 @@
 class model: public Proxy_PropertyNotification<model>
 {
 private:
-     std::shared_ptr<vector<EnemyPlane *>> enemyplanes;
+     std::shared_ptr<std::vector<EnemyPlane *>> enemyplanes;
      std::shared_ptr<OBJECTS> enemyplanes1;
-     std::shared_ptr<vector<Bullet*>> enemybullets;
+     std::shared_ptr<std::vector<Bullet*>> enemybullets;
      std::shared_ptr<OBJECTS> enemybullets1;
      std::shared_ptr<MyPlane> myplane;
      std::shared_ptr<Object> myplane1;
-     std::shared_ptr<vector<Bullet*>> mybullets;
+     std::shared_ptr<std::vector<Bullet*>> mybullets;
      std::shared_ptr<OBJECTS> mybullets1;
-     std::shared_ptr<vector<Object*>> lifesupplys;
+     std::shared_ptr<std::vector<Object*>> lifesupplys;
      QPointF myPlaneMove;
 
      std::shared_ptr<int> score; //得分

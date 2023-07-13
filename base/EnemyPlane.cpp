@@ -12,7 +12,7 @@ EnemyPlane::EnemyPlane(double x, double y, EnemyType type, int life):
     this->type = type;
 }
 
-pair<double,double> EnemyPlane::updatePosition()
+std::pair<double,double> EnemyPlane::updatePosition()
 {
-    return make_pair(x, y+2);
+    return std::make_pair(x, y+2);
 }

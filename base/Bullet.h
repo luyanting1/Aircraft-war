@@ -8,7 +8,6 @@
 #include <fstream>
 #include <iostream>
 #include <QPointF>
-using namespace std;
 
 class Bullet: public Object
 {
@@ -16,7 +15,7 @@ class Bullet: public Object
 public:
     Bullet();
     Bullet(WarPart part, double x, double y,EnemyType type1,const QPointF &dir, int power);
-    pair<double,double> updatePosition();
+    std::pair<double,double> updatePosition();
     //bool hit(QGraphicsScene *scene);
     double& getx() { return this->x; }
     double& gety() { return this->y; }
