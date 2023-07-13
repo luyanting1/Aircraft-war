@@ -153,41 +153,6 @@ void View::quitGame()
 
 void View::startGame()
 {
-    *PlayerScore = 0;
-
-    //得分显示
-    scoreText = new QGraphicsTextItem;
-    scoreText->setPos(scoreTextPos);
-    scoreText->setHtml(tr("<font color=white>SCORE: %1</font>").arg(*(PlayerScore)));
-    scoreText->setFont(QFont("Courier"));
-    addItem(scoreText);
-    scoreText->hide();
-
-
-    hasStarted = true;
-    titleText->hide();
-    startGameButton->hide();
-    helpGameButton->hide();
-    quitGameButton->hide();
-    authorText->hide();
-    maskWidget->hide();
-
-
-    scoreText->show();
-
-
-    lifeFrameBar->show();
-    lifeBar->setRect(LifeBarPos.x(), LifeBarPos.y(), *(player_life)*2, lifeBar->rect().height());
-    lifeBar->setBrush(Qt::green);
-    lifeBar->update();//血量值会更新
-    lifeBar->show();
-
-    skillFrameBar->show();
-    skillBar->setRect(SkillBarPos.x(), SkillBarPos.y(), *(player_skill)*2, skillBar->rect().height());
-    skillBar->setBrush(Qt::blue);
-    skillBar->update();
-    skillBar->show();
-
     /* 设置各动作更新时钟 */
 
     myPlaneMove = QPointF(0, 0);
@@ -198,28 +163,6 @@ void View::startGame()
     enemyPlaneGenerateTimerId = startTimer(enemyPlaneGenerateTimerItv);
     bossGenerateTimeId = startTimer(bossGenerateTimeItv);
 
-    /* 添加玩家飞机 */
-    myplane_generate();
-    QPixmap pixmap(myPlaneImageFile); // 加载图像
-    QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
-    pixmapItem->setPos(MyPlane_view->getx(), MyPlane_view->gety());
-    this->addItem(pixmapItem);
-    /* 添加敌机 */
-    for (int i = 0; i < 3; i++)
-    {
-        enemyplane_generate();
-    }
-    //SetEnemiesPosX(GetEnemiesPosX());
-    //SetEnemiesPosY(GetEnemiesPosY());
-    for (int i=0;i<(*EnemiesPlane_view).size();i++)
-    {
-      //  qDebug()<<x<<Qt::endl;
-        QPixmap pixmap(enemyPlaneImageFile); // 加载图像
-        QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
-      //  qDebug()<<*((*enemy_posX)[i])<<"  "<<*((*enemy_posY)[i])<<Qt::endl;
-        pixmapItem->setPos((*EnemiesPlane_view)[i]->getx(), (*EnemiesPlane_view)[i]->gety());
-        this->addItem(pixmapItem);
-    }
 }
 
 void View::showHelpMessage()
@@ -333,7 +276,7 @@ void View::timerEvent(QTimerEvent *event)
             hasLoseGmae=1;
             //loseGame();
         }
-        changescene();
+        //changescene();
       }  //changePlanePosition(myplane, myplane->x()+myPlaneMove.x(), myplane->y()+myPlaneMove.y());
     if(event->timerId()==enemyBulletShootTimerId)
     {
@@ -355,7 +298,7 @@ void View::timerEvent(QTimerEvent *event)
             hasLoseGmae=1;
             //loseGame();
         }
-        changescene();
+        //changescene();
     }
     else if(event->timerId()==enemyPlaneMoveTimerId)
     {
@@ -364,7 +307,8 @@ void View::timerEvent(QTimerEvent *event)
     }
     else if(event->timerId()==enemyPlaneGenerateTimerId)
     {
-        changescene();
+        enemyplane_generate();
+        //changescene();
     }
     else if(event->timerId()==bossGenerateTimeId)
     {
@@ -466,7 +410,11 @@ void View::enemyplane_generate()
 }
 void View::myplane_generate()
 {
+    try{
     m_cmdgeneratemyplane->Exec();
+    }catch(std::exception ex){
+        qDebug() << ex.what();
+    }
 }
 void View::enemyplane_move()
 {
@@ -750,6 +698,10 @@ void View::changescene()
         //retryGameButton->show();
         helpGameButton->show();
         quitGameButton->show();
+    }
+    itemslist = items();
+    for (auto item : itemslist) {
+        qDebug() << item->x();
     }
 }
 /*

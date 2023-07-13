@@ -11,6 +11,7 @@
 #include <QUrl>
 #include <QGraphicsView>
 #include <app/app.h>
+
 //#include <QMediaPlayer>
 //#include <QMediaPlaylist>
 #include <QApplication>
