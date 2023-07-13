@@ -47,7 +47,7 @@
 #define lifeSupplyImageFile  ":/images/lifesupply.png"
 //补给图片
 
-#include "./sinks/viewpropertysink.h"
+#include "./sink/viewpropertysink.h"
 
 using namespace std;
 class View : public QGraphicsScene
@@ -115,20 +115,12 @@ public:
     void SetLifeSuppliesPosY(shared_ptr<POSES>);
 */
     void SetPlayerGenerateCommand(shared_ptr<ICommandBase>);
-    void SetBullets(std::shared_ptr<OBJECTS> a){
-        view_Bullets=a;
-    }
+    void SetBullets(std::shared_ptr<OBJECTS> a);
 
-    void SetLifeSupplies(std::shared_ptr<OBJECTS> a){
-        LifeSupplies_view=a;
-    }
-    void SetMyPlane(std::shared_ptr<Object> a){
-        MyPlane_view=a;
-    }
+    void SetLifeSupplies(std::shared_ptr<OBJECTS> a);
+    void SetMyPlane(std::shared_ptr<Object> a);
 
-    void SetEnemiesPlane(std::shared_ptr<OBJECTS> a){
-        EnemiesPlane_view=a;
-    }
+    void SetEnemiesPlane(std::shared_ptr<OBJECTS> a);
 
 private:
        //各种模型的属性
@@ -178,11 +170,12 @@ private:
        shared_ptr<ICommandBase> m_cmdmoveenemyplane;
        shared_ptr <ICommandBase> m_cmdgeneratemyplane;
        shared_ptr<ViewPropertySink> m_propertysink;
+       /*
        POS*  play_posX;
 
        POS*  play_posY;
 
-
+*/
        shared_ptr<OBJECTS>  Bullets_view;
 
        shared_ptr<OBJECTS>  LifeSupplies_view;
@@ -190,7 +183,7 @@ private:
        shared_ptr<Object>   MyPlane_view;
 
        shared_ptr<OBJECTS>    EnemiesPlane_view;
-
+/*
        shared_ptr<POSES>  bullet_posX;
 
        shared_ptr<POSES>  bullet_posY;
@@ -206,7 +199,7 @@ private:
        shared_ptr<POSES>  enemy_posY;
 
        shared_ptr<ENEMYTYPES>  enemy_type;
-
+*/
        std::shared_ptr<vector<EnemyPlane *>> EnemiesPlane;
 
        std::shared_ptr<vector<Bullet *>> Bullets;

@@ -202,7 +202,7 @@ void View::startGame()
     myplane_generate();
     QPixmap pixmap(myPlaneImageFile); // 加载图像
     QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
-    pixmapItem->setPos(*play_posX, *play_posY);
+    pixmapItem->setPos(MyPlane_view->getx(), MyPlane_view->gety());
     this->addItem(pixmapItem);
     /* 添加敌机 */
     for (int i = 0; i < 3; i++)
@@ -679,7 +679,7 @@ void View::changescene()
             pixmapItem->setPos((*Bullets_view)[i]->getx(), (*Bullets_view)[i]->gety());
             this->addItem(pixmapItem);
         }
-        else if((*Bullets_view)[i]->gett==2)
+        else if((*Bullets_view)[i]->gett()==2)
         {
             QPixmap pixmap(enemyBulletImageFile);
             QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
@@ -695,7 +695,7 @@ void View::changescene()
            QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
            pixmapItem->setPos((*EnemiesPlane_view)[i]->getx(), (*EnemiesPlane_view)[i]->gety());
            this->addItem(pixmapItem);
-        }else if(*((*enemy_type)[i])==1)
+        }else if((*EnemiesPlane_view)[i]->gett()==1)
         {
             QPixmap pixmap(bossImageFile);
             QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
@@ -712,7 +712,7 @@ void View::changescene()
     }
     QPixmap pixmap(myPlaneImageFile);
     QGraphicsPixmapItem* pixmapItem = new QGraphicsPixmapItem(pixmap); // 创建QGraphicsPixmapItem对象
-    pixmapItem->setPos((*MyPlane_view)->getx(), (*MyPlane_view)->gety());
+    pixmapItem->setPos(MyPlane_view->getx(), MyPlane_view->gety());
     this->addItem(pixmapItem);
     if(hasLoseGmae==1)
     {
