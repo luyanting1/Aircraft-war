@@ -24,8 +24,8 @@
 #define WIDTH 600
 #define HEIGHT 800
 
-#define bosswidth 240
-#define bossheight 240
+#define bosswidth  140
+#define bossheight 140
 
 #define enemyplanewidth 90
 #define enemyplaneheight 69

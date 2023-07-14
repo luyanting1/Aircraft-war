@@ -108,7 +108,7 @@ inline bool collidesWithItem(double x0,double y0,double len0,double h0,double x2
     x2 = x2 + len2 / 2, y2 = y2 + h2 / 2;
     double top0 = y0+h0/2, bot0 = y0-h0/2, left0 = x0-len0/2, right0 = x0+len0/2;
     double top2 = y2+h2/2, bot2 = y2-h2/2, left2 = x2-len2/2, right2 = x2+len2/2;
-    if(left0 > right2 || left2 > right0 || bot0 > top2 || bot2 < top0)
+    if(left0 > right2 || left2 > right0 || bot0 > top2 || bot2 > top0)
         return 0;
     else return 1;
 }
@@ -157,7 +157,7 @@ bool model::changeBulletPosition(Bullet * bullet, int newX, int newY)
                 /* 25%的概率掉落生命补给 */
                 //srand(time(NULL));
                 int number = QRandomGenerator::global()->bounded(32766);
-                if(number%4==0)
+                if(number%1==0)
                 {
                     Object *lifeSupply = new Object(x, y, LIFESUPPLY);
                     lifesupplys->push_back(lifeSupply);
@@ -368,6 +368,7 @@ bool model::changePlanePosition(Plane *plane, int newX, int newY)
     /* 首先检查是否与敌机碰撞 */
     for (std::vector<EnemyPlane*>::iterator it = enemyplanes->begin(); it != enemyplanes->end(); ) //遍历敌机
     {
+
         if (plane == (Plane *)(*it)) //跳过自己
         {
             it++;

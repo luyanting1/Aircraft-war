@@ -154,7 +154,7 @@ void View::quitGame()
 void View::startGame()
 {
     /* 设置各动作更新时钟 */
-
+    hasStarted = true;
     myPlaneMove = QPointF(0, 0);
     myBulletShootTimerId = startTimer(myBulletShootTimerItv);
     enemyBulletShootTimerId = startTimer(enemyBulletShootTimerItv);
@@ -193,78 +193,82 @@ void View::showHelpMessage()
 }
 void View::keyPressEvent(QKeyEvent *event)
 {
-    if(event->key()==Qt::Key_W && !event->isAutoRepeat())
+    if(hasStarted==true)
     {
-        if(myPlaneMove==QPointF(0,0))
-            myPlaneMoveTimerId = startTimer(myPlaneMoveTimerItv);
-        direction='W';
-    }
-    else if(event->key()==Qt::Key_S && !event->isAutoRepeat())
-    {
-        if(myPlaneMove==QPointF(0,0))
-            myPlaneMoveTimerId = startTimer(myPlaneMoveTimerItv);
-        direction='S';
-    }
-    else if(event->key()==Qt::Key_A && !event->isAutoRepeat())
-    {
-        if(myPlaneMove==QPointF(0,0))
-            myPlaneMoveTimerId = startTimer(myPlaneMoveTimerItv);
-        direction='A';
-    }
-    else if(event->key()==Qt::Key_D && !event->isAutoRepeat())
-    {
-        if(myPlaneMove==QPointF(0,0))
-            myPlaneMoveTimerId = startTimer(myPlaneMoveTimerItv);
-        direction='D';
-    }
-    else if(event->key()==Qt::Key_J && *(player_skill)>=5)
-    {
-        //按Q的技能可以一次发射3个子弹，但是会消耗5点技能
-        /*
-        myBulletType = 1;
-        myplane->skill -= 5;
-        updateBar(skillBar, skillFrameBar, SkillBarPos, -10, QBrush(Qt::blue));
-        */
-        skill_use(5);
-        skillQTimerId = startTimer(5000); //5秒使用时间
-    }
-    else if(event->key()==Qt::Key_K && *(player_skill)>=3)
-    {
-        //按E的技能可以打掉所有飞机，消耗3点技能值
-
-        /*
-        for(std::vector<EnemyPlane*>::iterator iter=enemyplanes.begin(); iter!=enemyplanes.end(); iter++)
+        if(event->key()==Qt::Key_W && !event->isAutoRepeat())
         {
-            score++;
-            scoreText->setHtml(tr("<font color=white>SCORE: %1</font>").arg(score));
-            removeItem(*iter);
-            delete *iter;
+            if(myPlaneMove==QPointF(0,0))
+                myPlaneMoveTimerId = startTimer(myPlaneMoveTimerItv);
+            direction='W';
         }
-        enemyplanes.clear();
-
-        myplane->skill -= 3;
-        updateBar(skillBar, skillFrameBar, SkillBarPos, -6, QBrush(Qt::blue));
-        */
-        skill_use(3);
-    }
-    else if(event->key()==Qt::Key_L && *(player_skill)>=7)
-    {
-        //按R可以消掉所有敌机子弹，消耗7点技能值
-        /*
-        for(std::vector<Bullet*>::iterator it = enemybullets.begin(); it!= enemybullets.end(); it++)
+        else if(event->key()==Qt::Key_S && !event->isAutoRepeat())
         {
-            removeItem(*it);
-            delete *it;
+            if(myPlaneMove==QPointF(0,0))
+                myPlaneMoveTimerId = startTimer(myPlaneMoveTimerItv);
+            direction='S';
         }
-        enemybullets.clear();
+        else if(event->key()==Qt::Key_A && !event->isAutoRepeat())
+        {
+            if(myPlaneMove==QPointF(0,0))
+                myPlaneMoveTimerId = startTimer(myPlaneMoveTimerItv);
+            direction='A';
+        }
+        else if(event->key()==Qt::Key_D && !event->isAutoRepeat())
+        {
+            if(myPlaneMove==QPointF(0,0))
+                myPlaneMoveTimerId = startTimer(myPlaneMoveTimerItv);
+            direction='D';
+        }
+        else if(event->key()==Qt::Key_J && *(player_skill)>=5)
+        {
+            //按Q的技能可以一次发射3个子弹，但是会消耗5点技能
+            /*
+            myBulletType = 1;
+            myplane->skill -= 5;
+            updateBar(skillBar, skillFrameBar, SkillBarPos, -10, QBrush(Qt::blue));
+            */
+            skill_use(5);
+            skillQTimerId = startTimer(5000); //5秒使用时间
+        }
+        else if(event->key()==Qt::Key_K && *(player_skill)>=3)
+        {
+            //按E的技能可以打掉所有飞机，消耗3点技能值
 
-        myplane->skill -= 7;
+            /*
+            for(std::vector<EnemyPlane*>::iterator iter=enemyplanes.begin(); iter!=enemyplanes.end(); iter++)
+            {
+                score++;
+                scoreText->setHtml(tr("<font color=white>SCORE: %1</font>").arg(score));
+                removeItem(*iter);
+                delete *iter;
+            }
+            enemyplanes.clear();
 
-        */
-        skill_use(7);
+            myplane->skill -= 3;
+            updateBar(skillBar, skillFrameBar, SkillBarPos, -6, QBrush(Qt::blue));
+            */
+            skill_use(3);
+        }
+        else if(event->key()==Qt::Key_L && *(player_skill)>=7)
+        {
+            //按R可以消掉所有敌机子弹，消耗7点技能值
+            /*
+            for(std::vector<Bullet*>::iterator it = enemybullets.begin(); it!= enemybullets.end(); it++)
+            {
+                removeItem(*it);
+                delete *it;
+            }
+            enemybullets.clear();
+
+            myplane->skill -= 7;
+
+            */
+            skill_use(7);
+        }
+        else if(event->key()==Qt::Key_Space)
+            pauseGame();
     }
-    else if(event->key()==Qt::Key_Space)
-        pauseGame();
+
 }
 void View::timerEvent(QTimerEvent *event)
 {
