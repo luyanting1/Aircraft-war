@@ -154,7 +154,7 @@ bool model::changeBulletPosition(Bullet * bullet, int newX, int newY)
                 OBJECTS::iterator it1 = enemyplanes1->begin()+(it-enemyplanes->begin());
                 enemyplanes1->erase(it1);
                 it = enemyplanes->erase(it);
-                qDebug() << "enemy is shooted by bullets";
+                //qDebug() << "enemy is shooted by bullets";
                 (*score)++;
                 /* 25%的概率掉落生命补给 */
                 //srand(time(NULL));
@@ -302,7 +302,6 @@ bool model::enemygenerate()
     int cnt = 0;
     int x = QRandomGenerator::global()->bounded(width1-myplanewidth);
     x += myplanewidth /2;
-    // qDebug()<<x<<Qt::endl;
     for(cnt=0;cnt<10;cnt++)
     {
         bool flag = true; //此位置是否合法
@@ -324,10 +323,8 @@ bool model::enemygenerate()
     /* 若生成100次随机都未能找到合适的位置则退出 */
     if(cnt>=10)
         return false;
-    //x = 5000;
     /* 新增敌机 */
     EnemyPlane *enemy = new EnemyPlane(x, myplaneheight/2, ORD, enemyLife);
-    // qDebug()<<enemy->getx()<<Qt::endl;
     enemyplanes->push_back(enemy);
     enemyplanes1->push_back(enemy);
     Fire_OnPropertyChanged("enemy");
@@ -364,7 +361,7 @@ bool model::changePlanePosition(Plane *plane, int newX, int newY)
                 plane->life = std::min(plane->life+10, myLife);
                 delete *it;
                 it = lifesupplys->erase(it);
-                qDebug() << "acquire lifesupply";
+                //qDebug() << "acquire lifesupply";
             }
             else
                 it++;
@@ -392,7 +389,7 @@ bool model::changePlanePosition(Plane *plane, int newX, int newY)
                 OBJECTS::iterator it1 = enemyplanes1->begin()+(it-enemyplanes->begin());
                 enemyplanes1->erase(it1);
                 it = enemyplanes->erase(it);
-                qDebug() << "enemy is crashed because plane move";
+                //qDebug() << "enemy is crashed because plane move";
             }
         }
     }
@@ -427,7 +424,6 @@ bool model::enemymove()
     /* 所有敌机移动位置 */
     for (std::vector<EnemyPlane*>::iterator it = enemyplanes->begin(); it != enemyplanes->end(); )
     {
-        //qDebug() << it-enemyplanes.begin() << "  (" << (*it)->x() << "," << (*it)->y() << ")";
         std::pair<int, int> loc = (*it)->updatePosition();
         if (changePlanePosition((Plane *)(*it), loc.first, loc.second))
             it++;
@@ -437,7 +433,7 @@ bool model::enemymove()
             OBJECTS::iterator it1 = enemyplanes1->begin()+(it-enemyplanes->begin());
             enemyplanes1->erase(it1);
             it = enemyplanes->erase(it);
-            qDebug() << "enemy is crashed because its own move";
+            //qDebug() << "enemy is crashed because its own move";
         }
     }
     Fire_OnPropertyChanged("enemy");

@@ -6,7 +6,7 @@ const int myBulletShootTimerItv = 900;
 const int enemyBulletShootTimerItv = 3000;
 const int allBulletMoveTimerItv = 10;
 
-const int myPlaneMoveTimerItv = 2;
+const int myPlaneMoveTimerItv = 30;
 const int enemyPlaneMoveTimerItv = 100;
 const int enemyPlaneGenerateTimerItv = 8000;
 const int bossGenerateTimeItv = 16000;
@@ -423,11 +423,7 @@ void View::enemyplane_generate()
 }
 void View::myplane_generate()
 {
-    try{
     m_cmdgeneratemyplane->Exec();
-    }catch(std::exception ex){
-        qDebug() << ex.what();
-    }
 }
 void View::enemyplane_move()
 {
