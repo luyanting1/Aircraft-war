@@ -123,6 +123,10 @@ bool model::changeBulletPosition(Bullet * bullet, int newX, int newY)
     /* 首先检查玩家飞机 */
     bool flag = true;
     WarPart part1 = bullet->getp();
+    EnemyType type1 = bullet->gett();
+   /* double bulletwidth,bulletheight;
+    if(type1 == ORD) bulletwidth = enemybulletwidth, bulletheight = enemybulletheight;
+      else bulletwidth = bossbulletwidth, bulletheight = bossbulletheight;*/
     if (part1==ENEMY && collidesWithItem(myplane->x,myplane->y, myplanewidth,myplaneheight,newX,newY,enemybulletwidth, enemybulletheight))
     {
         int life1 = myplane->getlife();
@@ -231,12 +235,13 @@ bool model::bossgenerate()
     {
         bool flag = true; //此位置是否合法
         for(auto iter:*enemyplanes)
-            if(abs1(x-iter->x)<=45)
-            {
-                flag = false;
-                break;
-            }
-
+                if(collidesWithItem(x, 0, bosswidth, bossheight, iter->x, iter->y, enemyplanewidth, enemyplaneheight))
+                {
+                    flag = false;
+                    break;
+                }
+        if(collidesWithItem(x, 0, bosswidth, bossheight, myplane->x, myplane->y, myplanewidth, myplaneheight))
+            flag = false;
         if(flag)
             break;
         else
@@ -302,11 +307,13 @@ bool model::enemygenerate()
     {
         bool flag = true; //此位置是否合法
         for(auto iter:*enemyplanes)
-            if(abs1(x-iter->x)<=45)
+            if(collidesWithItem(x, 0, enemyplanewidth, enemyplaneheight, iter->x, iter->y, enemyplanewidth, enemyplaneheight))
             {
                 flag = false;
                 break;
             }
+        if(collidesWithItem(x, 0, enemyplanewidth, enemyplaneheight, myplane->x, myplane->y, myplanewidth, myplaneheight))
+            flag = false;
         if(flag)
             break;
         else
@@ -335,7 +342,7 @@ bool model::changePlanePosition(Plane *plane, int newX, int newY)
     /* 检查位置是否有变化，无变化则直接返回 */
     if (plane->x == newX && plane->y == newY)
         return true;
-
+    double planewidth, planeheight;
     /* 检查新位置是否合法，不合法则直接返回 */
     if (newX<0 || newX>width1 || newY<0 || newY>height1)
     {
@@ -377,13 +384,15 @@ bool model::changePlanePosition(Plane *plane, int newX, int newY)
 
         bool alive = true; //it所指向的飞机是否还有生命值
         /* 若为玩家飞机，两架飞机均crash，生命值都减1 */
-        if (plane->part == ME && collidesWithItem(newX , newY, myplanewidth, myplaneheight, (*it)->x, (*it)->y, enemyplanewidth, enemyplaneheight) )
+        if((*it)->gett() == ORD) planewidth = enemyplanewidth, planeheight = enemyplaneheight;
+         else planewidth = bosswidth, planeheight = bossheight;
+        if (plane->part == ME && collidesWithItem(newX , newY, myplanewidth, myplaneheight, (*it)->x, (*it)->y, planewidth, planeheight) )
         {
             plane->crash();
             alive = (*it)->crash1();
             // updateBar(lifeBar, lifeFrameBar, LifeBarPos, -2, QBrush(Qt::green));
         }
-        if (plane->part == ENEMY && collidesWithItem(newX , newY, enemyplanewidth, enemyplaneheight, (*it)->x, (*it)->y, enemyplanewidth, enemyplaneheight)) //若同为敌机，则不允许改变位置，NOCHANGE
+        if (plane->part == ENEMY && collidesWithItem(newX , newY, enemyplanewidth, enemyplaneheight, (*it)->x, (*it)->y, planewidth, planeheight)) //若同为敌机，则不允许改变位置，NOCHANGE
             return true;
 
         if (alive)
@@ -398,7 +407,9 @@ bool model::changePlanePosition(Plane *plane, int newX, int newY)
     }
 
     /* 若此飞机为敌机，且与玩家飞机发生了碰撞 */
-    if (plane->part == ENEMY && collidesWithItem(newX , newY, enemyplanewidth, enemyplaneheight, myplane->x, myplane->y, myplanewidth, myplaneheight))
+    if(plane->gett() == ORD) planewidth = enemyplanewidth, planeheight = enemyplaneheight;
+    else planewidth = bosswidth, planeheight = bossheight;
+    if (plane->part == ENEMY && collidesWithItem(newX , newY, planewidth, planeheight, myplane->x, myplane->y, myplanewidth, myplaneheight))
     {
         myplane->crash();
         plane->crash();

@@ -21,7 +21,7 @@ public:
     double& gety() { return this->y; }
     void setx(double x) { this->x = x; }
     void sety(double y) { this->y = y; }
-    int gett() { return this->type1; }
+    EnemyType gett() { return this->type1; }
     WarPart getp() { return this->part; }
     int getpower() { return this->power; }
     int& gett2() { return this->type2; }
