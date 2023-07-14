@@ -16,6 +16,7 @@ public:
     Plane(double x, double y, int life, enum WarPart part, int type2);
     void setx(double x) { this->x = x; }
     void sety(double y) { this->y = y; }
+    void setpart(WarPart part) {this->part = part; }
     bool crash(); //飞机发生碰撞
 
 protected:

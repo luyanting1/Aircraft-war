@@ -11,6 +11,7 @@ model::model() {
     myplane->setskill(5);
     myplane->setx(WIDTH/2);
     myplane->sety(HEIGHT/2);
+    myplane->setpart(ME);
     myplane1 = myplane;
     this->myBulletPower = 1;
     this->enemyLife = 1;
@@ -355,7 +356,7 @@ bool model::changePlanePosition(Plane *plane, int newX, int newY)
     }
 
     /* 若为玩家飞机，则首先检查是否与补给碰撞，遇到生命补给则+5 */
-    if(plane->part==ME)
+    if(plane->part==ME) {
         for(std::vector<Object*>::iterator it=lifesupplys->begin();it!=lifesupplys->end(); )
         {
             if(collidesWithItem(newX , newY, myplanewidth, myplaneheight, (*it)->x, (*it)->y, lifesupplywidth, lifesupplyheight))
@@ -363,40 +364,36 @@ bool model::changePlanePosition(Plane *plane, int newX, int newY)
                 plane->life = std::min(plane->life+10, myLife);
                 delete *it;
                 it = lifesupplys->erase(it);
+                qDebug() << "acquire lifesupply";
             }
             else
                 it++;
         }
+    }
 
     /* 检查新位置是否与某一飞机位置冲突 */
     /* 首先检查是否与敌机碰撞 */
-    for (std::vector<EnemyPlane*>::iterator it = enemyplanes->begin(); it != enemyplanes->end(); ) //遍历敌机
-    {
-        if (plane == (Plane *)(*it)) //跳过自己
+    if (plane->part == ME) {
+        for (std::vector<EnemyPlane*>::iterator it = enemyplanes->begin(); it != enemyplanes->end(); ) //遍历敌机
         {
-            it++;
-            continue;
-        }
+            bool alive = true; //it所指向的飞机是否还有生命值
+            /* 若为玩家飞机，两架飞机均crash，生命值都减1 */
+            if (collidesWithItem(newX , newY, myplanewidth, myplaneheight, (*it)->x, (*it)->y, enemyplanewidth, enemyplaneheight) )
+            {
+                plane->crash();
+                alive = (*it)->crash1();
+            }
 
-        bool alive = true; //it所指向的飞机是否还有生命值
-        /* 若为玩家飞机，两架飞机均crash，生命值都减1 */
-        if (plane->part == ME && collidesWithItem(newX , newY, myplanewidth, myplaneheight, (*it)->x, (*it)->y, enemyplanewidth, enemyplaneheight) )
-        {
-            plane->crash();
-            alive = (*it)->crash1();
-        }
-        if (plane->part == ENEMY && collidesWithItem(newX , newY, enemyplanewidth, enemyplaneheight, (*it)->x, (*it)->y, enemyplanewidth, enemyplaneheight)) //若同为敌机，则不允许改变位置，NOCHANGE
-            return true;
-
-        if (alive)
-            it++;
-        else //若飞机坠毁，则将此飞机去掉
-        {
-            delete *it;
-            OBJECTS::iterator it1 = enemyplanes1->begin()+(it-enemyplanes->begin());
-            enemyplanes1->erase(it1);
-            it = enemyplanes->erase(it);
-            qDebug() << "enemy is crashed because plane move";
+            if (alive)
+                it++;
+            else //若飞机坠毁，则将此飞机去掉
+            {
+                delete *it;
+                OBJECTS::iterator it1 = enemyplanes1->begin()+(it-enemyplanes->begin());
+                enemyplanes1->erase(it1);
+                it = enemyplanes->erase(it);
+                qDebug() << "enemy is crashed because plane move";
+            }
         }
     }
 
@@ -476,24 +473,24 @@ bool model::playerbulletshoot()
 {
     if((*myBulletType)==0)
     {
-        Bullet *bullet = new Bullet(ME, myplane->x, myplane->y+myplaneheight/2,
+        Bullet *bullet = new Bullet(ME, myplane->x, myplane->y-myplaneheight/2,
                                     BOSS, QPointF(0,-5), myBulletPower);
         mybullets->push_back(bullet);
         mybullets1->push_back(bullet);
     }
     else if((*myBulletType)==1)
     {
-        Bullet *bullet1 = new Bullet(ME, myplane->x, myplane->y+myplaneheight/2,
+        Bullet *bullet1 = new Bullet(ME, myplane->x, myplane->y-myplaneheight/2,
                                      BOSS, QPointF(-5,-5), myBulletPower);
         mybullets->push_back(bullet1);
         mybullets1->push_back(bullet1);
 
-        Bullet *bullet2 = new Bullet(ME, myplane->x, myplane->y+myplaneheight/2,
+        Bullet *bullet2 = new Bullet(ME, myplane->x, myplane->y-myplaneheight/2,
                                      BOSS, QPointF(0,-5), myBulletPower);
         mybullets->push_back(bullet2);
         mybullets1->push_back(bullet2);
 
-        Bullet *bullet3 = new Bullet(ME, myplane->x, myplane->y+myplaneheight/2,
+        Bullet *bullet3 = new Bullet(ME, myplane->x, myplane->y-myplaneheight/2,
                                      BOSS, QPointF(5,-5), myBulletPower);
         mybullets->push_back(bullet3);
         mybullets1->push_back(bullet3);
