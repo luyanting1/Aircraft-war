@@ -34,7 +34,7 @@
 
 #define myPlaneImageFile  ":/images/myplane.png"
 
-#define bossImageFile  ":/images/boss2.gif"
+#define bossImageFile  ":/images/boss.png"
 //boss图片
 
 #define enemyBulletImageFile  ":/images/enemybullet_new.png"

@@ -104,11 +104,11 @@ bool model::playergenerate()
 
 inline bool collidesWithItem(double x0,double y0,double len0,double h0,double x2,double y2,double len2,double h2)
 {
-    x0 = x0 + len0 / 2, y0 = y0 + h0 / 2;
-    x2 = x2 + len2 / 2, y2 = y2 + h2 / 2;
+    //x0 = x0 + len0 / 2, y0 = y0 + h0 / 2;
+    //x2 = x2 + len2 / 2, y2 = y2 + h2 / 2;
     double top0 = y0+h0/2, bot0 = y0-h0/2, left0 = x0-len0/2, right0 = x0+len0/2;
     double top2 = y2+h2/2, bot2 = y2-h2/2, left2 = x2-len2/2, right2 = x2+len2/2;
-    if(left0 > right2 || left2 > right0 || bot0 > top2 || bot2 < top0)
+    if(left0 > right2 || left2 > right0 || bot0 > top2 || bot2 > top0)
         return 0;
     else return 1;
 }
@@ -153,6 +153,7 @@ bool model::changeBulletPosition(Bullet * bullet, int newX, int newY)
                 OBJECTS::iterator it1 = enemyplanes1->begin()+(it-enemyplanes->begin());
                 enemyplanes1->erase(it1);
                 it = enemyplanes->erase(it);
+                qDebug() << "enemy is shooted by bullets";
                 (*score)++;
                 /* 25%的概率掉落生命补给 */
                 //srand(time(NULL));
@@ -193,7 +194,6 @@ bool model::allbulletmove()
             OBJECTS::iterator it1 = enemybullets1->begin()+(it-enemybullets->begin());
             enemybullets1->erase(it1);
             it = enemybullets->erase(it);
-
         }
     }
     for(std::vector<Bullet*>::iterator it = mybullets->begin(); it!=mybullets->end(); )
@@ -226,8 +226,9 @@ bool model::bossgenerate()
 {
     /* 随机在第一行生成敌机 */
     int cnt = 0;
-    int x = QRandomGenerator::global()->bounded(width1); //敌机最左端位置
-    for(cnt=0;cnt<100;cnt++)
+    int x = QRandomGenerator::global()->bounded(width1-myplanewidth);
+    x += myplanewidth/ 2;
+    for(cnt=0;cnt<10;cnt++)
     {
         bool flag = true; //此位置是否合法
         for(auto iter:*enemyplanes)
@@ -239,16 +240,18 @@ bool model::bossgenerate()
 
         if(flag)
             break;
-        else
-            x = QRandomGenerator::global()->bounded(width1);
+        else{
+            x = QRandomGenerator::global()->bounded(width1-myplanewidth);
+                x += myplanewidth/ 2;
+        }
     }
 
     /* 若生成100次随机都未能找到合适的位置则退出 */
-    if(cnt>=100)
+    if(cnt>=10)
         return false;
 
     /* 新增敌机 */
-    EnemyPlane *enemy = new EnemyPlane(x, 0, BOSS, 10);
+    EnemyPlane *enemy = new EnemyPlane(x, myplaneheight/2, BOSS, 10);
     enemyplanes->push_back(enemy);
     enemyplanes1->push_back(enemy);
     Fire_OnPropertyChanged("enemy");
@@ -262,24 +265,24 @@ bool model::enemybulletshoot()
         {
             if((*iter)->type==ORD)
             {
-                Bullet *bullet = new Bullet(ENEMY, (*iter)->getx()+enemyplanewidth/2, (*iter)->gety()+enemyplaneheight-15,
+                Bullet *bullet = new Bullet(ENEMY, (*iter)->getx(), (*iter)->gety()+enemyplaneheight/2,
                                             ORD, QPointF(0,5), enemyBulletPower);
                 enemybullets->push_back(bullet);
                 enemybullets1->push_back(bullet);
             }
             else if((*iter)->type==BOSS)
             {
-                Bullet *bullet0 = new Bullet(ENEMY, (*iter)->getx()+bosswidth/2, (*iter)->gety()+bossheight-15,
+                Bullet *bullet0 = new Bullet(ENEMY, (*iter)->getx(), (*iter)->gety()+bossheight/2,
                                              BOSS, QPointF(0,5), bossBulletPower);
                 enemybullets->push_back(bullet0);
                 enemybullets1->push_back(bullet0);
 
-                Bullet *bullet1 = new Bullet(ENEMY, (*iter)->getx()+bosswidth/2, (*iter)->gety()+bossheight-15,
+                Bullet *bullet1 = new Bullet(ENEMY, (*iter)->getx(), (*iter)->gety()+bossheight/2,
                                              BOSS, QPointF(-5,5), bossBulletPower);
                 enemybullets->push_back(bullet1);
                 enemybullets1->push_back(bullet1);
 
-                Bullet *bullet2 = new Bullet(ENEMY, (*iter)->getx()+bosswidth/2, (*iter)->gety()+bossheight-15,
+                Bullet *bullet2 = new Bullet(ENEMY, (*iter)->getx(), (*iter)->gety()+bossheight/2,
                                              BOSS, QPointF(5,5), bossBulletPower);
 
                 enemybullets->push_back(bullet2);
@@ -296,9 +299,10 @@ bool model::enemybulletshoot()
 bool model::enemygenerate()
 {
     int cnt = 0;
-    int x = QRandomGenerator::global()->bounded(width1); //敌机最左端位置
+    int x = QRandomGenerator::global()->bounded(width1-myplanewidth);
+    x += myplanewidth /2;
     // qDebug()<<x<<Qt::endl;
-    for(cnt=0;cnt<100;cnt++)
+    for(cnt=0;cnt<10;cnt++)
     {
         bool flag = true; //此位置是否合法
         for(auto iter:*enemyplanes)
@@ -311,17 +315,17 @@ bool model::enemygenerate()
             break;
         else
         {
-            x = QRandomGenerator::global()->bounded(width1);
-            // qDebug()<<x<<Qt::endl;
+            x = QRandomGenerator::global()->bounded(width1-myplanewidth);
+                x += myplanewidth /2;
         }
     }
 
     /* 若生成100次随机都未能找到合适的位置则退出 */
-    if(cnt>=100)
+    if(cnt>=10)
         return false;
     //x = 5000;
     /* 新增敌机 */
-    EnemyPlane *enemy = new EnemyPlane(x, 0, ORD, enemyLife);
+    EnemyPlane *enemy = new EnemyPlane(x, myplaneheight/2, ORD, enemyLife);
     // qDebug()<<enemy->getx()<<Qt::endl;
     enemyplanes->push_back(enemy);
     enemyplanes1->push_back(enemy);
@@ -380,7 +384,6 @@ bool model::changePlanePosition(Plane *plane, int newX, int newY)
         {
             plane->crash();
             alive = (*it)->crash1();
-            // updateBar(lifeBar, lifeFrameBar, LifeBarPos, -2, QBrush(Qt::green));
         }
         if (plane->part == ENEMY && collidesWithItem(newX , newY, enemyplanewidth, enemyplaneheight, (*it)->x, (*it)->y, enemyplanewidth, enemyplaneheight)) //若同为敌机，则不允许改变位置，NOCHANGE
             return true;
@@ -393,6 +396,7 @@ bool model::changePlanePosition(Plane *plane, int newX, int newY)
             OBJECTS::iterator it1 = enemyplanes1->begin()+(it-enemyplanes->begin());
             enemyplanes1->erase(it1);
             it = enemyplanes->erase(it);
+            qDebug() << "enemy is crashed because plane move";
         }
     }
 
@@ -414,12 +418,14 @@ bool model::changePlanePosition(Plane *plane, int newX, int newY)
 
 bool model::enemymove()
 {
+
     if ((*enemyplanes).size() < 1)
     {
         int genNum = rand() % 3;
         for (int i = 0; i < genNum; i++)
             enemygenerate();
     }
+
 
     /* 所有敌机移动位置 */
     for (std::vector<EnemyPlane*>::iterator it = enemyplanes->begin(); it != enemyplanes->end(); )
@@ -434,6 +440,7 @@ bool model::enemymove()
             OBJECTS::iterator it1 = enemyplanes1->begin()+(it-enemyplanes->begin());
             enemyplanes1->erase(it1);
             it = enemyplanes->erase(it);
+            qDebug() << "enemy is crashed because its own move";
         }
     }
     Fire_OnPropertyChanged("enemy");
@@ -469,24 +476,24 @@ bool model::playerbulletshoot()
 {
     if((*myBulletType)==0)
     {
-        Bullet *bullet = new Bullet(ME, myplane->x+40, myplane->y-38,
+        Bullet *bullet = new Bullet(ME, myplane->x, myplane->y+myplaneheight/2,
                                     BOSS, QPointF(0,-5), myBulletPower);
         mybullets->push_back(bullet);
         mybullets1->push_back(bullet);
     }
     else if((*myBulletType)==1)
     {
-        Bullet *bullet1 = new Bullet(ME, myplane->x+40, myplane->y-38,
+        Bullet *bullet1 = new Bullet(ME, myplane->x, myplane->y+myplaneheight/2,
                                      BOSS, QPointF(-5,-5), myBulletPower);
         mybullets->push_back(bullet1);
         mybullets1->push_back(bullet1);
 
-        Bullet *bullet2 = new Bullet(ME, myplane->x+40, myplane->y-38,
+        Bullet *bullet2 = new Bullet(ME, myplane->x, myplane->y+myplaneheight/2,
                                      BOSS, QPointF(0,-5), myBulletPower);
         mybullets->push_back(bullet2);
         mybullets1->push_back(bullet2);
 
-        Bullet *bullet3 = new Bullet(ME, myplane->x+40, myplane->y-38,
+        Bullet *bullet3 = new Bullet(ME, myplane->x, myplane->y+myplaneheight/2,
                                      BOSS, QPointF(5,-5), myBulletPower);
         mybullets->push_back(bullet3);
         mybullets1->push_back(bullet3);
