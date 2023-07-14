@@ -699,10 +699,6 @@ void View::changescene()
         helpGameButton->show();
         quitGameButton->show();
     }
-    itemslist = items();
-    for (auto item : itemslist) {
-        qDebug() << item->x();
-    }
 }
 
 void View::SetPlayerScore(std::shared_ptr<int> a)
