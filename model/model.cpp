@@ -264,7 +264,6 @@ bool model::enemybulletshoot()
             {
                 Bullet *bullet = new Bullet(ENEMY, (*iter)->getx()+enemyplanewidth/2, (*iter)->gety()+enemyplaneheight-15,
                                             ORD, QPointF(0,5), enemyBulletPower);
-                qDebug() << "x:" << (*iter)->getx() << "+" << enemyplanewidth/2;
                 enemybullets->push_back(bullet);
                 enemybullets1->push_back(bullet);
             }
