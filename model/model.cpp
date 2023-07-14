@@ -8,7 +8,7 @@ model::model() {
     enemybullets1 = std::make_shared<OBJECTS>();
     myplane = std::make_shared<MyPlane>();
     myplane->setlife(50);
-    myplane->setskill(50);
+    myplane->setskill(5);
     myplane->setx(WIDTH/2);
     myplane->sety(HEIGHT/2);
     myplane->setpart(ME);
@@ -140,7 +140,7 @@ bool model::changeBulletPosition(Bullet * bullet, int newX, int newY)
             if(collidesWithItem((*it)->x, (*it)->y, enemyplanewidth, enemyplaneheight, newX, newY, mybulletwidth, mybulletheight))
             {
                 alive = (*it)->crash1();
-                myplane->setskill(myplane->getskill()+1);
+                myplane->setskill(std::min(myplane->getskill()+1,50));
                 flag = false;
             }
 
