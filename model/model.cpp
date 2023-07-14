@@ -8,7 +8,7 @@ model::model() {
     enemybullets1 = std::make_shared<OBJECTS>();
     myplane = std::make_shared<MyPlane>();
     myplane->setlife(50);
-    myplane->setskill(5);
+    myplane->setskill(50);
     myplane->setx(WIDTH/2);
     myplane->sety(HEIGHT/2);
     myplane->setpart(ME);
@@ -80,16 +80,16 @@ bool model::skilluse(int sk_index)
             delete iter;
         }
         enemyplanes->clear();
-        for(auto iter: *enemyplanes1)
-            delete iter;
+        //for(auto iter: *enemyplanes1)
+        //    delete iter;
         enemyplanes1->clear();
         break;
     case 7:
         for(auto iter: *enemybullets)
             delete iter;
         enemybullets->clear();
-        for(auto iter: *enemybullets1)
-            delete iter;
+        //for(auto iter: *enemybullets1)
+        //    delete iter;
         enemybullets1->clear();
         break;
     default: return 0;
