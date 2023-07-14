@@ -21,6 +21,7 @@ model::model() {
     this->mySkill = 5;
     mybullets = std::make_shared<std::vector<Bullet*>>();
     mybullets1 = std::make_shared<OBJECTS>();
+    bullets = std::make_shared<OBJECTS>();
     lifesupplys = std::make_shared<std::vector<Object*>>();
     //lifesupplys1 = std::make_shared<OBJECTS>();
 }
@@ -37,7 +38,7 @@ std::shared_ptr<Object>  model::GetMyPlane()
 
 std::shared_ptr<OBJECTS> model::GetBullets()
 {
-    return enemybullets1;
+    return bullets;
 }
 
 std::shared_ptr<OBJECTS> model::GetEnemiesPlane()
@@ -208,6 +209,9 @@ bool model::allbulletmove()
             it = mybullets->erase(it);
         }
     }
+    bullets->clear();
+    bullets->insert(bullets->end(),mybullets1->begin(),mybullets1->end());
+    bullets->insert(bullets->end(),enemybullets1->begin(),enemybullets1->end());
     Fire_OnPropertyChanged("allbullet");
     return true;
 }
@@ -283,6 +287,9 @@ bool model::enemybulletshoot()
                 enemybullets1->push_back(bullet2);
             }
         }
+    bullets->clear();
+    bullets->insert(bullets->end(),mybullets1->begin(),mybullets1->end());
+    bullets->insert(bullets->end(),enemybullets1->begin(),enemybullets1->end());
     Fire_OnPropertyChanged("bullet");
     return true;
 }
@@ -485,6 +492,9 @@ bool model::playerbulletshoot()
         mybullets->push_back(bullet3);
         mybullets1->push_back(bullet3);
     }
+    bullets->clear();
+    bullets->insert(bullets->end(),mybullets1->begin(),mybullets1->end());
+    bullets->insert(bullets->end(),enemybullets1->begin(),enemybullets1->end());
     Fire_OnPropertyChanged("bullet");
     return true;
 }

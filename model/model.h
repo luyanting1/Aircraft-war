@@ -53,6 +53,7 @@ private:
      std::shared_ptr<Object> myplane1;
      std::shared_ptr<std::vector<Bullet*>> mybullets;
      std::shared_ptr<OBJECTS> mybullets1;
+     std::shared_ptr<OBJECTS> bullets;
      std::shared_ptr<std::vector<Object*>> lifesupplys;
      QPointF myPlaneMove;
 
