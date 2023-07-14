@@ -704,23 +704,7 @@ void View::changescene()
         qDebug() << item->x();
     }
 }
-/*
- void View::SetMyPlane(std::shared_ptr<MyPlane> a)
-{
-      myplane = a;
-}
-void View::SetEnemiesPlane(std::shared_ptr<vector<EnemyPlane *>>a)
-{
-     EnemiesPlane=a;
-}
-void  View::SetBullets(std::shared_ptr<vector<Bullet *>>a)
-{
-     Bullets=a;
-}
-void  View::SetLifeSupplies(std::shared_ptr<vector<Object *>>a )
-{
-     LifeSupplies=a;
-}*/
+
 void View::SetPlayerScore(std::shared_ptr<int> a)
 {
      PlayerScore=a;
@@ -779,62 +763,10 @@ void View::SetPlayerSkill(std::shared_ptr<BAR> a)
 {
     player_skill=a;
 }
-/*
-void View::SetPlayerPosX(POS* a)
-{
-    play_posX = a ;
-}
-
-void View::SetPlayerPosY(POS* a)
-{
-    play_posY = a;
-}
-
-
-void View::SetBulletsPosX(shared_ptr<POSES> a)
-{
-     bullet_posX=a;
-}
-
-void View::SetBulletsPosY(shared_ptr<POSES>  a)
-{
-    bullet_posY=a;
-}
-void View::SetBulletsType(shared_ptr<BULLETTYPES> a)
-{
-    bullet_type=a;
-}*/
-/*
-void View::SetEnemiesPosX(shared_ptr<POSES> a )
-{
-    enemy_posX=a;
-}
-
-
-void View::SetEnemiesPosY(shared_ptr<POSES> a)
-{
-    enemy_posY=a;
-}
-
-void View::SetEnemiesType(shared_ptr<ENEMYTYPES> a)
-{
-    enemy_type=a;
-}
-*/
 std::shared_ptr<IPropertyNotification> View::GetPropertySink()
 {
     return std::static_pointer_cast<IPropertyNotification>(m_propertysink);
 }
-/*
-void View::SetLifeSuppliesPosX(shared_ptr<POSES> a)
-{
-    lifesupply_posX=a;
-}
-
-void View::SetLifeSuppliesPosY(shared_ptr<POSES> a)
-{
-  lifesupply_posY=a;
-}*/
 void View::SetBullets(std::shared_ptr<OBJECTS> a){
     Bullets_view=a;
 }
